@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import ServicesCard from '../../components/services-card/ServicesCard'
 
-const Services = () => {
+const Contact = () => {
 
   const servicesContent = [
     {
@@ -71,26 +71,53 @@ const Services = () => {
   return (
     <div>
 
-      <section className='h-[70vh] pt-[2rem] header-bg'>
+      <section className='h-[75vh] pt-[2rem] header-bg'>
           <Navbar />
           <div className='text-center mt-[6rem] w-[60%] mx-auto  text-white'>
-              <p className='text-[55px] font-bold mb-2'>  What We <span className='text-ascent-color'>Offer</span> .</p>
-              <p className='text-[18px]'>CERTIVIA LIMITED offers a suite of services through its AVA CERTIFY platform, targeted at improving <span className='text-ascent-color'>industrial credibility, trade access, and compliance readiness</span> for African businesses.</p>
-              <div className='mt-10 flex gap-4 justify-center items-center'>
-                  <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px]'>Get Certified Now</button>
-                  <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
-              </div>
+              <p className='text-[55px] font-bold mb-2'> Contact <span className='text-ascent-color'>us</span></p>
+              <p className='text-[17px] mb-7'>
+                Have questions about our certification services or how AVA CERTIFY can help your business meet AfCFTA requirements? Our team is ready to provide the guidance you need. Reach out today for expert support tailored to your industry.
+              </p>
           </div>
       </section>
 
       <section className='mt-[3rem]'>
-        <p className='text-[#333333] text-center mb-[3rem] text-[26px]'>Our Services</p>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[2rem] w-[90%] mx-auto'>
-          {
-            servicesContent.map(item => (
-              <ServicesCard item={item}/>
-            ))
-          }
+        <p className='text-[#333333] text-center mb-[1rem] text-[26px]'>Get In Touch</p>
+        <div className='flex justify-center gap-[70px] px-[12rem]'>
+            <div className='w-[50%] mx-auto p-5'>
+                <div className='flex items-center gap-4 justify-center'>
+                    <div className='w-full'>
+                        <label className='block mb-1 text-[15px] text-[#344054]'>First name</label>
+                        <input type="text" placeholder='First name' className='border border-[#D0D5DD] py-2 px-2 w-full rounded-[8px] outline-none'/>
+                    </div>
+                    <div className='w-full'>
+                        <label className='block mb-1 text-[15px] text-[#344054]'>Last Name</label>
+                        <input type="text" placeholder='Last name' className='w-full border border-[#D0D5DD] py-2 px-2 rounded-[8px] outline-none'/>
+                    </div>
+                </div>
+                <div className='mt-4'>
+                    <label className='block mb-1 text-[15px] text-[#344054]'>Email</label>
+                    <input type="email"  placeholder='you@company.com' className='border border-[#D0D5DD] py-2 px-2 rounded-[8px] outline-none w-full' />
+                </div>
+                <div className='mt-4'>
+                    <label className='block mb-1 text-[15px] text-[#344054]'>Phone number</label>
+                    <input type="email"  placeholder='+234 80 000-0000' className='border border-[#D0D5DD] py-2 px-2 rounded-[8px] outline-none w-full' />
+                </div>
+                <div className='mt-4'>
+                    <label className='block mb-1 text-[15px] text-[#344054]'>Message</label>
+                    <textarea name="" className='border border-[#D0D5DD] py-2 px-2 rounded-[8px] outline-none w-full resize-none h-[150px]'></textarea>
+                </div>
+                <button className='bg-primary-color w-full py-[12px] rounded-[4px] text-white mt-5'>Send Message</button>
+            </div>
+            <div className='mt-4 w-[50%]'>
+                <p className='text-[#333333] font-[600] text-[30px]'>Contact us on</p>
+                <p className='text-text-color mb-7'>For any legal inquiries, contact us at:</p>
+                <div className='flex flex-col gap-5'>
+                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Email:</span>legal@certivia.org</p>
+                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Phone:</span>+234 8068179570</p>
+                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Address:</span>Plot 1010 Paul Muotolum Crescent, Old Gwarinpa Roa, Lifecamp, FCT, Abuja, Nigeria</p>
+                </div>
+            </div>
         </div>
       </section>
 
@@ -106,4 +133,4 @@ const Services = () => {
   )
 }
 
-export default Services
+export default Contact

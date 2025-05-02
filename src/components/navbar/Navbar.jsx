@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link to="/about-us" className="text-white hover:text-gray-300">About Us</Link>
           </li>
           <li>
-            <Link to="/" className="text-white hover:text-gray-300">Contact Us</Link>
+            <Link to="/contact-us" className="text-white hover:text-gray-300">Contact Us</Link>
           </li>
         </ul>
         <div className='flex items-center gap-5'>

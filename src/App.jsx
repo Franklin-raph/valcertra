@@ -7,6 +7,10 @@ import Services from './pages/services/Services';
 import About from './pages/about/About';
 import Header from './components/header/Header';
 import Footer from './components/Footer/Footer';
+import Contact from './pages/contact/Contact';
+import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy';
+import TermsOfUse from './pages/terms-of-use/TermsOfUse';
+import Liscence from './pages/liscence/Liscence';
 
 function App() {
   const [useCustomUI, setUseCustomUI] = useState(false);
@@ -18,6 +22,10 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/services' element={<Services />}/>
         <Route path='/about-us' element={<About />}/>
+        <Route path='/contact-us' element={<Contact />}/>
+        <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
+        <Route path='/terms-of-use' element={<TermsOfUse />}/>
+        <Route path='/liscence' element={<Liscence />}/>
       </Routes>
       <Footer />
     </HashRouter>
