@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <div className='bg-primary-color px-4 py-[2rem] mb-6 flex items-center justify-between flex-col'>
-      <p>Logo</p>
-      <ul className='flex items-center gap-[20px] mt-[1.5rem]'>
+      <p className='text-white'>Logo</p>
+      <ul className='flex flex-col sm:flex-row items-center md:gap-[20px] gap-[30px] mt-[1.5rem]'>
         <li>
           <Link to="/" className="text-white hover:text-gray-300">About us</Link>
         </li>
@@ -29,7 +29,7 @@ const Footer = () => {
         </li>
       </ul>
       <div className='bg-[#EAECF0] py-[0.5px] w-[80%] mx-auto mt-[4rem]'></div>
-      <div className='flex items-center justify-between w-[80%] mt-[1.5rem]'>
+      <div className='flex flex-col-reverse gap-[2rem] items-center justify-between w-[80%] mt-[1.5rem]'>
         <p className='text-white'>© 2025 CERTIVIA LIMITED Powered by AVA CERTIFY</p>
         <ul className='flex items-center gap-[20px]'>
           <li>

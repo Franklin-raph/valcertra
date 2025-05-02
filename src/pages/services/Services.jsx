@@ -71,12 +71,12 @@ const Services = () => {
   return (
     <div>
 
-      <section className='h-[70vh] pt-[2rem] header-bg'>
+      <section className='md:h-[70vh] pb-[2.5rem] pt-[2rem] header-bg'>
           <Navbar />
-          <div className='text-center mt-[6rem] w-[60%] mx-auto  text-white'>
-              <p className='text-[55px] font-bold mb-2'>  What We <span className='text-ascent-color'>Offer</span> .</p>
+          <div className='text-center mt-[6rem] md:w-[60%] w-[95%] mx-auto  text-white'>
+              <p className='lg:text-[55px] md:text-[30px] text-[28px] font-bold md:mb-2 mb-5'>  What We <span className='text-ascent-color'>Offer</span> .</p>
               <p className='text-[18px]'>CERTIVIA LIMITED offers a suite of services through its AVA CERTIFY platform, targeted at improving <span className='text-ascent-color'>industrial credibility, trade access, and compliance readiness</span> for African businesses.</p>
-              <div className='mt-10 flex gap-4 justify-center items-center'>
+              <div className='mt-10 flex flex-col md:flex-row gap-4 justify-center items-center'>
                   <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px]'>Get Certified Now</button>
                   <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
               </div>
@@ -95,9 +95,9 @@ const Services = () => {
       </section>
 
       <section className='bg-secondary-color py-[3.5rem] text-center mt-[4rem]'>
-        <p className='text-[25px] mb-5 font-[500]'>Ready to <span className='text-ascent-color'>Certify</span> Your Products?</p>
-        <p className='w-[48%] mx-auto'>Join Africa's leading exporters on the continental trade highway and access new markets with confidence.</p>
-        <div className='mt-10 flex gap-4 justify-center items-center'>
+        <p className='md:text-[26px] text-[23px] mb-5 font-[500]'>Ready to <span className='text-ascent-color'>Certify</span> Your Products?</p>
+        <p className='md:w-[48%] w-[80%] mx-auto text-text-color'>Join Africa's leading exporters on the continental trade highway and access new markets with confidence.</p>
+        <div className='mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center'>
             <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px] text-white'>Get Certified Now</button>
             <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
         </div>

@@ -71,11 +71,11 @@ const About = () => {
   return (
     <div>
 
-      <section className='h-[75vh] pt-[2rem] header-bg'>
+      <section className='md:h-[70vh] pb-[2.5rem] header-bg'>
           <Navbar />
-          <div className='text-center mt-[6rem] w-[60%] mx-auto  text-white'>
-              <p className='text-[55px] font-bold mb-2'> Who We <span className='text-ascent-color'>are</span> .</p>
-              <p className='text-[17px] mb-7'>
+          <div className='text-center mt-[6rem] md:w-[65%] w-[95%] mx-auto  text-white'>
+              <p className='lg:text-[55px] text-[30px] font-bold mb-2'> Who We <span className='text-ascent-color'>are</span> .</p>
+              <p className='md:text-[17px] mb-7'>
                 CERTIVIA LIMITED is Africa's premier value addition certification company. Through our flagship platform, AVA CERTIFY, we empower exporters, manufacturers, and SMEs to validate, verify, and showcase the value they add to raw materials and products — enabling them to trade competitively under AfCFTA and global market standards.
               </p>
               <p className='text-[17px]'>
@@ -178,9 +178,9 @@ const About = () => {
       </section>
 
       <section className='bg-secondary-color py-[3.5rem] text-center mt-[4rem]'>
-        <p className='text-[25px] mb-5 font-[500]'>Ready to <span className='text-ascent-color'>Certify</span> Your Products?</p>
-        <p className='w-[48%] mx-auto'>Join Africa's leading exporters on the continental trade highway and access new markets with confidence.</p>
-        <div className='mt-10 flex gap-4 justify-center items-center'>
+        <p className='md:text-[26px] text-[23px] mb-5 font-[500]'>Ready to <span className='text-ascent-color'>Certify</span> Your Products?</p>
+        <p className='md:w-[48%] w-[80%] mx-auto text-text-color'>Join Africa's leading exporters on the continental trade highway and access new markets with confidence.</p>
+        <div className='mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center'>
             <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px] text-white'>Get Certified Now</button>
             <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
         </div>

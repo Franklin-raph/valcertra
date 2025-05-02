@@ -71,11 +71,11 @@ const Contact = () => {
   return (
     <div>
 
-      <section className='h-[75vh] pt-[2rem] header-bg'>
+      <section className='md:h-[70vh] pb-[2.5rem] pt-[2rem] header-bg'>
           <Navbar />
-          <div className='text-center mt-[6rem] w-[60%] mx-auto  text-white'>
-              <p className='text-[55px] font-bold mb-2'> Contact <span className='text-ascent-color'>us</span></p>
-              <p className='text-[17px] mb-7'>
+          <div className='text-center mt-[6rem] md:w-[60%] w-[95%]  mx-auto  text-white'>
+              <p className='md:text-[55px] text-[35px] font-bold mb-2'> Contact <span className='text-ascent-color'>us</span></p>
+              <p className='md:text-[17px] mb-7'>
                 Have questions about our certification services or how AVA CERTIFY can help your business meet AfCFTA requirements? Our team is ready to provide the guidance you need. Reach out today for expert support tailored to your industry.
               </p>
           </div>
@@ -83,8 +83,8 @@ const Contact = () => {
 
       <section className='mt-[3rem]'>
         <p className='text-[#333333] text-center mb-[1rem] text-[26px]'>Get In Touch</p>
-        <div className='flex justify-center gap-[70px] px-[12rem]'>
-            <div className='w-[50%] mx-auto p-5'>
+        <div className='flex justify-center flex-col sm:flex-row md:gap-[70px] lg:px-[12rem] md:px-[5rem] px-[1rem]'>
+            <div className='sm:w-[50%] w-full mx-auto sm:p-5 px-1 py-5'>
                 <div className='flex items-center gap-4 justify-center'>
                     <div className='w-full'>
                         <label className='block mb-1 text-[15px] text-[#344054]'>First name</label>
@@ -109,8 +109,8 @@ const Contact = () => {
                 </div>
                 <button className='bg-primary-color w-full py-[12px] rounded-[4px] text-white mt-5'>Send Message</button>
             </div>
-            <div className='mt-4 w-[50%]'>
-                <p className='text-[#333333] font-[600] text-[30px]'>Contact us on</p>
+            <div className='mt-4 sm:w-[50%] w-full mx-auto sm:p-5 px-1 py-5'>
+                <p className='text-[#333333] font-[600] md:text-[30px] text-[22px]'>Contact us on</p>
                 <p className='text-text-color mb-7'>For any legal inquiries, contact us at:</p>
                 <div className='flex flex-col gap-5'>
                     <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Email:</span>legal@certivia.org</p>
@@ -122,9 +122,9 @@ const Contact = () => {
       </section>
 
       <section className='bg-secondary-color py-[3.5rem] text-center mt-[4rem]'>
-        <p className='text-[25px] mb-5 font-[500]'>Ready to <span className='text-ascent-color'>Certify</span> Your Products?</p>
-        <p className='w-[48%] mx-auto'>Join Africa's leading exporters on the continental trade highway and access new markets with confidence.</p>
-        <div className='mt-10 flex gap-4 justify-center items-center'>
+        <p className='md:text-[26px] text-[23px] mb-5 font-[500]'>Ready to <span className='text-ascent-color'>Certify</span> Your Products?</p>
+        <p className='md:w-[48%] w-[80%] mx-auto text-text-color'>Join Africa's leading exporters on the continental trade highway and access new markets with confidence.</p>
+        <div className='mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center'>
             <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px] text-white'>Get Certified Now</button>
             <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
         </div>
