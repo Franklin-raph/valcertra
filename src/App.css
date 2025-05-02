@@ -1,0 +1,10 @@
+*{
+    font-family: "DM Sans", "Open Sans", sans-serif;
+}
+
+.header-bg{
+    background-image: url('./bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
