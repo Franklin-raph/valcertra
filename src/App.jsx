@@ -12,6 +12,7 @@ import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy';
 import TermsOfUse from './pages/terms-of-use/TermsOfUse';
 import Liscence from './pages/liscence/Liscence';
 import SignUp from './pages/sign-up/SignUp';
+import Dashboard from './pages/dashboard/Dashboard';
 
 function App() {
   const [useCustomUI, setUseCustomUI] = useState(false);
@@ -28,6 +29,7 @@ function App() {
         <Route path='/terms-of-use' element={<TermsOfUse />}/>
         <Route path='/liscence' element={<Liscence />}/>
         <Route path='/sign-up' element={<SignUp />}/>
+        <Route path='/dashboard' element={<Dashboard />}/>
       </Routes>
     </HashRouter>
   );
