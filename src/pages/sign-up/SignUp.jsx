@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 const SignUp = () => {
   return (
     <div className='sign-up-bg flex items-center justify-center'>
-        <Link to="/" className="text-secondary-color text-[20px] font-[600] absolute top-10 left-[50%] right-[50%] translate-x-[-50%]">
-            <img src="./logo.svg" alt="" />
+        <Link to="/" className="text-secondary-color w-[50px] h-[50px] text-[20px] font-[600] absolute top-10 left-[50%] right-[50%] translate-x-[-50%]">
+            <img src="./logo.svg" className='w-full h-full' alt="" />
         </Link>
         <div className='bg-[#001433B2] text-white text-center w-[40%] py-10 px-7 rounded-[8px]'>
             <p className='font-[500] text-[22px]'>Join AVA CERTIFY</p>
