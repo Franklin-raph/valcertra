@@ -13,6 +13,10 @@ import TermsOfUse from './pages/terms-of-use/TermsOfUse';
 import Liscence from './pages/liscence/Liscence';
 import SignUp from './pages/sign-up/SignUp';
 import Dashboard from './pages/dashboard/Dashboard';
+import Login from './pages/login/Login';
+import ForgotPassword from './pages/forgot-password/ForgotPassword';
+import ForgotPasswordEmailVerify from './pages/forgot-password-email-verify/ForgotPasswordEmailVerify';
+import PasswordReset from './pages/password-reset/PasswordReset';
 
 function App() {
   const [useCustomUI, setUseCustomUI] = useState(false);
@@ -30,6 +34,10 @@ function App() {
         <Route path='/liscence' element={<Liscence />}/>
         <Route path='/sign-up' element={<SignUp />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/forgot-password' element={<ForgotPassword />}/>
+        <Route path='/password-reset' element={<PasswordReset />}/>
+        <Route path='/verify-email' element={<ForgotPasswordEmailVerify />}/>
       </Routes>
     </HashRouter>
   );

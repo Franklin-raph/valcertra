@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import GoogleTranslateElement from '../GoogleTranslateElement';
 import CustomGoogleTranslate from '../CustomGoogleTranslate';
 import './translate-styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [useCustomUI, setUseCustomUI] = useState(false);
+  
   const [openNav, setOpeNav] = useState(false);
+  const navigate = useNavigate()
 
   // <div className="flex items-center space-x-4">
   //   <div>
@@ -69,7 +70,7 @@ const Navbar = () => {
         </ul>
         <div className='hidden sm:flex items-center gap-5'>
           <GoogleTranslateElement />
-          <button className='bg-secondary-color px-[20px] py-[5px] rounded-[4px]'>Login</button>
+          <button onClick={() => navigate('/login')} className='bg-secondary-color px-[20px] py-[5px] rounded-[4px]'>Login</button>
         </div>
       </div>
     </div>
