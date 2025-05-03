@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import ServicesCard from '../../components/services-card/ServicesCard'
+import Footer from '../../components/Footer/Footer'
 
 const About = () => {
 
@@ -185,6 +186,7 @@ const About = () => {
             <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

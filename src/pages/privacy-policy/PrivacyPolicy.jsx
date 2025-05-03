@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
+import Footer from '../../components/Footer/Footer'
 
 const PrivacyPolicy = () => {
   return (
@@ -83,6 +84,7 @@ const PrivacyPolicy = () => {
                 </div>
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

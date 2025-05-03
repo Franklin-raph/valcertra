@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
+import Footer from '../../components/Footer/Footer'
 
 const TermsOfUse = () => {
   return (
@@ -71,6 +72,7 @@ const TermsOfUse = () => {
                 
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

@@ -163,6 +163,7 @@ const Home = () => {
             <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
