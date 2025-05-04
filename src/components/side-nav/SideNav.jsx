@@ -40,7 +40,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
         </div>
         <div className="pl-[32px] my-5 text-white text-[17px] ml-[30px]">
-          <Link to='/dashboard' className={ location.pathname.includes('/dashboard') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+          <Link to='/dashboard' className={ location.pathname.includes('dashboard') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
               <RxDashboard />
               <p className="">Dashboard</p>
@@ -58,13 +58,13 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                 <p className="">Certificates</p>
             </div>
           </Link>
-          <Link to='#' className={ location.pathname.includes('application') ? `flex items-center justify-between py-[10px] text-[#fff]` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+          <Link to='/payments' className={ location.pathname.includes('payment') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
                 <FiCreditCard />
                 <p className="">Payment</p>
             </div>
           </Link>
-          <Link to='#' className={ location.pathname.includes('application') ? `flex items-center justify-between py-[10px] text-[#fff]` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+          <Link to='#' className={ location.pathname.includes('settings') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
                 <HiOutlineCog6Tooth className='text-[20px]'/>
                 <p className="">Settings</p>

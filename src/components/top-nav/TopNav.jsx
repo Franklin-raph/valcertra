@@ -26,15 +26,7 @@ const TopNav = ({toggleNav, setToggleNav}) => {
         </div>
         <IoMenuOutline className='text-white text-[30px] cursor-pointer block lg:hidden' onClick={() => setToggleNav(!toggleNav)}/>
       </div>
-      <div className='flex items-center gap-5'>
-        <div onClick={() => navigate('/#')} className='text-[20px] text-[#19201D] w-[40px] h-[40px] flex relative items-center justify-center cursor-pointer rounded-full'>
-          <IoNotificationsOutline className='text-[25px]'/>
-          {/* <div className='absolute top-[-10px] text-[14px] right-[-8px] border-2 border-[#1E2522] bg-gray-200 px-[6px] rounded-full'>
-            1
-          </div> */}
-        </div>
-        <img src="./Avatar.svg" onClick={() => navigate('/orgz-profile')} className='w-[30px] h-[30px] cursor-pointer' alt="" />
-      </div>
+      <p className='text-primary-color p-3 rounded-full bg-[#F9F5FF]'>LD</p>
     </div>
   )
 }

@@ -21,6 +21,9 @@ import Applications from './pages/applications/Applications';
 import ApplicationView from './pages/application-view/ApplicationView';
 import Certificates from './pages/certificates/Certificates';
 import CertificateView from './pages/certificate-view/CertificateView';
+import Payments from './pages/payments/Payments';
+import PendingPayments from './pages/pending-payments/PendingPayments';
+import PaidApplicationsPayments from './pages/paid-application-payments/PaidApplicationsPayments';
 
 function App() {
   const [useCustomUI, setUseCustomUI] = useState(false);
@@ -40,6 +43,9 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/applications' element={<Applications />}/>
         <Route path='/certificates' element={<Certificates />}/>
+        <Route path='/payments' element={<Payments />}/>
+        <Route path='/payments/pending-payments' element={<PendingPayments />}/>
+        <Route path='/payments/paid' element={<PaidApplicationsPayments />}/>
         <Route path='/certificates/:id' element={<CertificateView />}/>
         <Route path='/applications/:id' element={<ApplicationView />}/>
         <Route path='/login' element={<Login />}/>
