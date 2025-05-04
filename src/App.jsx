@@ -17,6 +17,10 @@ import Login from './pages/login/Login';
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import ForgotPasswordEmailVerify from './pages/forgot-password-email-verify/ForgotPasswordEmailVerify';
 import PasswordReset from './pages/password-reset/PasswordReset';
+import Applications from './pages/applications/Applications';
+import ApplicationView from './pages/application-view/ApplicationView';
+import Certificates from './pages/certificates/Certificates';
+import CertificateView from './pages/certificate-view/CertificateView';
 
 function App() {
   const [useCustomUI, setUseCustomUI] = useState(false);
@@ -34,6 +38,10 @@ function App() {
         <Route path='/liscence' element={<Liscence />}/>
         <Route path='/sign-up' element={<SignUp />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path='/applications' element={<Applications />}/>
+        <Route path='/certificates' element={<Certificates />}/>
+        <Route path='/certificates/:id' element={<CertificateView />}/>
+        <Route path='/applications/:id' element={<ApplicationView />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
         <Route path='/password-reset' element={<PasswordReset />}/>

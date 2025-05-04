@@ -39,20 +39,20 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             <img src="./dashboard-logo.svg" className='mx-auto mt-[20px]' alt="" />
             <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
         </div>
-        <div className="px-[32px] my-5 text-white text-[17px] ml-[30px]">
-          <Link to='/dashboard' className={ location.pathname.includes('/dashboard') ? `flex items-center justify-between py-[10px] text-[#fff]` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+        <div className="pl-[32px] my-5 text-white text-[17px] ml-[30px]">
+          <Link to='/dashboard' className={ location.pathname.includes('/dashboard') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
               <RxDashboard />
               <p className="">Dashboard</p>
             </div>
           </Link>
-          <Link to='#' className={ location.pathname.includes('application') ? `flex items-center justify-between py-[10px] text-[#fff]` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+          <Link to='/applications' className={ location.pathname.includes('application') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
                 <FiFileText />
                 <p className="">Applications</p>
             </div>
           </Link>
-          <Link to='#' className={ location.pathname.includes('application') ? `flex items-center justify-between py-[10px] text-[#fff]` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+          <Link to='/certificates' className={ location.pathname.includes('certificate') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
                 <FiAward />
                 <p className="">Certificates</p>

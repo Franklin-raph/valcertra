@@ -16,7 +16,7 @@ const TopNav = ({toggleNav, setToggleNav}) => {
 
 
   return (
-    <div className='fixed lg:w-[82%] border-b flex items-center justify-between py-[1.2rem] top-0 right-0 z-[99] px-5'>
+    <div className='px-[10px] md:px-[30px] bg-white fixed lg:w-[82%] border-b flex items-center justify-between py-[1.2rem] top-0 right-0 z-[99]'>
       <div className='flex items-center gap-10'>
         <div onClick={() => {
           setLogoutModal(true)
