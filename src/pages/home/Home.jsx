@@ -4,6 +4,7 @@ import HomeServicesCard from '../../components/home-services-card/HomeServicesCa
 import HowItWorksCard from '../../components/how-it-works-card/HowItWorksCard'
 import WhyCretivaCard from '../../components/why-cretiva-card/WhyCretivaCard'
 import Footer from '../../components/Footer/Footer'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
@@ -77,6 +78,8 @@ const Home = () => {
     }
   ]
 
+  const navigate = useNavigate()
+
   return (
     <div>
 
@@ -86,7 +89,7 @@ const Home = () => {
               <p className='lg:text-[45px] md:text-[30px] text-[28px] font-bold mb-2'>  Africa's Seal of <span className='text-ascent-color'>Value</span> - Certified for Trade, Trusted Worldwide.</p>
               <p className='text-[18px]'>Empowering African exporters and manufacturers with trusted value addition certification to compete and thrive under AfCFTA and global trade rules.</p>
               <div className='mt-10 flex flex-col md:flex-row gap-4 justify-center items-center'>
-                  <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px]'>Get Certified Now</button>
+                  <button onClick={() => navigate('/sign-up')} className='bg-primary-color py-[12px] px-[20px] rounded-[4px]'>Get Certified Now</button>
                   <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>
               </div>
           </div>

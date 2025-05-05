@@ -10,7 +10,7 @@
 }
 
 .sign-up-bg{
-    height: 100vh;
+    height: 120vh;
     width: 100%;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./sign-up-bg.jpg');
     background-position: center;

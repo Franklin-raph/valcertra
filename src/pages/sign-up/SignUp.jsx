@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PersonalInfo from '../../components/personal-information/Personalnfo'
 import CompanyInfo from '../../components/company-information/CompanyInfo'
-import CompanyLocation from '../../components/companny-location/CompanyLocation'
+import CompanyLocation from '../../components/company-location/CompanyLocation'
 import CreatePassword from '../../components/create-password/CreatePassword'
 import VerifyEmail from '../../components/verify-email/VerifyEmail'
 

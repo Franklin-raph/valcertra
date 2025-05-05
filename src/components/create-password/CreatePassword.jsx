@@ -3,6 +3,7 @@ import { FaRegEyeSlash } from 'react-icons/fa'
 import { IoArrowBackOutline, IoEyeOutline } from 'react-icons/io5'
 import { LuLock } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
+import Alert from '../alert/Alert'
 
 const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword }) => {
 
@@ -22,9 +23,36 @@ const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword 
         setShowPassword(!showPassword);
     };
 
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [msg, setMsg] = useState('')
+    const [alertType, setAlertType] = useState('')
+    const [checkBox, setCheckBox] = useState(false)
+
+    async function handleSubmit(e) {
+        // For debugging
+        console.log("Terms accepted:", checkBox);
+        
+        if(!password || !confirmPassword){
+            setMsg("Please fill in all fields")
+            setAlertType('error')
+        } else if (password !== confirmPassword) {
+            e.preventDefault();
+            setMsg("Passwords do not match")
+            setAlertType('error')
+        } else if (!checkBox) {
+            setMsg("You must agree to the Terms of use and Privacy Policy")
+            setAlertType('error')
+        } else {
+            setVerifyEmail(true)
+            setCreatePassword(false)
+        }
+    }
+
     return (
         <div className='sign-up-bg flex items-center justify-center'>
-            <Link to="/" className="text-secondary-color w-[50px] h-[50px] text-[20px] font-[600] absolute top-5 left-[50%] right-[50%] translate-x-[-50%]">
+            {msg && <Alert alertType={alertType} msg={msg} setMsg={setMsg} />}
+            <Link to="/" className="text-secondary-color w-[50px] h-[50px] text-[20px] font-[600] absolute top-[18%] left-[50%] right-[50%] translate-x-[-50%]">
                 <img src="./logo.svg" className='w-full h-full' alt="" />
             </Link>
             <div className='bg-[#001433B2] text-white text-center w-[40%] pb-10 pt-7 px-7 rounded-[8px]'>
@@ -52,6 +80,8 @@ const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword 
                                 type={showPassword ? "text" : "password"} 
                                 placeholder='********' 
                                 className='outline-none bg-transparent w-full ml-3'
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
                             />
                             <div onClick={togglePasswordVisibility} className='cursor-pointer'>
                                 {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
@@ -68,18 +98,27 @@ const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword 
                                 type={showPassword ? "text" : "password"} 
                                 placeholder='********' 
                                 className='outline-none bg-transparent w-full ml-3'
+                                onChange={e => setConfirmPassword(e.target.value)}
+                                value={confirmPassword}
                             />
                             <div onClick={togglePasswordVisibility} className='cursor-pointer'>
                                 {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
                             </div>
                         </div>
                     </div>
-                    <div className='flex items-center gap-2 mt-1 justify-start text-left'>
-                        <input type="checkbox" name="" id="" />
-                        <p>You agree to our Terms of use and Privacy Policy</p>
+                    <div className='flex items-center gap-2 mt-3 justify-start text-left'>
+                        <input 
+                            type="checkbox" 
+                            id="termsCheckbox"
+                            checked={checkBox}
+                            onChange={e => setCheckBox(e.target.checked)}
+                        />
+                        <label htmlFor="termsCheckbox" className="cursor-pointer">
+                            You agree to our Terms of use and Privacy Policy
+                        </label>
                     </div>
                 </div>
-                <button onClick={nextStep} className='bg-primary-color w-full py-[10px] rounded-[4px] text-white mt-8 mb-3'>
+                <button onClick={handleSubmit} className='bg-primary-color w-full py-[10px] rounded-[4px] text-white mt-8 mb-3'>
                     <p>Verify Email</p>
                 </button>
             </div>
