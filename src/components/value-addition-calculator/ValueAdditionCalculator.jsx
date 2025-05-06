@@ -12,6 +12,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
     valueAddedPercentage: null
   });
   const [showResults, setShowResults] = useState(false);
+  const [showFormula, setShowFormula] = useState(false);
 
   const handleInputChange = (field, value) => {
     setFormData({
@@ -47,6 +48,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
       valueAddedPercentage: null
     });
     setShowResults(false);
+    setShowFormula(false)
   };
 
   return (
@@ -68,16 +70,28 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
 
         {/* Calculator Content */}
         <div className="px-6 w-full">
-            <div className='mb-[2.5rem]'>
+            <div className='mb-[1.5rem]'>
                 <div className="flex items-center justify-center mb-1 gap-2">
                     <IoCalculator className='text-primary-color text-[24px]'/>
                     <h2 className="text-[20px] font-semibold text-[#333333]">Value Addition Calculator</h2>
                 </div>
-                <div className="flex items-center justify-center text-ascent-color">
+                <div onClick={() => setShowFormula(!showFormula)} className="flex items-center justify-center text-ascent-color cursor-pointer">
                     <GoQuestion />
                     <span className="ml-1 text-sm">Formula</span>
                 </div>
             </div>
+
+            {
+                showFormula && (
+                    <div className='w-full mx-auto'>
+                        <h3 className="font-semibold text-[#333333] mb-2 text-left">How it is calculated:</h3>
+                        <h3 className="text-[#666666] text-[14px] mb-2 text-left">To calculate your Value Addition (%)::</h3>
+                        <div className="mb-6 bg-secondary-color p-4 rounded w-full">
+                            <p className='text-left text-[14px] text-[#666666] mt-3'>Value Addition = ( Final Product Value - Imported Inputs Final Product Value ) x 100</p>
+                        </div>
+                    </div>
+                )
+            }
 
             {/* Input Fields */}
             <div className="mt-4 mb-6">
@@ -91,7 +105,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
                 />
             </div>
             
-            <div className="mb-6">
+            <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1 text-left">Your Total Cost of Imported Inputs (#)</label>
                 <input
                     type="text"
@@ -105,21 +119,22 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
             {/* Results Section (conditionally shown) */}
 
             {/* Action Buttons */}
-            <div className="flex space-x-3 mt-7 mb-3">
-            <button
-                onClick={calculateResults}
-                className="flex-1 bg-primary-color text-white py-2 px-4 rounded"
-                >
-                Calculate
-            </button>
-            <button
-                onClick={resetCalculator}
-                className="px-4 bg-secondary-color text-primary-color rounded"
-                >
-                Reset
-            </button>
+            <div className="flex space-x-3 mt-7 mb-1">
+                <button
+                    onClick={calculateResults}
+                    className="flex-1 bg-primary-color text-white py-2 px-4 rounded"
+                    >
+                    Calculate
+                </button>
+                <button
+                    onClick={resetCalculator}
+                    className="px-4 bg-secondary-color text-primary-color rounded"
+                    >
+                    Reset
+                </button>
             </div>
         </div>
+
         {showResults && (
             <div className='px-6 w-full mx-auto'>
                 <h3 className="font-semibold text-[#333333] mb-4 text-left">Results:</h3>

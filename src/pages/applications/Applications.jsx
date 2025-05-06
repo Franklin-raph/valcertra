@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useNavigate } from "react-router-dom";
+import ValueAdditionCalculator from "../../components/value-addition-calculator/ValueAdditionCalculator";
 
 
 const Applications = () => {
@@ -9,6 +10,7 @@ const Applications = () => {
     const [toggleNav, setToggleNav] = useState(false)
     const filters = [ "All", "Draft", "Certified", "Under Review", "Rejected" ]
     const navigate = useNavigate()
+    const [valueAddedCalculator, setValueAddedCalculator] = useState(false)
   
   return (
     <div>
@@ -21,7 +23,7 @@ const Applications = () => {
             <div className="flex items-center justify-between">
               <p className="text-[#333333] font-[500] text-[20px]">Applications</p>
               <div>
-                <button className="bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]">Calculate Value Addition</button>
+                <button className="bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>Calculate Value Addition</button>
                 <button className="bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500] ml-4"> + New Application</button>
               </div>
             </div>
@@ -138,6 +140,9 @@ const Applications = () => {
           </div>
         </div>
       </>
+      {
+        valueAddedCalculator && <ValueAdditionCalculator setValueAddedCalculator={setValueAddedCalculator}/>
+      }
     </div>
   );
 }
