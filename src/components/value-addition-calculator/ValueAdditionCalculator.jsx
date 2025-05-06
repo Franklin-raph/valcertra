@@ -87,7 +87,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
                         <h3 className="font-semibold text-[#333333] mb-2 text-left">How it is calculated:</h3>
                         <h3 className="text-[#666666] text-[14px] mb-2 text-left">To calculate your Value Addition (%)::</h3>
                         <div className="mb-6 bg-secondary-color p-4 rounded w-full">
-                            <p className='text-left text-[14px] text-[#666666] mt-3'>Value Addition = ( Final Product Value - Imported Inputs Final Product Value ) x 100</p>
+                            <p className='text-left text-[14px] text-[#666666] mt-3'>Value Addition = ( (Final Product Value - Imported Inputs) / Final Product Value ) x 100</p>
                         </div>
                     </div>
                 )
