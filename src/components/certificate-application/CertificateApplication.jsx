@@ -4,6 +4,8 @@ import { FiFile } from 'react-icons/fi';
 import { IoArrowBackOutline, IoCloseOutline } from 'react-icons/io5';
 import Cookies from 'js-cookie';
 import Alert from '../alert/Alert';
+import { post } from '../../utils/axiosHelpers';
+import BtnLoader from '../btnLoader/BtnLoader';
 
 export default function CertificateApplication({ setCertificationApplication }) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -12,6 +14,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
   const token = Cookies.get('token')
   const [msg, setMsg] = useState('')
   const [alertType, setAlertType] = useState('')
+  const [loading, setLoading] = useState(false)
   
   const [formData, setFormData] = useState({
     // Product Details
@@ -217,7 +220,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
-    submitApplication()
+    // submitApplication()
   };
   
   const prevStep = () => {
@@ -227,7 +230,19 @@ export default function CertificateApplication({ setCertificationApplication }) 
   };
 
   const submitApplication = async () => {
-    console.log(formData)
+    try {
+      setLoading(true)
+      const res = await post('/application/create_application/', formData)
+      console.log(res);
+      setMsg(res?.message)
+      setAlertType('success')
+      // setCertificationApplication(false)
+    } catch (error) {
+      setMsg(error?.response?.data?.message)
+      setAlertType('error')
+    } finally{
+        setLoading(false)
+    }
   }
   
   // Progress bar steps
@@ -340,10 +355,9 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       value={formData.product_category}
                       onChange={(e) => handleInputChange('product_category', e.target.value)}
                     >
-                      <option value="Agro">Agro</option>
-                      <option value="Technology">Technology</option>
-                      <option value="Manufacturing">Manufacturing</option>
-                      <option value="Services">Services</option>
+                      <option value="agriculture">Agriculture</option>
+                      <option value="solid_minerals">Solid Minerals</option>
+                      <option value="energy_resources">Energy Resources</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                       <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -412,8 +426,8 @@ export default function CertificateApplication({ setCertificationApplication }) 
                         value={formData.do_you_own_or_lease}
                         onChange={(e) => handleInputChange('do_you_own_or_lease', e.target.value)}
                       >
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option value="own">Own</option>
+                        <option value="lease">Lease</option>
                         <option value="Partially">Partially</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
@@ -853,11 +867,11 @@ export default function CertificateApplication({ setCertificationApplication }) 
                         Annual Water Consumption Estimate (Litres)
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="w-full border border-gray-300 rounded-md px-3 py-2"
                       placeholder="Enter estimate"
                       value={formData.annual_water_consumption_estimate}
-                      onChange={(e) => handleInputChange('annual_water_consumption_estimate', e.target.value)}
+                      onChange={(e) => handleInputChange('annual_water_consumption_estimate', parseFloat(e.target.value))}
                     />
                   </div>
                   
@@ -866,11 +880,11 @@ export default function CertificateApplication({ setCertificationApplication }) 
                         Annual Energy Consumption Estimate (kWh) 
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="w-full border border-gray-300 rounded-md px-3 py-2"
                       placeholder="Enter estimate"
                       value={formData.annual_energy_consumption_estimate}
-                      onChange={(e) => handleInputChange('annual_energy_consumption_estimate', e.target.value)}
+                      onChange={(e) => handleInputChange('annual_energy_consumption_estimate', parseFloat(e.target.value))}
                     />
                   </div>
                 </div>
@@ -899,8 +913,9 @@ export default function CertificateApplication({ setCertificationApplication }) 
                         value={formData.compliance_with_national_international_standards}
                         onChange={(e) => handleInputChange('compliance_with_national_international_standards', e.target.value)}
                       >
-                        <option value="ISO14001">ISO14001</option>
-                        <option value="ISO14002">ISO14002</option>
+                        <option value="iso_14001">ISO14001</option>
+                        <option value="iso_9001">ISO9001</option>
+                        <option value="iso_45001">ISO45001</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                         <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1112,8 +1127,8 @@ export default function CertificateApplication({ setCertificationApplication }) 
                             value={formData.grievance_mechanism_description}
                             onChange={(e) => handleInputChange('grievance_mechanism_description', e.target.value)}
                         >
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                             <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1396,17 +1411,28 @@ export default function CertificateApplication({ setCertificationApplication }) 
               </p>
               
               <div className="space-y-4 text-[#344054]">
-
-                <div className='flex items-center gap-2'>
-                    <input type="checkbox" />
+                  <div className='flex items-center gap-2'>
+                    <input 
+                        type="checkbox" 
+                        checked={formData.knowledge_of_information}
+                        onChange={() => handleCheckboxChange('knowledge_of_information')}
+                    />
                     <p>I declare that the information provided in this form is true, complete and correct to the best of my knowledge</p>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <input type="checkbox" />
+                    <input 
+                        type="checkbox" 
+                        checked={formData.agree_to_allow_valcerta}
+                        onChange={() => handleCheckboxChange('agree_to_allow_valcerta')}
+                    />
                     <p>I agree to allow Valcertra or its authorized agents to carry out inspections, audits or third party verifications as required</p>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <input type="checkbox" />
+                    <input 
+                        type="checkbox" 
+                        checked={formData.commit_to_maintaining_compliance}
+                        onChange={() => handleCheckboxChange('commit_to_maintaining_compliance')}
+                    />
                     <p>I commit to maintaining compliance with all LVA certification standards and to continuous Improvement </p>
                 </div>
 
@@ -1440,34 +1466,39 @@ export default function CertificateApplication({ setCertificationApplication }) 
           <div className='text-[#344054]'>
             <p>Page {currentStep} of {totalSteps}</p>
           </div>
-          <div className='flex items-center gap-[10px]'>
-            <button 
-              onClick={prevStep} 
-              className={
-                currentStep === 1 
-                  ? 'text-[#D0D5DD] border rounded-[4px] py-[4px] px-3 cursor-not-allowed font-[500]' 
-                  : 'font-[500] text-primary-color border rounded-[4px] py-[4px] px-3'
+          {
+            loading ?
+            <BtnLoader />
+            : 
+            <div className='flex items-center gap-[10px]'>
+              <button 
+                onClick={prevStep} 
+                className={
+                  currentStep === 1 
+                    ? 'text-[#D0D5DD] border rounded-[4px] py-[4px] px-3 cursor-not-allowed font-[500]' 
+                    : 'font-[500] text-primary-color border rounded-[4px] py-[4px] px-3'
+                }
+              >
+                Previous
+              </button>
+              {
+                  currentStep === totalSteps ? 
+                  <button 
+                      onClick={submitApplication}
+                      className='font-[500] bg-primary-color text-white border rounded-[4px] py-[4px] px-3'
+                  >
+                      Proceed to Payment
+                  </button>
+                  :
+                  <button 
+                      onClick={nextStep} 
+                      className='font-[500] text-primary-color border rounded-[4px] py-[4px] px-3'
+                  >
+                      Next
+                  </button>
               }
-            >
-              Previous
-            </button>
-            {
-                currentStep === totalSteps ? 
-                <button 
-                    onClick={submitApplication}
-                    className='font-[500] bg-primary-color text-white border rounded-[4px] py-[4px] px-3'
-                >
-                    Proceed to Payment
-                </button>
-                :
-                <button 
-                    onClick={nextStep} 
-                    className='font-[500] text-primary-color border rounded-[4px] py-[4px] px-3'
-                >
-                    Next
-                </button>
-            }
-          </div>
+            </div>
+          }
         </div>
       </div>
       {
