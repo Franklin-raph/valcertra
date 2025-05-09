@@ -136,20 +136,38 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
         </div>
 
         {showResults && (
-            <div className='px-6 w-full mx-auto'>
-                <h3 className="font-semibold text-[#333333] mb-4 text-left">Results:</h3>
-                <div className="mb-6 bg-secondary-color p-4 rounded w-full">
-                    <div className="flex justify-between items-center mb-1">
-                        <span className="text-gray-700">Value Addition Score</span>
-                        {/* <span className="font-medium">${results.valueAdded}</span> */}
-                        <div className="flex flex-col items-end mb-3">
-                            <span className="font-medium text-[20px] text-ascent-color">{results.valueAddedPercentage}%</span>
-                            <span className="text-[#12B76A] text-[13px]">Qualifies for AfCFTA</span>
+            <>
+                {
+                    results.valueAddedPercentage > 30 ?
+                    <div className='px-6 w-full mx-auto'>
+                        <h3 className="font-semibold text-[#333333] mb-4 text-left">Results:</h3>
+                        <div className="mb-6 bg-secondary-color p-4 rounded w-full">
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-700">Value Addition Score</span>
+                                <div className="flex flex-col items-end mb-3">
+                                    <span className="font-medium text-[20px] text-ascent-color">{results.valueAddedPercentage}%</span>
+                                    <span className="text-[#12B76A] text-[13px]">Qualifies for AfCFTA</span>
+                                </div>
+                            </div>
+                            <p className='text-left text-[14px] text-[#666666] mt-3'>Your product has sufficient local value addition to qualify for preferential tariff treatment under AfCFTA.</p>
                         </div>
                     </div>
-                    <p className='text-left text-[14px] text-[#666666] mt-3'>Your product has sufficient local value addition to qualify for preferential tariff treatment under AfCFTA.</p>
-                </div>
-            </div>
+                    :
+                    <div className='px-6 w-full mx-auto'>
+                        <h3 className="font-semibold text-[#333333] mb-4 text-left">Results:</h3>
+                        <div className="mb-6 bg-secondary-color p-4 rounded w-full">
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-700">Value Addition Score</span>
+                                <div className="flex flex-col items-end mb-3">
+                                    <span className="font-medium text-[20px] text-ascent-color">{results.valueAddedPercentage}%</span>
+                                    <span className="text-[#F04438] text-[13px]">Does not qualify (min. 30% required)</span>
+                                </div>
+                            </div>
+                            <p className='text-left text-[14px] text-[#666666] mt-3'>Your product needs at least 35% value addition to qualify for preferential tariff treatment under AfCFTA.</p>
+                        </div>
+                    </div>
+                }
+            </>
         )}
         </div>
     </div>

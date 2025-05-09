@@ -1,11 +1,17 @@
 import { useState } from 'react';
-import { BiCheck } from 'react-icons/bi';
+import { BiCheck, BiTrash, BiTrashAlt } from 'react-icons/bi';
 import { FiFile } from 'react-icons/fi';
 import { IoArrowBackOutline, IoCloseOutline } from 'react-icons/io5';
+import Cookies from 'js-cookie';
+import Alert from '../alert/Alert';
 
 export default function CertificateApplication({ setCertificationApplication }) {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 8;
+  const [fileUploadLoader, setFileUploadLoader] = useState(false)
+  const token = Cookies.get('token')
+  const [msg, setMsg] = useState('')
+  const [alertType, setAlertType] = useState('')
   
   const [formData, setFormData] = useState({
     // Product Details
@@ -15,46 +21,46 @@ export default function CertificateApplication({ setCertificationApplication }) 
     // Processing Information
     source_location: '',
     primary_materials_used: '',
-    do_you_own_or_lease: 'Yes',
-    stage_of_value_addition_conducted_locally: 'Extraction, Refining',
-    final_product_value: 140,
+    do_you_own_or_lease: '',
+    stage_of_value_addition_conducted_locally: '',
+    final_product_value: null,
     annual_output: '',
     annual_volume_of_raw_material_utilized: '',
     process_flow_diagram: null,
-    
+
     // Local Value Added Metrics
-    pct_of_material_processed_locally: 50,
-    pct_of_material_imported: 46,
-    annual_spend_on_imported_raw_materials: 140,
-    annual_spend_on_locally_sourced_materials: 140,
-    pct_of_components_sourced_locally: 50,
-    pct_of_components_imported: 50,
-    total_work_force: 198,
-    pct_of_local_workforce: 32,
-    use_of_local_suppliers: 'Yes',
-    list_major_local_suppliers: 'cornflour, crownflour',
-    final_product_cost: 140,
-    raw_material_cost: 140,
-    annual_expenditure_on_local_procurement: 140,
-    calculated_value_addition: 50,
+    pct_of_material_processed_locally: null,
+    pct_of_material_imported: null,
+    annual_spend_on_imported_raw_materials: null,
+    annual_spend_on_locally_sourced_materials: null,
+    pct_of_components_sourced_locally: null,
+    pct_of_components_imported: null,
+    total_work_force: null,
+    pct_of_local_workforce: null,
+    use_of_local_suppliers: '',
+    list_major_local_suppliers: '',
+    final_product_cost: null,
+    raw_material_cost: null,
+    annual_expenditure_on_local_procurement: null,
+    calculated_value_addition: null,
     investment_in_local_training_or_infrastructure: '',
     
     // Environmental Impact
     annual_water_consumption_estimate: '',
     annual_energy_consumption_estimate: '',
     green_technology_or_practices_used: '',
-    compliance_with_national_international_standards: 'e.g ISO 14001',
+    compliance_with_national_international_standards: '',
     waste_management_practices: '',
     environmental_impact_assessment_report: null,
     emissions_and_pollution_data: null,
     
     // Social Contribution
-    do_you_run_or_fund_community_development_project: 'Yes',
+    do_you_run_or_fund_community_development_project: '',
     community_development_project_description: '',
-    estimated_annual_tax_paid_to_host_country: 140,
-    employee_welfare_program: 'Health Insurance, Paid leave',
+    estimated_annual_tax_paid_to_host_country: null,
+    employee_welfare_program: '',
     occupational_health_and_safety_policies: null,
-    grievance_mechanism_description: 'Yes',
+    grievance_mechanism_description: '',
     grievance_mechanism_details: '',
     
     // Product Documents
@@ -66,10 +72,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
     photo_of_production_site_facilities_or_warehouses: null,
     
     // Supplier Invoices
-    invoices: [
-      { name: 'Cement Invoice.pdf', size: '200 KB', progress: 100 },
-      { name: 'Granite Invoice.pdf', size: '5 MB', progress: 40 }
-    ],
+    invoices: [],
     
     // Declaration
     knowledge_of_information: false,
@@ -93,17 +96,128 @@ export default function CertificateApplication({ setCertificationApplication }) 
     });
   };
   
-  const handleFileUpload = (field, file) => {
-    setFormData({
-      ...formData,
-      [field]: file
-    });
-  };
+  async function handleFileUpload(file, name, mediaType) {
+    console.log("Upload Profile Image ..... ");
+    
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
+    if(file.size > maxSizeInBytes){
+        setMsg("File size should not exceed 5MB");
+        setAlertType('error');
+        return;
+    }
+    
+    setFileUploadLoader(true);
+    const uploadFormData = new FormData();
+    uploadFormData.append('media', file);
+    uploadFormData.append('media_type', mediaType);
+
+    console.log(`Bearer ${token}`);
+    
+    
+    try {
+      const res = await fetch(`https://vercertrabe.onrender.com/media/upload`, {
+        method: "POST",
+        body: uploadFormData,
+        headers : {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      
+      const data = await res.json();
+      console.log(res, data);
+      setFileUploadLoader(false);
+      
+      if(res.ok === true) {
+        setMsg("File uploaded successfully");
+        setAlertType('success');
+
+        if(name === "process_flow_diagram"){
+          formData.process_flow_diagram = data.data.id
+        }else if(name === "environmental_impact_assessment_report"){
+          formData.environmental_impact_assessment_report = data.data.id
+        }else if(name === "emissions_and_pollution_data"){
+          formData.emissions_and_pollution_data = data.data.id
+        }else if(name === "occupational_health_and_safety_policies"){
+          formData.occupational_health_and_safety_policies = data.data.id
+        }else if(name === "certificate_of_company_registration"){
+          formData.certificate_of_company_registration = data.data.id
+        }else if(name === "environmental_impact_assessment"){
+          formData.environmental_impact_assessment = data.data.id
+        }else if(name === "operational_process_flowchart"){
+          formData.operational_process_flowchart = data.data.id
+        }else if(name === "corporate_social_responsibility_report"){
+          formData.corporate_social_responsibility_report = data.data.id
+        }else if(name === "any_industry_certifications"){
+          formData.any_industry_certifications = data.data.id
+        }else if(name === "photo_of_production_site_facilities_or_warehouses"){
+          formData.photo_of_production_site_facilities_or_warehouses = data.data.id
+        }
+
+        console.log("Okay");
+      } else {
+        setMsg("File upload wasn't successful");
+        setAlertType('error');
+      }
+    } catch (error) {
+        setMsg(error.response?.data?.message || 'Error uploading file');
+        setAlertType('error');
+    }finally{
+      setFileUploadLoader(false)
+    }
+  }
+
+
+  async function invoiceUpload(file, mediaType) {
+    console.log("Upload Profile Image ..... ");
+    
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
+    if(file.size > maxSizeInBytes){
+        setMsg("File size should not exceed 5MB");
+        setAlertType('error');
+        return;
+    }
+    
+    setFileUploadLoader(true);
+    const uploadFormData = new FormData();
+    uploadFormData.append('media', file);
+    uploadFormData.append('media_type', mediaType);
+
+    try {
+      const res = await fetch(`https://vercertrabe.onrender.com/media/upload`, {
+        method: "POST",
+        body: uploadFormData,
+        headers : {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      
+      const data = await res.json();
+      console.log(res, data);
+      setFileUploadLoader(false);
+      
+      if(res.ok === true) {
+        setMsg("File uploaded successfully");
+        setAlertType('success');
+        formData.invoices.push(data.data.id)
+
+      } else {
+        setMsg("File upload wasn't successful");
+        setAlertType('error');
+      }
+    } catch (error) {
+        setMsg(error.response?.data?.message || 'Error uploading file');
+        setAlertType('error');
+    }finally{
+      setFileUploadLoader(false)
+    }
+  }
+
   
   const nextStep = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
+    submitApplication()
   };
   
   const prevStep = () => {
@@ -111,6 +225,10 @@ export default function CertificateApplication({ setCertificationApplication }) 
       setCurrentStep(currentStep - 1);
     }
   };
+
+  const submitApplication = async () => {
+    console.log(formData)
+  }
   
   // Progress bar steps
   const steps = [
@@ -126,6 +244,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
   
   return (
     <div className='cert-application'>
+      {msg && <Alert alertType={alertType} msg={msg} setMsg={setMsg} />}
       <div 
         className="h-full w-full fixed top-0 left-0 z-[99] bg-opacity-70 backdrop-blur-sm" 
         style={{ background: "rgba(14, 14, 14, 0.58)" }}
@@ -369,19 +488,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Annual Output Produced
                     </label>
                     <div className="relative">
-                      <select
+                      <input
+                        type='text'
                         className="w-full border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                        placeholder="enter value and volume"
+                        placeholder="1000 tons"
                         value={formData.annual_output}
                         onChange={(e) => handleInputChange('annual_output', e.target.value)}
-                      >
-                        <option value="">enter value and volume</option>
-                      </select>
-                      <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                        <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
+                      />
                     </div>
                   </div>
                   
@@ -390,18 +503,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Annual Volume of Raw Material Utilized
                     </label>
                     <div className="relative">
-                      <select
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                        value={formData.annual_volume_of_raw_material_utilized}
-                        onChange={(e) => handleInputChange('annual_volume_of_raw_material_utilized', e.target.value)}
-                      >
-                        <option value="">Tons</option>
-                      </select>
-                      <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                        <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
+                      <input
+                          type='text'
+                          className="w-full border border-gray-300 rounded-md px-3 py-2 appearance-none"
+                          placeholder="1200 tons"
+                          value={formData.annual_volume_of_raw_material_utilized}
+                          onChange={(e) => handleInputChange('annual_volume_of_raw_material_utilized', e.target.value)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -411,7 +519,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Process Flow Diagram or Schematics of operations
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input 
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'process_flow_diagram', 'photo');
+                      }
+                    }}
+                   type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -810,10 +924,16 @@ export default function CertificateApplication({ setCertificationApplication }) 
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Environmental Impact Assessment Report (PDF)Environmental Impact Assessment Report (PDF)
+                    Environmental Impact Assessment Report (PDF)
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'environmental_impact_assessment_report', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -834,7 +954,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Emissions and Pollution Data (PDF)
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                    <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                    <input
+                      onChange={e => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          handleFileUpload(e.target.files[0], 'emissions_and_pollution_data', 'document');
+                        }
+                      }}
+                      type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -953,7 +1079,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Occupational Health and Safety Policies (PDF)
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'occupational_health_and_safety_policies', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1019,7 +1151,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Certificate of Company Registration
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'certificate_of_company_registration', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1040,7 +1178,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Environmental Impact Assessment Report (PDF)
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'environmental_impact_assessment', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1061,7 +1205,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Operational Process Flowchart
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'operational_process_flowchart', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1082,7 +1232,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Corporate Social Responsibility Report or Community Project Evidence
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'corporate_social_responsibility_report', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1103,7 +1259,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Any Industry Certifications
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'any_industry_certifications', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1124,7 +1286,13 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     Photos of Production Site, Facilities or Warehouses (Optional)
                   </label>
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], 'photo_of_production_site_facilities_or_warehouses', 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1155,11 +1323,14 @@ export default function CertificateApplication({ setCertificationApplication }) 
               <div className="space-y-4">
 
                 <div>
-                  {/* <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Certificate of Company Registration
-                  </label> */}
                   <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md px-6 pt-5 pb-6 flex flex-col items-center relative">
-                  <input type="file" className='h-full w-full opacity-0 absolute top-0' />
+                  <input
+                    onChange={e => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        invoiceUpload(e.target.files[0], 'document');
+                      }
+                    }}
+                    type="file" className='h-full w-full opacity-0 absolute top-0' />
                     <div className="p-2 rounded-full bg-gray-100 mb-2">
                       <svg className="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -1177,27 +1348,40 @@ export default function CertificateApplication({ setCertificationApplication }) 
                 </div>
 
                 <div>
-                    <div className="border border-gray-200 rounded-lg py-4 px-6 flex flex-col items-center justify-between shadow-sm">
-                        <div className='flex justify-between items-center w-full'>
-                            <div className="flex items-center space-x-3 text-[#344054]">
-                                <img src="./file-upload.svg" alt="" />
-                                <div className="flex flex-col">
-                                    <span className="font-medium">Cement Invoice.pdf</span>
-                                    <span className="text-sm text-gray-500">200kb</span>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center space-x-2">
-                                <div className="bg-primary-color rounded-full p-1">
-                                    <BiCheck size={16} className="text-white" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-center gap-4 w-full h-[7px] mx-5 mt-3">
-                            <div className="bg-primary-color h-full rounded-full w-full" />
-                            <span className="text-sm text-[#344054]">100%</span>
-                        </div>
-                    </div>
+                  {
+                    formData.invoices.map((invoice, index) => (
+                      <div className="border border-gray-200 rounded-lg py-4 px-6 flex flex-col items-center justify-between shadow-sm my-2">
+                          <div className='flex justify-between items-center w-full'>
+                              <div className="flex items-center space-x-3 text-[#344054]">
+                                  <img src="./file-upload.svg" alt="" />
+                                  {/* <div className="flex flex-col">
+                                      <span className="font-medium">Cement Invoice.pdf</span>
+                                      <span className="text-sm text-gray-500">200kb</span>
+                                  </div> */}
+                              </div>
+                              
+                              <div className="flex items-center space-x-2">
+                                  <div
+                                    onClick={() => {
+                                      // Create a copy of the current formData
+                                      const updatedFormData = {...formData};
+                                      // Remove the invoice at the current index
+                                      updatedFormData.invoices = formData.invoices.filter((_, i) => i !== index);
+                                      // Update the formData state
+                                      setFormData(updatedFormData);
+                                    }}
+                                    className="bg-primary-color rounded-full p-1">
+                                      <BiTrashAlt size={16} className="text-white" />
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="flex items-center justify-center gap-4 w-full h-[7px] mx-5 mt-3">
+                              <div className="bg-primary-color h-full rounded-full w-full" />
+                              <span className="text-sm text-[#344054]">100%</span>
+                          </div>
+                      </div>
+                    ))
+                  }
                 </div>
                 
               </div>
@@ -1262,7 +1446,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
             {
                 currentStep === totalSteps ? 
                 <button 
-                    // onClick={nextStep}
+                    onClick={submitApplication}
                     className='font-[500] bg-primary-color text-white border rounded-[4px] py-[4px] px-3'
                 >
                     Proceed to Payment
@@ -1278,6 +1462,18 @@ export default function CertificateApplication({ setCertificationApplication }) 
           </div>
         </div>
       </div>
+      {
+        fileUploadLoader &&
+        <div style={{position:'fixed', width:'100%', left:'0', top:'0', zIndex:'9999', display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:"rgba(18, 18, 18, 0.8)" }}>
+            <div className="bg-white" style={{ borderRadius:'10px' }}>
+                {/* <i className=' ri-close-fill block text-[1.2rem] text-end mt-[1rem] mr-[1rem] cursor-pointer'></i> */}
+                <div className="flex items-center justify-between mt-[1rem] px-[2rem] mb-[2rem] flex-col" style={{ padding:'2rem', textAlign:'center' }} >
+                    <img src='./loader.gif' style={{ height:'40px', width:'40px', margin:'12px auto 30px' }} />
+                    <p className='text-gray-500 text-[15px] mb-2 text-center'>File Upload in progress, please do not refresh the page</p>
+                </div>
+            </div>
+        </div>
+      }
     </div>
   );
 }
