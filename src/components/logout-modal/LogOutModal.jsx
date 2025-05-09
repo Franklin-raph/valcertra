@@ -1,10 +1,17 @@
 import React from 'react'
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LogOutModal = ({setLogoutModal}) => {
 
     const navigate = useNavigate()
+
+    function logoutUser(){
+        localStorage.clear()
+        Cookies.remove('token')
+        navigate('/')
+    }
 
     return createPortal(
         <div>
@@ -15,7 +22,7 @@ const LogOutModal = ({setLogoutModal}) => {
                 <p className="text-[#475467] text-[15px]">Are you sure you want to logout of this account? you can login back to your account anytime.</p>
                 <div className="flex items-center justify-between gap-5 mt-6">
                     <button className="text-[#344054] border border-[#D0D5DD] py-[7px] rounded-[4px] w-full" onClick={() => setLogoutModal('')}>Cancel</button>
-                    <button onClick={() => navigate('/')} className="text-[#fff] border border-primary-color bg-primary-color py-[7px] rounded-[4px] w-full">Logout</button>
+                    <button onClick={logoutUser} className="text-[#fff] border border-primary-color bg-primary-color py-[7px] rounded-[4px] w-full">Logout</button>
                 </div>
             </div>
         </div>,

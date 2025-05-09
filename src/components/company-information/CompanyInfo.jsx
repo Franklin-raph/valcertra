@@ -38,9 +38,9 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
 
     const companySizeArray = ["Small", "Medium", "Large"]
     const contactPersonArray = ["CEO", "CTO", "Manager", "Secretary"]
-    const sectorArray = ["IT Firm", "Agricultural", "Business", "Production"]
-    const entityTypeArray = ["Manufacturer", "Producer", "Distributor", "Retailer"]
-    const ownershipTypeArray = ["Owner", "Co-Owner", "Co-Distributor", "Co-Retailer"]
+    const sectorArray = ["agriculture", "solid_minerals", "energy_resources"]
+    const entityTypeArray = ["manufacturer", "exporter", "aggregator", "sme", "govt_agency"]
+    const ownershipTypeArray = ["local"]
 
     async function getAllCountries(){
         setLoader(true)

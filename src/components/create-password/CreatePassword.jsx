@@ -2,10 +2,15 @@ import React, { useState } from 'react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import { IoArrowBackOutline, IoEyeOutline } from 'react-icons/io5'
 import { LuLock } from 'react-icons/lu'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Alert from '../alert/Alert'
+import { post } from '../../utils/axiosHelpers'
+import BtnLoader from '../btnLoader/BtnLoader'
 
 const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword }) => {
+
+    const navigate = useNavigate()
+    const [modal, setModal] = useState()
 
     function prevStep() {
         setCreatePassword(false)
@@ -28,24 +33,57 @@ const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword 
     const [msg, setMsg] = useState('')
     const [alertType, setAlertType] = useState('')
     const [checkBox, setCheckBox] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const regInfo = JSON.parse(localStorage.getItem('regInfo'))
 
     async function handleSubmit(e) {
-        // For debugging
-        console.log("Terms accepted:", checkBox);
-        
-        if(!password || !confirmPassword){
-            setMsg("Please fill in all fields")
-            setAlertType('error')
-        } else if (password !== confirmPassword) {
-            e.preventDefault();
-            setMsg("Passwords do not match")
-            setAlertType('error')
-        } else if (!checkBox) {
-            setMsg("You must agree to the Terms of use and Privacy Policy")
-            setAlertType('error')
-        } else {
-            setVerifyEmail(true)
-            setCreatePassword(false)
+        try {
+            
+            if(!password || !confirmPassword){
+                setMsg("Please fill in all fields")
+                setAlertType('error')
+            } else if (password !== confirmPassword) {
+                e.preventDefault();
+                setMsg("Passwords do not match")
+                setAlertType('error')
+            } else if (!checkBox) {
+                setMsg("You must agree to the Terms of use and Privacy Policy")
+                setAlertType('error')
+            } else {
+                setLoading(true)
+                const response = await post('/register', {  email:regInfo.email, password, first_name:regInfo.firstName, last_name:regInfo.lastName, 
+                                                            phone:regInfo.phone, company_name:regInfo.companyName, company_size:regInfo.companySize, 
+                                                            contact_person: regInfo.contactPerson, contact_email:regInfo.contactEmail, company_number:regInfo.companyNumber, 
+                                                            rc_number:regInfo.RcNumber, reg_country:regInfo.regCountry, sector:regInfo.industry, 
+                                                            start_of_operation_year:regInfo.startYearOfOperation, type_entity:regInfo.entityType, ownership_type:regInfo.ownerShipType,
+                                                            tax_identification_number:regInfo.tin, head_office_address:regInfo.headOfficeAddress, head_office_city:regInfo.city,
+                                                            head_office_state_province_region: regInfo.state, head_office_country:regInfo.country, website:regInfo.website, role:"user"
+                                                        });
+                console.log({ email:regInfo.email, password, first_name:regInfo.firstName, last_name:regInfo.lastName, 
+                    phone:regInfo.phone, company_name:regInfo.companyName, company_size:regInfo.companySize, 
+                    contact_person: regInfo.contactPerson, contact_email:regInfo.contactEmail, company_number:regInfo.companyNumber, 
+                    rc_number:regInfo.RcNumber, reg_country:regInfo.regCountry, sector:regInfo.industry, 
+                    start_of_operation_year:regInfo.startYearOfOperation, type_entity:regInfo.entityType, ownership_type:regInfo.ownerShipType,
+                    tax_identification_number:regInfo.tin, head_office_address:regInfo.headOfficeAddress, head_office_city:regInfo.city,
+                    head_office_state_province_region: regInfo.state, head_office_country:regInfo.country, website:regInfo.website, role:"user"
+                },response);
+            
+                
+                setVerifyEmail(true)
+                setCreatePassword(false)
+            }
+        } catch (error) {
+            if(error.response?.data?.message === 'Error with email: user with this email already exists.'){
+                setModal('email exist')
+                setMsg(error?.response?.data?.message)
+            }
+            // setMsg(error.response?.data?.message || 'An error occurred');
+            // setAlertType('error');
+            // console.log(error)
+            // setMsg(error?.response?.data?.message)
+            // setAlertType('error')
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -118,10 +156,29 @@ const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword 
                         </label>
                     </div>
                 </div>
-                <button onClick={handleSubmit} className='bg-primary-color w-full py-[10px] rounded-[4px] text-white mt-8 mb-3'>
-                    <p>Verify Email</p>
-                </button>
+                {
+                    loading ?
+                    <div className='mt-[40.4px] mb-[0.5rem]'>
+                        <BtnLoader />
+                    </div>
+                    :
+                    <button onClick={handleSubmit} className='bg-primary-color w-full py-[10px] rounded-[4px] text-white mt-8 mb-3'>
+                        <p>Verify Email</p>
+                    </button>
+                }
             </div>
+            {
+                modal === 'email exist' &&
+                <>
+                    <div className="h-full w-full fixed top-0 left-0 z-[99] bg-[#101828] bg-opacity-70 backdrop-blur-sm" ></div>
+                    <div className="flex items-center flex-col text-center justify-center gap-3 rounded-[12px] bg-white md:w-[400px] w-[95%] fixed top-[50%] left-[50%] py-[30px] px-[2rem] z-[100]" style={{ transform: "translate(-50%, -50%)" }}>
+                        <img src="./verifiedCheck.svg" alt="" />
+                        <p className='text-text-color font-[500]'>Email</p>
+                        <p className='text-[#6F7975] text-[14px]'> Error with email: user with this email already exists. </p>
+                        <button className='text-white bg-primary-color rounded-[4px] w-full mt-[1.5rem] py-[10px] text-center mx-auto' onClick={() => navigate('/login')} >Proceed to Login</button>
+                    </div>
+                </>
+            }
         </div>
     )
 }

@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     // baseURL: isDevelopment 
     //     ? 'https://wifi-combat.onrender.com' 
     //     : 'https://backend.wificombatelearn.com',
-    baseURL: 'https://vercertrabe.onrender.com/',
+    baseURL: 'https://vercertrabe.onrender.com',
     timeout: 10000, // 10 seconds
 });
 
@@ -48,7 +48,7 @@ axiosInstance.interceptors.response.use(
                 console.log('Unauthorized! Logging out...');
                 localStorage.removeItem('token');
                 Cookies.remove('token');
-                window.location.href = '/login';
+                window.location.href = '/#/login';
             }
         } else if (error) {
             // The request was made but no response was received

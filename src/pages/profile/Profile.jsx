@@ -9,6 +9,7 @@ import { BiGlobe, BiPhone } from "react-icons/bi";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 import ValueAdditionCalculator from "../../components/value-addition-calculator/ValueAdditionCalculator";
+import { get } from "../../utils/axiosHelpers";
 
 
 const Profile = () => {
@@ -18,7 +19,20 @@ const Profile = () => {
     const profileNav = ["Overview", "Company", "Profiles"]
     const [selectedNav, setSelectedNav] = useState(profileNav[0])
     const [modal, setModal] = useState('')
-  
+    const user = JSON.parse(localStorage.getItem('user'))
+    const [userDetails, setUserDetails] = useState()
+
+    const getUser = async () => {
+        const res = await get(`/profile/user/${user.id}`)
+        console.log(res);
+        
+        setUserDetails(res.data)
+    }
+
+    useEffect(() => {
+        getUser()
+    },[])
+
   return (
     <div>
       <>
@@ -63,28 +77,31 @@ const Profile = () => {
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Fullname</p>
-                                            <p className="font-[500] text-[18px] mt-1">Grace Johnson</p>
+                                            <div className="flex items-center gap-2">
+                                                <p className="font-[500] text-[18px] mt-1">{userDetails?.first_name}</p>
+                                                <p className="font-[500] text-[18px] mt-1">{userDetails?.last_name}</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiMail className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Email</p>
-                                            <p className="font-[500] text-[18px] mt-1">gracejohnson@gmail.com</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.email}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <BiPhone className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Mobile Number</p>
-                                            <p className="font-[500] text-[18px] mt-1">+234 90 000 0000</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.phone}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Designation/Title</p>
-                                            <p className="font-[500] text-[18px] mt-1">Business Owner</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.designation_job_title ? userDetails?.designation_job_title : 'N/A' }</p>
                                         </div>
                                     </div>
                                 </div>
@@ -96,28 +113,28 @@ const Profile = () => {
                                         <HiOutlineBuildingOffice className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Head Office Address</p>
-                                            <p className="font-[500] text-[18px] mt-1">Achina Street,Awada Layout 434108 Onitsha</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.head_office_address}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <CiLocationOn className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">City</p>
-                                            <p className="font-[500] text-[18px] mt-1">Onitsha</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.head_office_city}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiMap className="text-[24px]"/>
                                         <div>
-                                            <p className="text-[15px]">State/Province/Rgion</p>
-                                            <p className="font-[500] text-[18px] mt-1">Anambra</p>
+                                            <p className="text-[15px]">State/Province/Region</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.head_office_state_province_region}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <BiGlobe className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Country</p>
-                                            <p className="font-[500] text-[18px] mt-1">Nigeria</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.head_office_country}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -137,49 +154,49 @@ const Profile = () => {
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Company Name</p>
-                                            <p className="font-[500] text-[18px] mt-1">Granite Tiles</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.company_name}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiMail className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Company Size</p>
-                                            <p className="font-[500] text-[18px] mt-1">Micro/small</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.company_size}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <BiPhone className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Contact Person</p>
-                                            <p className="font-[500] text-[18px] mt-1">CEO</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.contact_person}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Contact Email</p>
-                                            <p className="font-[500] text-[18px] mt-1">contactinfo@granitetiles.com</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.contact_email}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Start of Operation</p>
-                                            <p className="font-[500] text-[18px] mt-1">2021</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.start_of_operation_year}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Tax ID (TIN)</p>
-                                            <p className="font-[500] text-[18px] mt-1">10012345-00001</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.tax_identification_number}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiUser className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Country of Registration</p>
-                                            <p className="font-[500] text-[18px] mt-1">Nigeria</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.reg_country}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -190,43 +207,42 @@ const Profile = () => {
                                         <HiOutlineBuildingOffice className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Company Number</p>
-                                            <p className="font-[500] text-[18px] mt-1">+234 90 000 0000</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.company_number}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <CiLocationOn className="text-[24px]"/>
                                         <div>
-                                            <p className="text-[15px]">Registration Numeber</p>
-                                            <p className="font-[500] text-[18px] mt-1">RC 123456</p>
+                                            <p className="text-[15px]">Registration Number</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.rc_number}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <FiMap className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Industry/Sector</p>
-                                            <p className="font-[500] text-[18px] mt-1">Agriculture</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.sector}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <BiGlobe className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Entity Type</p>
-                                            <p className="font-[500] text-[18px] mt-1">Manufacturer</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.type_entity}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <BiGlobe className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Ownership Type</p>
-                                            <p className="font-[500] text-[18px] mt-1">Local</p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.ownership_type}</p>
                                         </div>
                                     </div>
                                     <div className="text-[#667085] flex items-center gap-4">
                                         <BiGlobe className="text-[24px]"/>
                                         <div>
                                             <p className="text-[15px]">Website</p>
-                                            <p className="font-[500] text-[18px] mt-1">www.granitetiles.com
-                                            </p>
+                                            <p className="font-[500] text-[18px] mt-1">{userDetails?.company_data?.website}</p>
                                         </div>
                                     </div>
                                 </div>
