@@ -114,7 +114,7 @@ const Contact = () => {
                 <p className='text-[#333333] font-[600] md:text-[30px] text-[22px]'>Contact us on</p>
                 <p className='text-text-color mb-7'>For any legal inquiries, contact us at:</p>
                 <div className='flex flex-col gap-5'>
-                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Email:</span>legal@certivia.org</p>
+                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Email:</span>legal@Valcertra.org</p>
                     <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Phone:</span>+234 8068179570</p>
                     <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Address:</span>Plot 1010 Paul Muotolum Crescent, Old Gwarinpa Roa, Lifecamp, FCT, Abuja, Nigeria</p>
                 </div>

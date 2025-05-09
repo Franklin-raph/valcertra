@@ -26,7 +26,7 @@ const TermsOfUse = () => {
                 </div>
                 <div className='md:mt-[2.8rem]'>
                     <p className='text-[#333333] text-[16px] mb-1'>Terms Of Use</p>
-                    <p className='text-[#666666] text-[14px]'>Welcome to CERTIVIA LIMITED. By accessing or using our platform (including AVA CERTIFY), you agree to comply with and be bound by the following Terms of Use. If you do not agree to these terms, please do not use the platform.</p>
+                    <p className='text-[#666666] text-[14px]'>Welcome to Valcertra LIMITED. By accessing or using our platform (including AVA CERTIFY), you agree to comply with and be bound by the following Terms of Use. If you do not agree to these terms, please do not use the platform.</p>
                 </div>
                 <div className='md:ml-0 ml-[0.5rem]'>
                     <div className='mt-[2.8rem]'>
@@ -46,7 +46,7 @@ const TermsOfUse = () => {
                             <p>Certification disclaimer</p>
                         </div>
                         <ol className='text-[#666666] text-[14px] list-disc grid gap-3 ml-3'>
-                            <li>All certifications issued by CERTIVIA are based on the information and documents submitted by applicants.</li>
+                            <li>All certifications issued by Valcertra are based on the information and documents submitted by applicants.</li>
                             <li>False declarations or forged documents will lead to disqualification and may trigger legal action.</li>
                         </ol>
                     </div>
@@ -56,7 +56,7 @@ const TermsOfUse = () => {
                             <p>Account responsibility</p>
                         </div>
                         <ol className='text-[#666666] text-[14px] list-disc grid gap-3 ml-3'>
-                            <li>Users are responsible for safeguarding their login credentials. CERTIVIA will not be liable for any unauthorized access due to user negligence.Users are responsible for safeguarding their login credentials. CERTIVIA will not be liable for any unauthorized access due to user negligence.</li>
+                            <li>Users are responsible for safeguarding their login credentials. Valcertra will not be liable for any unauthorized access due to user negligence.Users are responsible for safeguarding their login credentials. Valcertra will not be liable for any unauthorized access due to user negligence.</li>
                         </ol>
                     </div>
                     <div className='my-[2.8rem]'>
@@ -65,7 +65,7 @@ const TermsOfUse = () => {
                             <p>Termination</p>
                         </div>
                         <ol className='text-[#666666] text-[14px] list-disc grid gap-3 ml-3'>
-                            <li>CERTIVIA reserves the right to suspend or terminate access to the platform for violations of these terms or misuse of certification privileges.</li>
+                            <li>Valcertra reserves the right to suspend or terminate access to the platform for violations of these terms or misuse of certification privileges.</li>
                         </ol>
                     </div>
                 </div>

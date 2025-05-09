@@ -101,7 +101,7 @@ const Home = () => {
           <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div>
           <div className='md:w-[50%] text-[#4D4D4D] font-[300]'>
             <p className='mb-[3rem]'>
-              CERTIVIA LIMITED, through its flagship AVA CERTIFY platform, is Africa's premier value addition certification authority. We provide a standardized, transparent, and digitally verifiable system to evaluate and certify the value-added status of products and services across the continent.
+              Valcertra LIMITED, through its flagship AVA CERTIFY platform, is Africa's premier value addition certification authority. We provide a standardized, transparent, and digitally verifiable system to evaluate and certify the value-added status of products and services across the continent.
             </p>
             <p>
               Our mission is to <span className='text-primary-color'>build trust in African-made goods</span> , enhance trade credibility, and ensure compliance with AfCFTA, RMRDC and global value chain requirements.
@@ -137,7 +137,7 @@ const Home = () => {
       </section>
 
       <section className='mt-[9rem]'>
-        <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px] font-[500]'>Why CERTIVIA</p>
+        <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px] font-[500]'>Why Valcertra</p>
         <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-[20px] lg:px-[9rem] md:px-[5rem] px-[1rem] justify-center'>
           {
             whyCretivaContent.map(item => (

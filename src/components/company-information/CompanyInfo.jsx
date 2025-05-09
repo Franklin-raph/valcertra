@@ -129,7 +129,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                     <label className='block mb-1 text-[15px] text-[#fff]'>Company name</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
                         <HiOutlineBuildingOffice2 className='text-[20px]' />
-                        <input value={companyName} onChange={e => setCompanyName(e.target.value)}  type="text" placeholder='Certivia' className='outline-none bg-transparent w-full'/>
+                        <input value={companyName} onChange={e => setCompanyName(e.target.value)}  type="text" placeholder='Valcertra' className='outline-none bg-transparent w-full'/>
                     </div>
                 </div>
                 <div className='w-full'>
