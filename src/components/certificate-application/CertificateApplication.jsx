@@ -1412,12 +1412,20 @@ export default function CertificateApplication({ setCertificationApplication }) 
 
                 <div>
                     <p>
-                        Authorized Signatory Name: ____________________________
+                        Authorized Signatory Name: <input type='text' 
+                                                          value={formData.authorized_signatory_name}
+                                                          onChange={(e) => handleInputChange('authorized_signatory_name', e.target.value)} 
+                                                          className='w-[250px] ml-2 border-dashed border-b border-primary-color'
+                                                    />
                     </p>
                 </div>
                 <div>
                     <p>
-                        Designation/Title: ____________________________
+                        Designation/Title: <input type='text'
+                                                  value={formData.designation_title}
+                                                  onChange={(e) => handleInputChange('designation_title', e.target.value)}
+                                                  className='w-[250px] ml-2 border-dashed border-b border-primary-color'
+                                            />
                     </p>
                 </div>
 
