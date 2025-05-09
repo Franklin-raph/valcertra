@@ -26,7 +26,9 @@ const TopNav = ({toggleNav, setToggleNav}) => {
         </div>
         <IoMenuOutline className='text-white text-[30px] cursor-pointer block lg:hidden' onClick={() => setToggleNav(!toggleNav)}/>
       </div>
-      <p className='text-primary-color p-3 rounded-full bg-[#F9F5FF]'>LD</p>
+      <p className='text-primary-color p-3 rounded-full bg-[#F9F5FF]'>
+        {user?.first_name[0]}{user?.last_name[0]}
+      </p>
     </div>
   )
 }

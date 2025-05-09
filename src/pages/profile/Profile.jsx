@@ -10,6 +10,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 import ValueAdditionCalculator from "../../components/value-addition-calculator/ValueAdditionCalculator";
 import { get } from "../../utils/axiosHelpers";
+import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
 
 
 const Profile = () => {
@@ -21,12 +22,19 @@ const Profile = () => {
     const [modal, setModal] = useState('')
     const user = JSON.parse(localStorage.getItem('user'))
     const [userDetails, setUserDetails] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     const getUser = async () => {
-        const res = await get(`/profile/user/${user.id}`)
-        console.log(res);
-        
-        setUserDetails(res.data)
+        try {
+            setIsLoading(true)
+            const res = await get(`/profile/user/${user.id}`)
+            setUserDetails(res.data)
+            console.log(res);
+        } catch (error) {
+            console.error("Error fetching summary:", error);
+        }finally{
+            setIsLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -35,6 +43,7 @@ const Profile = () => {
 
   return (
     <div>
+      {isLoading && <FullPageLoader />}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">
@@ -45,9 +54,9 @@ const Profile = () => {
                 <p className="text-[#333333] font-[500] text-[20px] pt-[20px] pl-[20px]">Profile</p>
                 <div className="flex flex-col items-center gap-3 mt-8 justify-between px-6 pb-4">
                     <div className="p-1 bg-white shadow-md rounded-full">
-                        <p className="text-[#101828] text-[34px] bg-[#F9F5FF] rounded-full h-[100px] flex items-center justify-center w-[100px]">GJ</p>
+                        <p className="text-[#101828] text-[34px] bg-[#F9F5FF] rounded-full h-[100px] flex items-center justify-center w-[100px]">{userDetails?.first_name[0]}{userDetails?.last_name[0]}</p>
                     </div>
-                    <p className="text-[#333333] text-[22px] pt-[5px] font-[500]">Grace Johnson</p>
+                    <p className="text-[#333333] text-[22px] pt-[5px] font-[500]">{userDetails?.first_name} {userDetails?.last_name}</p>
                     <p className="text-[#333333] text-[17px]">Business Owner</p>
                     <div className="flex items-center gap-3 cursor-pointer text-[#344054] border rounded-[4px] border-[#D0D5DD] py-[4px] px-3 ">
                         <PiNotePencil className="text-[17px]"/>
