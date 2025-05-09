@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import ValueAdditionCalculator from "../../components/value-addition-calculator/ValueAdditionCalculator";
+import CertificateApplication from "../../components/certificate-application/CertificateApplication";
 
 
 const Dashboard = () => {
 
     const [toggleNav, setToggleNav] = useState(false)
     const [valueAddedCalculator, setValueAddedCalculator] = useState(false)
+    const [certificationApplication, setCertificationApplication] = useState(false)
   
   return (
     <div>
@@ -24,7 +26,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <button className="bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>Calculate Value Addition</button>
-                <button className="bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500] ml-4"> + New Application</button>
+                <button className="bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500] ml-4" onClick={() => setCertificationApplication(true)}> + New Application</button>
               </div>
             </div>
 
@@ -125,6 +127,9 @@ const Dashboard = () => {
       </>
       {
         valueAddedCalculator && <ValueAdditionCalculator setValueAddedCalculator={setValueAddedCalculator}/>
+      }
+      {
+        certificationApplication && <CertificateApplication setCertificationApplication={setCertificationApplication}/>
       }
     </div>
   );

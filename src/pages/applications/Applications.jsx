@@ -3,6 +3,7 @@ import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useNavigate } from "react-router-dom";
 import ValueAdditionCalculator from "../../components/value-addition-calculator/ValueAdditionCalculator";
+import CertificateApplication from "../../components/certificate-application/CertificateApplication";
 
 
 const Applications = () => {
@@ -11,6 +12,7 @@ const Applications = () => {
     const filters = [ "All", "Draft", "Certified", "Under Review", "Rejected" ]
     const navigate = useNavigate()
     const [valueAddedCalculator, setValueAddedCalculator] = useState(false)
+    const [certificationApplication, setCertificationApplication] = useState(false)
   
   return (
     <div>
@@ -24,7 +26,7 @@ const Applications = () => {
               <p className="text-[#333333] font-[500] text-[20px]">Applications</p>
               <div>
                 <button className="bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>Calculate Value Addition</button>
-                <button className="bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500] ml-4"> + New Application</button>
+                <button className="bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500] ml-4" onClick={() => setCertificationApplication(true)}> + New Application</button>
               </div>
             </div>
 
@@ -62,7 +64,7 @@ const Applications = () => {
             <div className="flex items-center gap-4 mt-8">
                 {
                     filters.map((filter, indexx) => (
-                        <p className="text-[#999999]">{filter}</p>
+                        <p className="text-[#999999] cursor-pointer">{filter}</p>
                     ))
                 }
             </div>
@@ -142,6 +144,9 @@ const Applications = () => {
       </>
       {
         valueAddedCalculator && <ValueAdditionCalculator setValueAddedCalculator={setValueAddedCalculator}/>
+      }
+      {
+        certificationApplication && <CertificateApplication setCertificationApplication={setCertificationApplication}/>
       }
     </div>
   );

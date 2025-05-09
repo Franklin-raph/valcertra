@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     // baseURL: isDevelopment 
     //     ? 'https://wifi-combat.onrender.com' 
     //     : 'https://backend.wificombatelearn.com',
-    baseURL: 'https://backend.wificombatelearn.com',
+    baseURL: 'https://vercertrabe.onrender.com/',
     timeout: 10000, // 10 seconds
 });
 

@@ -1,26 +1,14 @@
 import React, { useState } from 'react'
-import { IoChevronDownOutline, IoIdCardOutline } from 'react-icons/io5'
-import { LuScanLine } from "react-icons/lu";
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { PiFileArrowUpThin } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
-import { HiCodeBracketSquare, HiOutlineCog6Tooth } from "react-icons/hi2";
-import { IoBookSharp } from "react-icons/io5";
-import { MdOutlineCalendarMonth } from "react-icons/md";
-import { IoIosLogOut } from 'react-icons/io';
-import { RiAiGenerate } from "react-icons/ri";
-import { BiLocationPlus } from 'react-icons/bi';
-import { FaUsersRays } from 'react-icons/fa6';
-import { FiAward, FiCreditCard, FiFileText } from 'react-icons/fi';
+import { FiAward, FiCreditCard, FiFileText, FiUser } from 'react-icons/fi';
+import LogOutModal from '../logout-modal/LogOutModal';
 
 
 const SideNav = ({toggleNav, setToggleNav}) => {
 
-  const [tradeDropDown, setTradeDropDown] = useState(false)
-  const [monitorDropDown, setMonitorDropDown] = useState(false)
-  const user = JSON.parse(localStorage.getItem('user'))
-  const navigate = useNavigate()
   const location = useLocation()
+  const [logoutModal, setLogoutModal] = useState(false);
 
   // console.log(user);
 
@@ -64,14 +52,24 @@ const SideNav = ({toggleNav, setToggleNav}) => {
                 <p className="">Payment</p>
             </div>
           </Link>
-          <Link to='#' className={ location.pathname.includes('settings') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
+          <Link to='/profile' className={ location.pathname.includes('profile') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
-                <HiOutlineCog6Tooth className='text-[20px]'/>
-                <p className="">Settings</p>
+                <FiUser className='text-[20px]'/>
+                <p className="">Profile</p>
             </div>
           </Link>
         </div>
-        
+        <div className="pl-[32px] my-5 text-white text-[17px] ml-[30px] mt-[23rem]">
+          <button className='text-[#D0D5DD] flex items-center justify-between py-[10px]' onClick={() => setLogoutModal(true)}>
+            <div className="flex items-center gap-2">
+                <img src="./logout.svg" alt="" />
+                <p className="">Logout</p>
+            </div>
+          </button>
+        </div>
+        {
+          logoutModal && <LogOutModal setLogoutModal={setLogoutModal}/>
+        }
     </div>
   )
 }

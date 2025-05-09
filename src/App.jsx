@@ -24,9 +24,9 @@ import CertificateView from './pages/certificate-view/CertificateView';
 import Payments from './pages/payments/Payments';
 import PendingPayments from './pages/pending-payments/PendingPayments';
 import PaidApplicationsPayments from './pages/paid-application-payments/PaidApplicationsPayments';
+import Profile from './pages/profile/Profile';
 
 function App() {
-  const [useCustomUI, setUseCustomUI] = useState(false);
   
   return (
     <HashRouter>
@@ -44,6 +44,7 @@ function App() {
         <Route path='/applications' element={<Applications />}/>
         <Route path='/certificates' element={<Certificates />}/>
         <Route path='/payments' element={<Payments />}/>
+        <Route path='/profile' element={<Profile />}/>
         <Route path='/payments/pending-payments' element={<PendingPayments />}/>
         <Route path='/payments/paid' element={<PaidApplicationsPayments />}/>
         <Route path='/certificates/:id' element={<CertificateView />}/>

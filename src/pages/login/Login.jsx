@@ -54,6 +54,7 @@ const Login = () => {
                 <button onClick={() => navigate('/dashboard')} className='bg-primary-color w-full py-[10px] rounded-[4px] text-white mt-8 mb-3'>
                     <p>Login</p>
                 </button>
+                <p>Don`t have an account? <Link to="/sign-up" className='text-ascent-color'>Signup</Link> </p>
             </div>
         </div>
     )

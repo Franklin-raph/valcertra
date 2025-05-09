@@ -17,3 +17,11 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.cert-application label{
+    color: #344054 !important;
+}
+
+.cert-application input, .cert-application select{
+    outline: none !important;
+}

@@ -62,7 +62,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
                     <IoArrowBackOutline />
                 </button>
             </div>
-            <div className="bg-gray-200 w-16 h-6 rounded"></div>
+            <img src="./logo.svg" alt="" />
             <button className="text-gray-500 text-[20px]" onClick={() => { setValueAddedCalculator('') }}>
                 <IoCloseOutline />
             </button>
