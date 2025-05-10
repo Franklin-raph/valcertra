@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar/Navbar'
 import HomeServicesCard from '../../components/home-services-card/HomeServicesCard'
 import HowItWorksCard from '../../components/how-it-works-card/HowItWorksCard'
 import WhyCretivaCard from '../../components/why-cretiva-card/WhyCretivaCard'
-import Footer from '../../components/Footer/Footer'
+import Footer from '../../components/footer/Footer'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
