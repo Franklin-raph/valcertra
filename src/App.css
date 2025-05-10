@@ -3,7 +3,7 @@
 }
 
 .header-bg{
-    background-image: url('./bg.png');
+    background-image: url('https://valcertra.vercel.app/bg.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,7 +12,7 @@
 .sign-up-bg{
     height: 120vh;
     width: 100%;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./sign-up-bg.jpg');
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://valcertra.vercel.app/sign-up-bg.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
