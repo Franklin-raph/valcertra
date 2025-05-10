@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Navbar from './components/navbar/Navbar';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Services from './pages/services/Services';
 import About from './pages/about/About';
-import Header from './components/header/Header';
-import Footer from './components/Footer/Footer';
 import Contact from './pages/contact/Contact';
 import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy';
 import TermsOfUse from './pages/terms-of-use/TermsOfUse';
