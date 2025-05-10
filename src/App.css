@@ -44,3 +44,10 @@
       transform: rotate(360deg);
     }
   }
+
+  @media screen and (max-width:576px) {
+    .sign-up-bg {
+      height: 100%;
+      padding: 4rem 0;
+    }
+  }

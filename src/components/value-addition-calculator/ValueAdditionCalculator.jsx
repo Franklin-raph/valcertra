@@ -106,7 +106,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
             </div>
             
             <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1 text-left">Your Total Cost of Imported Inputs (#)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1 text-left">Your Total Local Production Cost(#)</label>
                 <input
                     type="text"
                     value={formData.importedInputsCost}
@@ -133,6 +133,7 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
                     Reset
                 </button>
             </div>
+            <button className='w-full py-[8px] rounded-[4px] mt-1 bg-gray-200'>Download</button>
         </div>
 
         {showResults && (

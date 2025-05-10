@@ -48,7 +48,7 @@ const Navbar = () => {
               </ul>
               <div className='flex flex-col items-left px-4 mt-[20px] gap-5'>
                 <GoogleTranslateElement />
-                <button className='bg-secondary-color px-[20px] py-[5px] rounded-[4px] w-[142px]'>Login</button>
+                <button onClick={() => navigate('/login')} className='bg-secondary-color px-[20px] py-[5px] rounded-[4px] w-[142px]'>Login</button>
               </div>
             </div>
           </div>

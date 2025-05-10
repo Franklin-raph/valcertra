@@ -50,7 +50,7 @@ const PersonalInfo = ({setPersonalInfo, setCompanyInfo}) => {
         <Link to="/" className="text-secondary-color w-[50px] h-[50px] text-[20px] font-[600] absolute top-[10%] left-[50%] right-[50%] translate-x-[-50%]">
             <img src="./logo.svg" className='w-full h-full' alt="" />
         </Link>
-        <div className='bg-[#001433B2] text-white text-center w-[40%] pb-10 pt-7 px-7 rounded-[8px]'>
+        <div className='bg-[#001433B2] text-white text-center lg:w-[40%] md:w-[70%] w-[95%] pb-10 pt-7 md:px-7 px-3 rounded-[8px]'>
             <div className='flex items-center justify-between'>
                 <div className='p-3 text-[20px] rounded-[4px] bg-primary-color cursor-pointer'>
                     <IoArrowBackOutline />
@@ -66,35 +66,35 @@ const PersonalInfo = ({setPersonalInfo, setCompanyInfo}) => {
                 <div className='w-[30px] h-[5px] bg-[#F9F6EB] rounded'></div>
                 <div className='w-[30px] h-[5px] bg-[#F9F6EB] rounded'></div>
             </div>
-            <div className='flex items-center gap-4 justify-center text-left mt-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left mt-6'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>First name</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
                         <FiUser />
-                        <input onChange={e => setFirstName(e.target.value)} value={firstName} type="text" placeholder='First name' className='outline-none bg-transparent'/>
+                        <input onChange={e => setFirstName(e.target.value)} value={firstName} type="text" placeholder='First name' className='outline-none bg-transparent w-full'/>
                     </div>
                 </div>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Last Name</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
                         <FiUser />
-                        <input onChange={e => setLastName(e.target.value)} value={lastName} type="text" placeholder='Last name' className='outline-none bg-transparent'/>
+                        <input onChange={e => setLastName(e.target.value)} value={lastName} type="text" placeholder='Last name' className='outline-none bg-transparent w-full'/>
                     </div>
                 </div>
             </div>
-            <div className='flex items-center gap-4 justify-center text-left my-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left my-6'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Email</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
                         <MdOutlineMailOutline />
-                        <input onChange={e => setEmail(e.target.value)} value={email} type="text" placeholder='olivia@untitledui.com' className='outline-none bg-transparent'/>
+                        <input onChange={e => setEmail(e.target.value)} value={email} type="text" placeholder='olivia@untitledui.com' className='outline-none bg-transparent w-full'/>
                     </div>
                 </div>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Mobile Nummber</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
                         <BsTelephone />
-                        <input onChange={e => setPhone(e.target.value)} value={phone} type="text" placeholder='+234 90 000 0000' className='outline-none bg-transparent'/>
+                        <input onChange={e => setPhone(e.target.value)} value={phone} type="text" placeholder='+234 90 000 0000' className='outline-none bg-transparent w-full'/>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@ const PersonalInfo = ({setPersonalInfo, setCompanyInfo}) => {
                     <label className='block mb-1 text-[15px] text-[#fff]'>Designation/Job Title</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
                         <BsSuitcaseLg />
-                        <input onChange={e => setJobTitle(e.target.value)} value={jobTitle} type="text" placeholder='Business Owner' className='outline-none w-full bg-transparent'/>
+                        <input onChange={e => setJobTitle(e.target.value)} value={jobTitle} type="text" placeholder='Business Owner' className='outline-none w-full bg-transparent w-ful'/>
                     </div>
                 </div>
             </div>

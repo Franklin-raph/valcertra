@@ -108,7 +108,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
         <Link to="/" className="text-secondary-color w-[50px] h-[50px] text-[20px] font-[600] absolute top-0 left-[50%] right-[50%] translate-x-[-50%]">
             <img src="./logo.svg" className='w-full h-full' alt="" />
         </Link>
-        <div className='bg-[#001433B2] text-white text-center w-[40%] pb-5 pt-5 px-7 mt-12 rounded-[8px]'>
+        <div className='bg-[#001433B2] text-white text-center lg:w-[40%] md:w-[70%] w-[95%] pb-5 pt-5 md:px-7 px-3 mt-12 rounded-[8px]'>
             <div className='flex items-center justify-between'>
                 <div onClick={prevStep} className='p-3 text-[20px] rounded-[4px] bg-primary-color cursor-pointer'>
                     <IoArrowBackOutline />
@@ -124,7 +124,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                 <div className='w-[30px] h-[5px] bg-[#F9F6EB] rounded'></div>
                 <div className='w-[30px] h-[5px] bg-[#F9F6EB] rounded'></div>
             </div>
-            <div className='flex items-center gap-4 justify-center text-left mt-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left mt-6'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Company name</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-3'>
@@ -158,7 +158,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                     </div>
                 </div>
             </div>
-            <div className='flex items-center gap-4 justify-center text-left my-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left my-6'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Company Number</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center gap-2'>
@@ -175,7 +175,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                 </div>
             </div>
 
-            <div className='flex items-center gap-4 justify-center text-left my-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left my-6'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Contact Person</label>
                     <div onClick={() => setDropDown(dropDown === "contactPerson" ? false : "contactPerson")} className='relative cursor-pointer border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between'>
@@ -212,7 +212,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
             </div>
 
 
-            <div className='flex items-center gap-4 justify-center text-left my-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left my-6'>
                 <div className='w-full relative'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Country of Registration</label>
                     <div className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between cursor-pointer'>
@@ -260,7 +260,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                         <BiChevronDown className='text-[22px] cursor-pointer'/>
                         {
                             dropDown === "sectorType" &&
-                            <div className='bg-white w-full absolute top-[45px] rounded-[4px] border border-gray-300 h-[120px] overflow-x-hidden overflow-y-scroll left-0 px-2 py-3'>
+                            <div className='bg-white w-full absolute top-[45px] rounded-[4px] border border-gray-300 h-[120px] overflow-x-hidden overflow-y-scroll left-0 px-2 py-3 z-[100]'>
                                 <div>
                                 {
                                     sectorArray.map((sector) => (
@@ -278,7 +278,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                     </div>
                 </div>
             </div>
-            <div className='flex items-center gap-4 justify-center text-left my-6'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left my-6'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Type Entity</label>
                     <div onClick={() => setDropDown(dropDown === "entityType" ? false : "entityType")} className='relative cursor-pointer border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between'>
@@ -313,7 +313,7 @@ const CompanyInfo = ({ setPersonalInfo, setCompanyInfo, setCompanyLocation}) => 
                     </div>
                 </div>
             </div>
-            <div className='flex items-center gap-4 justify-center text-left'>
+            <div className='flex flex-col sm:flex-row items-center gap-4 justify-center text-left'>
                 <div className='w-full'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Ownership Type</label>
                     <div onClick={() => setDropDown(dropDown === "ownershipType" ? false : "ownershipType")} className='border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between relative cursor-pointer'>
