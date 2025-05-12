@@ -16,6 +16,9 @@ const Dashboard = () => {
     const [applications, setApplications] = useState()
     const [summary, setSummary] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [allProductPrices, setAllProductPrices] = useState();
+    const user = JSON.parse(localStorage.getItem('user'))
+    const [userDetails, setUserDetails] = useState()
     const navigate = useNavigate()
 
     const getAllApplications = async () => {
@@ -30,10 +33,34 @@ const Dashboard = () => {
       console.log(res);
     }
 
+    const getAllProductPrices = async () => {
+      try {
+          const res = await get('/product-prices/');
+          setAllProductPrices(res);
+          setIsLoading(false);
+      } catch (error) {
+          console.error("Error fetching product prices:", error);
+          setIsLoading(false);
+      }
+    }
+
+    const getUser = async () => {
+      try {
+          setIsLoading(true)
+          const res = await get(`/profile/user/${user.id}`)
+          setUserDetails(res.data)
+          console.log(res.data);
+      } catch (error) {
+          console.error("Error fetching summary:", error);
+      }finally{
+          setIsLoading(false)
+      }
+    }
+
     useEffect(() => {
       const fetchData = async () => {
         setIsLoading(true);
-        await Promise.all([getSummary(), getAllApplications()]);
+        await Promise.all([getSummary(), getAllApplications(), getAllProductPrices(), getUser()]);
         setIsLoading(false);
       };
       
@@ -52,7 +79,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[#666666]  text-[14px]">Welcome back,</p>
-                <p className="text-[#333333] font-[500] text-[20px]">Timber Industries Ltd</p>
+                <p className="text-[#333333] font-[500] text-[20px]">{userDetails?.company_data?.company_name}</p>
               </div>
               <div>
                 <button className="bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>Calculate Value Addition</button>
@@ -71,21 +98,21 @@ const Dashboard = () => {
               <div className="flex items-start gap-5 bg-[#D1FADF] p-3 rounded-[4px]">
                 <img src="./check-circle.svg" alt="" />
                 <div>
-                  <p className="text-text-color">Active Certificate</p>
+                  <p className="text-text-color">Approved Applications</p>
                   <p className="text-[#12B76A] font-[500] text-[20px] mt-3">{summary?.approved_applications}</p>
                 </div>
               </div>
               <div className="flex items-start gap-5 bg-[#FEF0C7] p-3 rounded-[4px]">
                 <img src="./file-dashboard.svg" alt="" />
                 <div>
-                  <p className="text-text-color">Pending Review</p>
+                  <p className="text-text-color">Pending Applications</p>
                   <p className="text-[#F79009] font-[500] text-[20px] mt-3">{summary?.pending_applications}</p>
                 </div>
               </div>
               <div className="flex items-start gap-5 bg-[#FEE4E2] p-3 rounded-[4px]">
                 <img src="./info.svg" alt="" />
                 <div>
-                  <p className="text-text-color">Requires Action</p>
+                  <p className="text-text-color">Rejected Applications</p>
                   <p className="text-[#D92D20] font-[500] text-[20px] mt-3">{summary?.rejected_applications}</p>
                 </div>
               </div>
@@ -94,14 +121,14 @@ const Dashboard = () => {
             <div className="mt-12">
               <div className="flex items-center justify-between">
                   <p className="text-[#333333]">Recent Application</p>
-                  <p className="text-primary-color underline cursor-pointer">View All</p>
+                  <p onClick={() => navigate('/applications')} className="text-primary-color underline cursor-pointer">View All</p>
               </div>
-              <div className="flex items-center justify-center mt-[5rem]">
                 {
                   applications?.length === 0 &&
-                  <p>No Recent Applications Yet</p>
+                  <div className="flex items-center justify-center mt-[5rem]">
+                    <p>No Recent Applications Yet</p>
+                  </div>
                 }
-              </div>
               {
                 applications?.map((application, index) => (
                   <div onClick={() => navigate(`/applications/${application.id}`)} className="border border-[#F2F4F7] px-4 py-[10px] mt-4 rounded-[4px] cursor-pointer">
@@ -139,7 +166,7 @@ const Dashboard = () => {
                       </div>
                       <div className="flex items-center justify-between text-[15px]">
                           <p className="text-text-color">Submitted: { new Date(application.created_at).toLocaleDateString() } </p>
-                          <p className="text-text-color">Value Addition: 46%</p>
+                          <p className="text-text-color">Value Addition: {application.cva}%</p>
                       </div>
                   </div>
                 ))
