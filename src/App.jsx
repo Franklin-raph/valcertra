@@ -22,6 +22,7 @@ import Payments from './pages/payments/Payments';
 import PendingPayments from './pages/pending-payments/PendingPayments';
 import PaidApplicationsPayments from './pages/paid-application-payments/PaidApplicationsPayments';
 import Profile from './pages/profile/Profile';
+import PaymentSuccessfull from './pages/payment-successfull/PaymentSuccessfull';
 
 function App() {
   
@@ -47,6 +48,7 @@ function App() {
         <Route path='/certificates/:id' element={<CertificateView />}/>
         <Route path='/applications/:id' element={<ApplicationView />}/>
         <Route path='/login' element={<Login />}/>
+        <Route path='/paymment-verification' element={<PaymentSuccessfull />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
         <Route path='/password-reset' element={<PasswordReset />}/>
         <Route path='/verify-email' element={<ForgotPasswordEmailVerify />}/>

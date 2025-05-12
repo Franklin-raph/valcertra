@@ -36,7 +36,7 @@ const Dashboard = () => {
     const getAllProductPrices = async () => {
       try {
           const res = await get('/product-prices/');
-          setAllProductPrices(res);
+          setAllProductPrices(res.data);
           setIsLoading(false);
       } catch (error) {
           console.error("Error fetching product prices:", error);
@@ -196,7 +196,7 @@ const Dashboard = () => {
         valueAddedCalculator && <ValueAdditionCalculator setValueAddedCalculator={setValueAddedCalculator}/>
       }
       {
-        certificationApplication && <CertificateApplication setCertificationApplication={setCertificationApplication}/>
+        certificationApplication && <CertificateApplication allProductPrices={allProductPrices} setCertificationApplication={setCertificationApplication}/>
       }
     </div>
   );

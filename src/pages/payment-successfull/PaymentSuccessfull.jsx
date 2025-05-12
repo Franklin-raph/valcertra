@@ -1,0 +1,34 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
+const PaymentSuccessfull = () => {
+
+    const navigate = useNavigate()
+
+  return (
+    <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center z-[500]">
+        <div className="w-24 h-24 relative mb-8">
+            {/* Main animated circle */}
+            <div className="absolute inset-0 border-4 border-t-primary-color border-r-secondary-color border-b-blue-300 border-l-blue-500 rounded-full animate-spin"></div>
+            
+            {/* Inner pulsing logo */}
+            <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-12 h-12 bg-primary-color rounded-lg animate-pulse flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">V</span>
+                </div>
+            </div>
+        </div>
+        
+        {/* Progress bar */}
+        <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden mb-2">
+            <p>Payment Successfull</p>
+        </div>
+        
+        {/* Loading text */}
+        <p className="text-gray-700 font-medium">Payment Verified Successfully</p>
+        <button className='bg-primary-color text-secondary-color py-2 rounded px-4 mt-4' onClick={() => navigate('/dashboard')}>Continue to dashboard</button>
+    </div>
+  )
+}
+
+export default PaymentSuccessfull

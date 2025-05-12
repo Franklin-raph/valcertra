@@ -1,25 +1,28 @@
-import { useState } from 'react';
-import { BiCheck, BiTrash, BiTrashAlt } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
+import { BiCheck, BiChevronDown, BiTrash, BiTrashAlt } from 'react-icons/bi';
 import { FiFile } from 'react-icons/fi';
 import { IoArrowBackOutline, IoCloseOutline } from 'react-icons/io5';
 import Cookies from 'js-cookie';
 import Alert from '../alert/Alert';
-import { post } from '../../utils/axiosHelpers';
+import { get, post } from '../../utils/axiosHelpers';
 import BtnLoader from '../btnLoader/BtnLoader';
 
-export default function CertificateApplication({ setCertificationApplication }) {
+export default function CertificateApplication({ setCertificationApplication, allProductPrices }) {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 8;
   const [fileUploadLoader, setFileUploadLoader] = useState(false)
   const token = Cookies.get('token')
   const [msg, setMsg] = useState('')
   const [alertType, setAlertType] = useState('')
+  const [dropDown, setDropDown] = useState('');
   const [loading, setLoading] = useState(false)
+  const [productCategoryText, setProductCategoryText] = useState('')
+  
   
   const [formData, setFormData] = useState({
     // Product Details
     product_name: '',
-    product_category: 'Agro',
+    product_category: '',
     
     // Processing Information
     source_location: '',
@@ -118,7 +121,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
     
     
     try {
-      const res = await fetch(`https://vercertrabe.onrender.com/media/upload`, {
+      const res = await fetch(`https://valcretra-api.rawmaterialafrica.com/upload`, {
         method: "POST",
         body: uploadFormData,
         headers : {
@@ -186,7 +189,7 @@ export default function CertificateApplication({ setCertificationApplication }) 
     uploadFormData.append('media_type', mediaType);
 
     try {
-      const res = await fetch(`https://vercertrabe.onrender.com/media/upload`, {
+      const res = await fetch(`https://valcretra-api.rawmaterialafrica.com/upload`, {
         method: "POST",
         body: uploadFormData,
         headers : {
@@ -220,6 +223,8 @@ export default function CertificateApplication({ setCertificationApplication }) 
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
+    console.log(formData);
+    
     // submitApplication()
   };
   
@@ -234,8 +239,10 @@ export default function CertificateApplication({ setCertificationApplication }) 
       setLoading(true)
       const res = await post('/application/create_application/', formData)
       console.log(res);
+      console.log(res?.data?.id);
       setMsg(res?.message)
       setAlertType('success')
+      makePayment(res?.data?.id)
       // setCertificationApplication(false)
     } catch (error) {
       setMsg(error?.response?.data?.message)
@@ -257,6 +264,30 @@ export default function CertificateApplication({ setCertificationApplication }) 
     { id: 8, name: 'Declaration', current: currentStep === 8 },
   ];
   
+  useEffect(() => {
+    console.log(allProductPrices);
+  },[])
+
+  const makePayment = async (appId) => {
+      // console.log({application_ids: [id]});
+      
+      try {
+        // Ensure id is converted to an array of strings
+        const res = await post('/application/pay_application/', {
+          application_ids: [appId],
+          success_url: 'http://localhost:5174/#/paymment-verification'
+        });
+        
+        // Handle successful payment response
+        console.log('Payment response:', res);
+        window.location.assign(res.data.data.link)
+        
+      } catch (error) {
+        // Handle payment error
+        console.error('Payment error:', error);
+      }
+    };
+
   return (
     <div className='cert-application'>
       {msg && <Alert alertType={alertType} msg={msg} setMsg={setMsg} />}
@@ -344,27 +375,32 @@ export default function CertificateApplication({ setCertificationApplication }) 
                     onChange={(e) => handleInputChange('product_name', e.target.value)}
                   />
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-[#344054] mb-1">
-                    Product Category
-                  </label>
-                  <div className="relative">
-                    <select
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                      value={formData.product_category}
-                      onChange={(e) => handleInputChange('product_category', e.target.value)}
-                    >
-                      <option value="agriculture">Agriculture</option>
-                      <option value="solid_minerals">Solid Minerals</option>
-                      <option value="energy_resources">Energy Resources</option>
-                    </select>
-                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                      <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
+                {/* allProductPrices */}
+                <div className='w-full relative'>
+                    <label className='block mb-1 text-[15px] text-[#fff]'>Product Category</label>
+                    <div className='cursor-pointer border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between'>
+                        {/* <CiMap className='text-[20px]' /> */}
+                        <input type="text" placeholder='Onitsha' value={productCategoryText} className='outline-none bg-transparent w-full ml-3 cursor-pointer'/>
+                        <BiChevronDown onClick={() => setDropDown(dropDown === "product_category" ? false : "product_category")} className='text-[22px] cursor-pointer'/>
+                        {
+                            dropDown === "product_category" &&
+                            <div className='bg-white w-full absolute top-[70px] rounded-[4px] border border-gray-300 h-[200px] overflow-x-hidden overflow-y-scroll left-0 px-2 py-3'>
+                                <div>
+                                  {
+                                      allProductPrices?.map((product) => (
+                                          <div className='flex items-center gap-2 hover:bg-gray-300 cursor-pointer p-[5px] text-[14px] text-gray-500'onClick={() => {
+                                              setDropDown(false)
+                                              setProductCategoryText(product.product_category)
+                                              formData.product_category = product.id
+                                          }}>
+                                              <p>{product.product_category}</p>
+                                          </div>
+                                      ))
+                                  }
+                                </div>
+                            </div>
+                        }
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -468,30 +504,12 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Final Product Value
                     </label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                        $
-                      </span>
                       <input
                         type="number"
-                        className="w-full border border-gray-300 rounded-r-md px-3 py-2"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2"
                         value={formData.final_product_value}
                         onChange={(e) => handleInputChange('final_product_value', parseFloat(e.target.value))}
                       />
-                      <div className="relative ml-2">
-                        <select
-                          className="border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                          defaultValue="USD"
-                        >
-                          <option value="USD">USD</option>
-                          <option value="EUR">EUR</option>
-                          <option value="GBP">GBP</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -602,28 +620,12 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Annual Spend on Imported Raw Materials
                     </label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                        $
-                      </span>
                       <input
                         type="number"
-                        className="w-full border border-gray-300 rounded-r-md px-3 py-2"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2"
                         value={formData.annual_spend_on_imported_raw_materials}
                         onChange={(e) => handleInputChange('annual_spend_on_imported_raw_materials', parseFloat(e.target.value))}
                       />
-                      <div className="relative ml-2">
-                        <select
-                          className="border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                          defaultValue="USD"
-                        >
-                          <option value="USD">USD</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   
@@ -632,28 +634,12 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Annual Spend on Locally Sourced Raw Materials
                     </label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                        $
-                      </span>
                       <input
                         type="number"
-                        className="w-full border border-gray-300 rounded-r-md px-3 py-2"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2"
                         value={formData.annual_spend_on_locally_sourced_materials}
                         onChange={(e) => handleInputChange('annual_spend_on_locally_sourced_materials', parseFloat(e.target.value))}
                       />
-                      <div className="relative ml-2">
-                        <select
-                          className="border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                          defaultValue="USD"
-                        >
-                          <option value="USD">USD</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -755,28 +741,12 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Final Product Value
                     </label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                        $
-                      </span>
                       <input
                         type="number"
-                        className="w-full border border-gray-300 rounded-r-md px-3 py-2"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2"
                         value={formData.final_product_cost}
                         onChange={(e) => handleInputChange('final_product_cost', parseFloat(e.target.value))}
                       />
-                      <div className="relative ml-2">
-                        <select
-                          className="border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                          defaultValue="USD"
-                        >
-                          <option value="USD">USD</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   
@@ -785,28 +755,12 @@ export default function CertificateApplication({ setCertificationApplication }) 
                       Raw Material Cost
                     </label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                        $
-                      </span>
                       <input
                         type="number"
-                        className="w-full border border-gray-300 rounded-r-md px-3 py-2"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2"
                         value={formData.raw_material_cost}
                         onChange={(e) => handleInputChange('raw_material_cost', parseFloat(e.target.value))}
                       />
-                      <div className="relative ml-2">
-                        <select
-                          className="border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                          defaultValue="USD"
-                        >
-                          <option value="USD">USD</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

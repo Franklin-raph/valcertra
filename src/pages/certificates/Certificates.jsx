@@ -2,12 +2,27 @@ import React, { useState, useEffect } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useNavigate } from "react-router-dom";
+import { get } from "../../utils/axiosHelpers";
 
 
 const Certificates = () => {
 
     const [toggleNav, setToggleNav] = useState(false)
-    const filters = [ "All", "Draft", "Certified", "Under Review", "Rejected" ]
+
+    const getCertificates = async () => {
+      try {
+        const res = await get('application/my_applications/?status=under_review&paid=false')
+        console.log(res);
+        
+      } catch (error) {
+        
+      }
+    }
+
+    useEffect(() => {
+      getCertificates()
+    },[])
+
     const navigate = useNavigate()
   
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
-import { get } from "../../utils/axiosHelpers";
+import { get, post } from "../../utils/axiosHelpers";
 import { useParams } from "react-router-dom";
 import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
 
@@ -28,6 +28,26 @@ const ApplicationView = () => {
         }
     }
 
+    const makePayment = async () => {
+        console.log({application_ids: [id]});
+        
+        try {
+          // Ensure id is converted to an array of strings
+          const res = await post('/application/pay_application/', {
+            application_ids: [id], 
+            success_url: 'http://localhost:5174/#/paymment-verification'
+          });
+          
+          // Handle successful payment response
+          console.log('Payment response:', res);
+          window.location.assign(res.data.data.link)
+          
+        } catch (error) {
+          // Handle payment error
+          console.error('Payment error:', error);
+        }
+      };
+
     useEffect(() => {
         getApplicationInfo()
     },[])
@@ -40,37 +60,43 @@ const ApplicationView = () => {
         <div className="w-full lg:w-[82%] ml-auto">
           <TopNav setToggleNav={setToggleNav} toggleNav={toggleNav} />
           <div className="px-[10px] md:px-[30px] pb-[1rem] mt-[100px]">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                    {
+                        applicationInfo?.status === 'pending' ?
+                        (
+                        <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
+                            <img src="./clock.svg" alt="" className="w-[16px]" />
+                            <p className="text-[14px] text-[#B54708] font-[500]">Pending</p>
+                        </div>
+                        ) :
+                        applicationInfo?.status === 'under_review' ?
+                        (
+                        <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
+                            <img src="./clock.svg" alt="" className="w-[16px]" />
+                            <p className="text-[14px] text-[#B54708] font-[500]">Under Review</p>
+                        </div>
+                        )
+                        :
+                        applicationInfo?.status === 'rejected' ?
+                        (
+                        <div className="flex items-center gap-2 bg-[#FEF3F2] rounded-full py-[6px] px-[10px]">
+                            <img src="./x-circle.svg" alt="" className="w-[16px]" />
+                            <p className="text-[14px] text-[#B42318] font-[500]">Rejected</p>
+                        </div>
+                        )
+                        :
+                        <div className="flex items-center gap-2 bg-[#ECFDF3] rounded-full py-[6px] px-[10px]">
+                            <img src="./check-circle.svg" alt="" className="w-[16px]" />
+                            <p className="text-[14px] text-[#027A48] font-[500]">Certified</p>
+                        </div>
+                    }
+                    <p className="text-[#666666]">Submitted on { new Date(applicationInfo?.updated_at).toDateString() }</p>
+                </div>
                 {
-                    applicationInfo?.status === 'pending' ?
-                    (
-                    <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
-                        <img src="./clock.svg" alt="" className="w-[16px]" />
-                        <p className="text-[14px] text-[#B54708] font-[500]">Pending</p>
-                    </div>
-                    ) :
-                    applicationInfo?.status === 'under_review' ?
-                    (
-                    <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
-                        <img src="./clock.svg" alt="" className="w-[16px]" />
-                        <p className="text-[14px] text-[#B54708] font-[500]">Under Review</p>
-                    </div>
-                    )
-                    :
-                    applicationInfo?.status === 'rejected' ?
-                    (
-                    <div className="flex items-center gap-2 bg-[#FEF3F2] rounded-full py-[6px] px-[10px]">
-                        <img src="./x-circle.svg" alt="" className="w-[16px]" />
-                        <p className="text-[14px] text-[#B42318] font-[500]">Rejected</p>
-                    </div>
-                    )
-                    :
-                    <div className="flex items-center gap-2 bg-[#ECFDF3] rounded-full py-[6px] px-[10px]">
-                        <img src="./check-circle.svg" alt="" className="w-[16px]" />
-                        <p className="text-[14px] text-[#027A48] font-[500]">Certified</p>
-                    </div>
+                    applicationInfo?.paid === false &&
+                    <button onClick={makePayment} className="bg-primary-color text-secondary-color py-[5px] px-3 rounded">Pay</button>
                 }
-                <p className="text-[#666666]">Submitted on { new Date(applicationInfo?.updated_at).toDateString() }</p>
             </div>
 
             <div className="mt-7 border border-[#F2F4F7] py-4 px-3 rounded-[4px]">
@@ -98,7 +124,7 @@ const ApplicationView = () => {
                                 </div>
                                 <div>
                                     <p className="text-text-color font-[500] text-[16px]">Product Category</p>
-                                    <p className="text-[#666666] mt-[2px]">{applicationInfo?.product_category}</p>
+                                    <p className="text-[#666666] mt-[2px]">{applicationInfo?.product_category?.product_category}</p>
                                 </div>
                                 <div>
                                     <p className="text-text-color font-[500] text-[16px]">Date Applied</p>
