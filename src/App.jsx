@@ -23,7 +23,6 @@ import PendingPayments from './pages/pending-payments/PendingPayments';
 import PaidApplicationsPayments from './pages/paid-application-payments/PaidApplicationsPayments';
 import Profile from './pages/profile/Profile';
 import PaymentSuccessfull from './pages/payment-successfull/PaymentSuccessfull';
-import QrCodeViewPage from './pages/qr-code-view-page/QrCodeViewPage';
 
 function App() {
   
@@ -47,7 +46,6 @@ function App() {
         <Route path='/payments/paid' element={<PaidApplicationsPayments />}/>
         <Route path='/certificates' element={<Certificates />}/>
         <Route path='/certificates/:id' element={<CertificateView />}/>
-        <Route path='/view-certificate/:id' element={<QrCodeViewPage />}/>
         <Route path='/applications/:id' element={<ApplicationView />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/paymment-verification' element={<PaymentSuccessfull />}/>
