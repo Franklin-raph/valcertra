@@ -397,7 +397,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                                               setProductCategoryText(product.product_category)
                                               formData.product_category = product.id
                                           }}>
-                                              <p>{product.product_category}</p>
+                                              <p>{product.product_category} - ${product.product_amount}</p>
                                           </div>
                                       ))
                                   }

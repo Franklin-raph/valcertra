@@ -26,9 +26,8 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
     const productValue = parseFloat(formData.productValue) || 0;
     const importedInputs = parseFloat(formData.importedInputsCost) || 0;
     
-    const valueAdded = productValue - importedInputs;
-    const valueAddedPercentage = productValue > 0 ? 
-      (valueAdded / productValue) * 100 : 0;
+    const valueAdded = importedInputs / productValue;
+    const valueAddedPercentage = valueAdded * 100;
     
     setResults({
       valueAdded: valueAdded.toFixed(2),
@@ -87,13 +86,24 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
                         <h3 className="font-semibold text-[#333333] mb-2 text-left">How it is calculated:</h3>
                         <h3 className="text-[#666666] text-[14px] mb-2 text-left">To calculate your Value Addition (%)::</h3>
                         <div className="mb-6 bg-secondary-color p-4 rounded w-full">
-                            <p className='text-left text-[14px] text-[#666666] mt-3'>Value Addition = ( (Final Product Value - Imported Inputs) / Final Product Value ) x 100</p>
+                            <p className='text-left text-[14px] text-[#666666] mt-3'>Value Addition = ( (Final Product Value - Total Local Production Cost) / Final Product Value ) x 100</p>
                         </div>
                     </div>
                 )
             }
 
             {/* Input Fields */}
+            <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1 text-left">Your Total Local Production Cost(#)</label>
+                <input
+                    type="text"
+                    value={formData.importedInputsCost}
+                    onChange={(e) => handleInputChange('importedInputsCost', e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="0.00"
+                />
+            </div>
+            
             <div className="mt-4 mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-1 text-left">Your Final Product Value (#)</label>
                 <input
@@ -105,16 +115,6 @@ export default function ValueAdditionCalculator({setValueAddedCalculator}) {
                 />
             </div>
             
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1 text-left">Your Total Local Production Cost(#)</label>
-                <input
-                    type="text"
-                    value={formData.importedInputsCost}
-                    onChange={(e) => handleInputChange('importedInputsCost', e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="0.00"
-                />
-            </div>
 
             {/* Results Section (conditionally shown) */}
 
