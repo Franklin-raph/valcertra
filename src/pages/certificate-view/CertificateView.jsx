@@ -260,7 +260,7 @@ const CertificateView = () => {
                   }`}
                 />
                 <p className="text-[#666666] text-[15px] text-center mt-3">
-                  Value Addition: 46%
+                  Value Addition: {certificateInfo?.data?.application?.cva} %
                 </p>
                 <button 
                   onClick={downloadCertificate}
@@ -310,7 +310,7 @@ const CertificateView = () => {
               </p>
               <div className="flex items-center gap-4 mt-4">
                 <p className="text-[#667085] border border-[#D0D5DD] w-full py-[6px] px-3 rounded-[4px]">
-                  https://valcertra-verification-portal.vercel.app/${certificateInfo?.cert_no}
+                  https://valcertra-verification-portal.vercel.app/{certificateInfo?.cert_no}
                 </p>
                 <button
                   onClick={copyToClipboard}
