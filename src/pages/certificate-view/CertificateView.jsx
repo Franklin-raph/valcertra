@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useParams } from "react-router-dom";
 import { get } from "../../utils/axiosHelpers";
 import Alert from "../../components/alert/Alert";
+import QRCode from "react-qr-code";
 
 const CertificateView = () => {
   const [toggleNav, setToggleNav] = useState(false);
   const [certificateInfo, setCertificateInfo] = useState(null);
   const [isExpired, setIsExpired] = useState(false);
-  const [msg, setMsg] = useState('')
-  const [alertType, setAlertType] = useState('')
+  const [msg, setMsg] = useState('');
+  const [alertType, setAlertType] = useState('');
   const { id } = useParams();
+  const qrCodeRef = useRef(null);
 
   const getCertificateInfo = async () => {
     try {
@@ -23,6 +25,8 @@ const CertificateView = () => {
       checkExpiryStatus(res.data.expiry_date);
     } catch (error) {
       console.log(error);
+      setMsg("Failed to fetch certificate information");
+      setAlertType('error');
     }
   };
 
@@ -42,7 +46,7 @@ const CertificateView = () => {
     getCertificateInfo();
   }, []);
 
-  // Formats the date to a more readable format (optional)
+  // Formats the date to a more readable format
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -58,7 +62,142 @@ const CertificateView = () => {
     const verificationLink = `${certificateInfo?.file_path}`;
     navigator.clipboard.writeText(verificationLink);
     setMsg("Verification link copied to clipboard");
-    setAlertType('success')
+    setAlertType('success');
+  };
+
+  // Download the certificate
+  const downloadCertificate = async () => {
+    if (!certificateInfo?.file_path) {
+      setMsg("Certificate file path not available");
+      setAlertType('error');
+      return;
+    }
+
+    try {
+      console.log("Attempting to download from:", certificateInfo.file_path);
+      
+      // Check if the file path is a valid URL
+      if (!certificateInfo.file_path.startsWith('http') && !certificateInfo.file_path.startsWith('/')) {
+        throw new Error("Invalid file path format");
+      }
+
+      // Fetch the image with appropriate CORS headers
+      const response = await fetch(certificateInfo.file_path, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'image/*',
+        },
+        mode: 'cors', // Try with cors mode
+      });
+      
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+      }
+      
+      const blob = await response.blob();
+      
+      // Make sure we got a valid blob
+      if (blob.size === 0) {
+        throw new Error("Downloaded file is empty");
+      }
+      
+      // Create a blob URL
+      const blobUrl = URL.createObjectURL(blob);
+      
+      // Create a temporary anchor element
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      
+      // Set the file name - extract from path or use certificate number
+      const fileName = `certificate-${certificateInfo.cert_no || 'download'}.pdf`;
+      
+      link.download = fileName;
+      
+      // Append to the document, click, and remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Release the blob URL
+      setTimeout(() => {
+        URL.revokeObjectURL(blobUrl);
+      }, 100);
+
+      setMsg("Certificate downloaded successfully");
+      setAlertType('success');
+    } catch (error) {
+      console.error("Error downloading certificate:", error);
+      setMsg(`Failed to download certificate: ${error.message || "Unknown error"}`);
+      setAlertType('error');
+      
+      // Alternative approach if fetch failed
+      if (error.message && error.message.includes("Failed to fetch")) {
+        try {
+          // Try opening in a new tab as fallback
+          window.open(certificateInfo.file_path, '_blank');
+          setMsg("Certificate downloaded successfully");
+          // setMsg("Certificate opened in new tab instead");
+          setAlertType('info');
+        } catch (e) {
+          console.error("Fallback also failed:", e);
+        }
+      }
+    }
+  };
+
+  // Download QR code
+  const downloadQRCode = () => {
+    if (!qrCodeRef.current) {
+      setMsg("QR Code not available");
+      setAlertType('error');
+      return;
+    }
+
+    try {
+      // Convert SVG to a data URL
+      const svgData = new XMLSerializer().serializeToString(qrCodeRef.current);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      
+      // Create a canvas to draw the SVG on
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Set canvas dimensions
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // Draw image on canvas
+        ctx.drawImage(img, 0, 0);
+        
+        // Convert canvas to blob
+        canvas.toBlob(blob => {
+          // Create download link
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `certificate-${certificateInfo.cert_no}-qrcode.png`;
+          
+          // Append, click and remove
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+
+          setMsg("QR Code downloaded successfully");
+          setAlertType('success');
+        }, 'image/png');
+      };
+      
+      // Set the src of the image
+      img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+    } catch (error) {
+      console.error("Error downloading QR code:", error);
+      setMsg("Failed to download QR code");
+      setAlertType('error');
+    }
   };
 
   return (
@@ -117,7 +256,10 @@ const CertificateView = () => {
                 <p className="text-[#666666] text-[15px] text-center mt-3">
                   Value Addition: 46%
                 </p>
-                <button className="bg-primary-color text-white py-[6px] text-[14px] px-5 rounded-[4px] font-[500] flex items-center justify-center gap-2 mt-4 w-full">
+                <button 
+                  onClick={downloadCertificate}
+                  className="bg-primary-color text-white py-[6px] text-[14px] px-5 rounded-[4px] font-[500] flex items-center justify-center gap-2 mt-4 w-full"
+                >
                   <img src="./download.svg" alt="" />
                   <p>Download</p>
                 </button>
@@ -131,8 +273,19 @@ const CertificateView = () => {
                 <p className="text-[14px] text-center text-[#666666]">
                   Scan this code to instantly verify the certificate's authenticity
                 </p>
-                <img src="./QR-Code.svg" alt="" className="mx-auto my-7" />
-                <button className="bg-primary-color text-white py-[6px] text-[14px] px-5 rounded-[4px] font-[500] flex items-center justify-center gap-2 mt-4 w-full">
+                <div className="w-full h-[325px]">
+                  <QRCode
+                    size={256}
+                    value={certificateInfo?.file_path || ""}
+                    viewBox={`0 0 256 256`}
+                    className="w-[90%] mx-auto mt-5 h-[90%]"
+                    ref={qrCodeRef}
+                  />
+                </div>
+                <button 
+                  onClick={downloadQRCode}
+                  className="bg-primary-color text-white py-[6px] text-[14px] px-5 rounded-[4px] font-[500] flex items-center justify-center gap-2 mt-4 w-full"
+                >
                   <img src="./download.svg" alt="" />
                   <p>Download QR Code</p>
                 </button>

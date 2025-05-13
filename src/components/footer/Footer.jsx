@@ -6,17 +6,19 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <div className='bg-primary-color px-4 py-[2rem] mb-6 flex items-center justify-between flex-col'>
-      <p className='text-white'>Logo</p>
+      <p className='text-white mb-3'>
+        <img src="./complete-logo-white.svg" alt="" />
+      </p>
       <ul className='flex flex-col sm:flex-row items-center md:gap-[20px] gap-[30px] mt-[1.5rem]'>
         <li>
-          <Link to="/" className="text-white hover:text-gray-300">About us</Link>
+          <Link to="/about-us" className="text-white hover:text-gray-300">About us</Link>
         </li>
         <li>
-          <Link to="/" className="text-white hover:text-gray-300">Services</Link>
+          <Link to="/services" className="text-white hover:text-gray-300">Services</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/" className="text-white hover:text-gray-300">FAQs</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/terms-of-use" className="text-white hover:text-gray-300">Terms</Link>
         </li>
@@ -24,7 +26,13 @@ const Footer = () => {
           <Link to="/privacy-policy" className="text-white hover:text-gray-300">Privacy Policy</Link>
         </li>
         <li>
-          <Link to="/" className="text-white hover:text-gray-300">Contact</Link>
+          <Link to="/contact" className="text-white hover:text-gray-300">Contact</Link>
+        </li>
+        <li>
+          <Link to="/liscence" className="text-white hover:text-gray-300">Licensing</Link>
+        </li>
+        <li>
+          <Link to="/" className="text-white hover:text-gray-300">How it Works</Link>
         </li>
       </ul>
       <div className='bg-[#EAECF0] py-[0.5px] w-[80%] mx-auto mt-[4rem]'></div>
