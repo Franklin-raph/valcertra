@@ -282,7 +282,7 @@ const CertificateView = () => {
                 <div className="w-full h-[325px]">
                   <QRCode
                     size={256}
-                    value={certificateInfo?.file_path || ""}
+                    value={`https://valcertra-verification-portal.vercel.app/${certificateInfo?.cert_no}`}
                     viewBox={`0 0 256 256`}
                     className="w-[90%] mx-auto mt-5 h-[90%]"
                     ref={qrCodeRef}
