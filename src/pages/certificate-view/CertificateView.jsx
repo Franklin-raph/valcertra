@@ -64,7 +64,7 @@ const CertificateView = () => {
 
   // Copy verification link to clipboard
   const copyToClipboard = () => {
-    const verificationLink = `${certificateInfo?.file_path}`;
+    const verificationLink = `https://valcertra-verification-portal.vercel.app/${certificateInfo?.cert_no}`;
     navigator.clipboard.writeText(verificationLink);
     setMsg("Verification link copied to clipboard");
     setAlertType('success');
@@ -310,7 +310,7 @@ const CertificateView = () => {
               </p>
               <div className="flex items-center gap-4 mt-4">
                 <p className="text-[#667085] border border-[#D0D5DD] w-full py-[6px] px-3 rounded-[4px]">
-                  {certificateInfo?.file_path}
+                  https://valcertra-verification-portal.vercel.app/${certificateInfo?.cert_no}
                 </p>
                 <button
                   onClick={copyToClipboard}
