@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { get } from "../../utils/axiosHelpers";
 import Alert from "../../components/alert/Alert";
 import QRCode from "react-qr-code";
+import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
 
 const CertificateView = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -14,9 +15,11 @@ const CertificateView = () => {
   const [alertType, setAlertType] = useState('');
   const { id } = useParams();
   const qrCodeRef = useRef(null);
+  const [loading, setLoading] = useState(false)
 
   const getCertificateInfo = async () => {
     try {
+      setLoading(true)
       const res = await get(`/certificate/${id}`);
       console.log(res);
       setCertificateInfo(res.data);
@@ -27,6 +30,8 @@ const CertificateView = () => {
       console.log(error);
       setMsg("Failed to fetch certificate information");
       setAlertType('error');
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -202,6 +207,7 @@ const CertificateView = () => {
 
   return (
     <div>
+        {loading && <FullPageLoader page="Certificate"/>}
       <>
       {msg && <Alert alertType={alertType} msg={msg} setMsg={setMsg} />}
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav} />

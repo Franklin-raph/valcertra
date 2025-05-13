@@ -4,6 +4,7 @@ import SideNav from "../../components/side-nav/SideNav";
 import { get, post } from "../../utils/axiosHelpers";
 import { useParams } from "react-router-dom";
 import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
+import DocumentsView from "../../components/documents-view/DocumentsView";
 
 
 const ApplicationView = () => {
@@ -13,6 +14,8 @@ const ApplicationView = () => {
     const [isLoading, setIsLoading] = useState(true)
     const tabs = ["Application Details", "Uploaded Documents"]
     const [selectedTab, setSelectedTab] = useState(tabs[0])
+    const [viewDocument, setViewDocument] = useState('')
+    const [fileToView, setFileToView] = useState('')
     const { id } = useParams()
 
     const getApplicationInfo = async () => {
@@ -54,7 +57,7 @@ const ApplicationView = () => {
   
   return (
     <div>
-        {isLoading && <FullPageLoader />}
+      {isLoading && <FullPageLoader page="Application"/>}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">
@@ -95,7 +98,7 @@ const ApplicationView = () => {
                 </div>
                 {
                     applicationInfo?.paid === false &&
-                    <button onClick={makePayment} className="bg-primary-color text-secondary-color py-[5px] px-3 rounded">Pay</button>
+                    <button onClick={makePayment} className="bg-primary-color text-secondary-color py-[5px] px-3 rounded">Make Payment</button>
                 }
             </div>
 
@@ -162,7 +165,10 @@ const ApplicationView = () => {
                                                 {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                             </div>
                                         </div>
-                                        <img src="./eye.svg" alt="" />
+                                        <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                            setViewDocument('Process flow diagram')
+                                            setFileToView(applicationInfo?.process_flow_diagram?.media)
+                                        }}/>
                                     </div>
                                 </div>
                                 <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
@@ -245,7 +251,7 @@ const ApplicationView = () => {
                                     </div>
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Calculated value addition (%)</p>
-                                        <p className="text-[#666666] mt-[2px]">{applicationInfo?.calculated_value_addition}</p>
+                                        <p className="text-[#666666] mt-[2px]">{applicationInfo?.cva}</p>
                                     </div>
                                 </div>
                             </div>
@@ -314,7 +320,7 @@ const ApplicationView = () => {
                                 <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Do you run or fund community development project</p>
-                                        <p className="text-[#666666] mt-[2px]">{applicationInfo?.do_you_run_or_fund_community_development_project}</p>
+                                        <p className="text-[#666666] mt-[2px]">{applicationInfo?.do_you_run_or_fund_community_development_project.toString()}</p>
                                     </div>
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Project description</p>
@@ -328,7 +334,7 @@ const ApplicationView = () => {
                                 <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Grievance mechanism description</p>
-                                        <p className="text-[#666666] mt-[2px]">{applicationInfo?.grievance_mechanism_description}</p>
+                                        <p className="text-[#666666] mt-[2px]">{applicationInfo?.grievance_mechanism_description.toString()}</p>
                                     </div>
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Grievance description</p>
@@ -371,7 +377,10 @@ const ApplicationView = () => {
                                             {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                         </div>
                                     </div>
-                                    <img src="./eye.svg" alt="" />
+                                    <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                        setViewDocument('Certificate of Company Registration')
+                                        setFileToView(applicationInfo?.certificate_of_company_registration?.media)
+                                    }}/>
                                 </div>
                                 <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
@@ -381,7 +390,10 @@ const ApplicationView = () => {
                                             {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                         </div>
                                     </div>
-                                    <img src="./eye.svg" alt="" />
+                                    <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                        setViewDocument('Environmental Impact Assessment Report')
+                                        setFileToView(applicationInfo?.environmental_impact_assessment_report?.media)
+                                    }}/>
                                 </div>
                             </div>
                             <div className="px-[20px] mt-5 grid grid-cols-2 gap-7">
@@ -393,7 +405,10 @@ const ApplicationView = () => {
                                             {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                         </div>
                                     </div>
-                                    <img src="./eye.svg" alt="" />
+                                    <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                        setViewDocument('Operational Process Flowchart')
+                                        setFileToView(applicationInfo?.operational_process_flowchart?.media)
+                                    }}/>
                                 </div>
                                 <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
@@ -403,7 +418,10 @@ const ApplicationView = () => {
                                             {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                         </div>
                                     </div>
-                                    <img src="./eye.svg" alt="" />
+                                    <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                        setViewDocument('Corporate Social Responsibility Report')
+                                        setFileToView(applicationInfo?.corporate_social_responsibility_report?.media)
+                                    }}/>
                                 </div>
                             </div>
                             <div className="px-[20px] mt-5 grid grid-cols-2 gap-7">
@@ -415,7 +433,10 @@ const ApplicationView = () => {
                                             {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                         </div>
                                     </div>
-                                    <img src="./eye.svg" alt="" />
+                                    <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                        setViewDocument('Any Industry Certificate')
+                                        setFileToView(applicationInfo?.any_industry_certifications?.media)
+                                    }}/>
                                 </div>
                                 <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
@@ -425,7 +446,10 @@ const ApplicationView = () => {
                                             {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                         </div>
                                     </div>
-                                    <img src="./eye.svg" alt="" />
+                                    <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                        setViewDocument('Photos of Production Sites, Facilities or Warehouse')
+                                        setFileToView(applicationInfo?.photo_of_production_site_facilities_or_warehouses?.media)
+                                    }}/>
                                 </div>
                             </div>
                         </div>
@@ -442,7 +466,10 @@ const ApplicationView = () => {
                                                     {/* <p className="text-[#475467] mt-[4px]">200 KB</p> */}
                                                 </div>
                                             </div>
-                                            <img src="./eye.svg" alt="" />
+                                            <img src="./eye.svg" alt="" className="cursor-pointer" onClick={() => {
+                                                setViewDocument(`Supplier Invoice ${index+1}`)
+                                                setFileToView(invoice?.media)
+                                            }}/>
                                         </div>
                                     ))
                                 }
@@ -454,6 +481,9 @@ const ApplicationView = () => {
           </div>
         </div>
       </>
+      {
+        viewDocument && <DocumentsView setViewDocument={setViewDocument} fileName={viewDocument} fileToView={fileToView}/>
+      }
     </div>
   );
 }

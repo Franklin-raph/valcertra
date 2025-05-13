@@ -43,7 +43,7 @@ const Profile = () => {
 
   return (
     <div>
-      {isLoading && <FullPageLoader />}
+      {isLoading && <FullPageLoader page="Profile"/>}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useNavigate } from "react-router-dom";
-import { get } from "../../utils/axiosHelpers";
+import { get, post } from "../../utils/axiosHelpers";
 import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
 
 
@@ -77,7 +77,7 @@ const PendingPayments = () => {
   
   return (
     <div>
-        {loading && <FullPageLoader />}
+      {loading && <FullPageLoader page="Payments"/>}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">

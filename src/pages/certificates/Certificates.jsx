@@ -78,7 +78,7 @@ const Certificates = () => {
 
     return (
         <div>
-            {loading && <FullPageLoader />}
+            {loading && <FullPageLoader page="Certificates"/>}
             <>
                 <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
                 <div className="w-full lg:w-[82%] ml-auto">
@@ -141,7 +141,7 @@ const Certificates = () => {
                                 >
                                     <div className="flex items-center justify-between mb-4 rounded-[4px]">
                                         <p className="text-[#333333] font-[600]">
-                                            Processed Cocoa Product
+                                            {certificate?.application?.product_name}
                                         </p>
                                         <div className={`flex items-center gap-2 rounded-full py-[6px] px-[10px] ${
                                             certificate.isExpired 

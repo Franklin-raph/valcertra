@@ -81,7 +81,7 @@ const Payments = () => {
   
   return (
     <div>
-      {loading && <FullPageLoader />}
+      {loading && <FullPageLoader page="Payments"/>}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const FullPageLoader = () => {
+const FullPageLoader = ({page}) => {
   const [progress, setProgress] = useState(0);
   
   useEffect(() => {
@@ -22,9 +22,10 @@ const FullPageLoader = () => {
         
         {/* Inner pulsing logo */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 bg-primary-color rounded-lg animate-pulse flex items-center justify-center">
+          {/* <div className="w-12 h-12 bg-primary-color rounded-lg animate-pulse flex items-center justify-center">
             <span className="text-white font-bold text-lg">V</span>
-          </div>
+          </div> */}
+          <img src="./logo-black.svg" alt="" className='mx-auto my-auto w-[50%]' />
         </div>
       </div>
       
@@ -37,7 +38,7 @@ const FullPageLoader = () => {
       </div>
       
       {/* Loading text */}
-      <p className="text-gray-700 font-medium">Loading your applications...</p>
+      <p className="text-gray-700 font-medium">Loading your {page}</p>
     </div>
   );
 };

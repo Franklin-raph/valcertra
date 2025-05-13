@@ -235,6 +235,8 @@ export default function CertificateApplication({ setCertificationApplication, al
   };
 
   const submitApplication = async () => {
+    console.log(formData);
+    
     try {
       setLoading(true)
       const res = await post('/application/create_application/', formData)
@@ -247,8 +249,8 @@ export default function CertificateApplication({ setCertificationApplication, al
     } catch (error) {
       setMsg(error?.response?.data?.message)
       setAlertType('error')
-    } finally{
-        setLoading(false)
+    }finally{
+      setLoading(false)
     }
   }
   
@@ -285,6 +287,8 @@ export default function CertificateApplication({ setCertificationApplication, al
       } catch (error) {
         // Handle payment error
         console.error('Payment error:', error);
+      } finally{
+        setLoading(false)
       }
     };
 
@@ -378,10 +382,10 @@ export default function CertificateApplication({ setCertificationApplication, al
                 {/* allProductPrices */}
                 <div className='w-full relative'>
                     <label className='block mb-1 text-[15px] text-[#fff]'>Product Category</label>
-                    <div className='cursor-pointer border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between'>
+                    <div onClick={() => setDropDown(dropDown === "product_category" ? false : "product_category")} className='cursor-pointer border border-[#D0D5DD] bg-white py-2 px-2 w-full rounded-[4px] text-[#667085] flex items-center justify-between'>
                         {/* <CiMap className='text-[20px]' /> */}
                         <input type="text" placeholder='Onitsha' value={productCategoryText} className='outline-none bg-transparent w-full ml-3 cursor-pointer'/>
-                        <BiChevronDown onClick={() => setDropDown(dropDown === "product_category" ? false : "product_category")} className='text-[22px] cursor-pointer'/>
+                        <BiChevronDown className='text-[22px] cursor-pointer'/>
                         {
                             dropDown === "product_category" &&
                             <div className='bg-white w-full absolute top-[70px] rounded-[4px] border border-gray-300 h-[200px] overflow-x-hidden overflow-y-scroll left-0 px-2 py-3'>
@@ -439,7 +443,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                         value={formData.source_location}
                         onChange={(e) => handleInputChange('source_location', e.target.value)}
                       >
-                        <option value="">select or enter</option>
+                        <option value="">--Select an option--</option>
                         <option value="Local">Local</option>
                         <option value="Regional">Regional</option>
                         <option value="International">International</option>
@@ -462,9 +466,9 @@ export default function CertificateApplication({ setCertificationApplication, al
                         value={formData.do_you_own_or_lease}
                         onChange={(e) => handleInputChange('do_you_own_or_lease', e.target.value)}
                       >
+                        <option value="">--Select an option--</option>
                         <option value="own">Own</option>
                         <option value="lease">Lease</option>
-                        <option value="Partially">Partially</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                         <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -486,6 +490,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                         value={formData.stage_of_value_addition_conducted_locally}
                         onChange={(e) => handleInputChange('stage_of_value_addition_conducted_locally', e.target.value)}
                       >
+                        <option value="">--Select an option--</option>
                         <option value="Extraction, Refining">Extraction, Refining</option>
                         <option value="Processing">Processing</option>
                         <option value="Manufacturing">Manufacturing</option>
@@ -710,6 +715,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                         value={formData.use_of_local_suppliers}
                         onChange={(e) => handleInputChange('use_of_local_suppliers', e.target.value)}
                       >
+                        <option value="">--Select an option--</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                       </select>
@@ -867,6 +873,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                         value={formData.compliance_with_national_international_standards}
                         onChange={(e) => handleInputChange('compliance_with_national_international_standards', e.target.value)}
                       >
+                        <option value="">--Select an option--</option>
                         <option value="iso_14001">ISO14001</option>
                         <option value="iso_9001">ISO9001</option>
                         <option value="iso_45001">ISO45001</option>
@@ -967,6 +974,8 @@ export default function CertificateApplication({ setCertificationApplication, al
                             value={formData.do_you_run_or_fund_community_development_project}
                             onChange={(e) => handleInputChange('do_you_run_or_fund_community_development_project', e.target.value)}
                         >
+                          
+                            <option value="">--Select an option--</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -995,30 +1004,12 @@ export default function CertificateApplication({ setCertificationApplication, al
                         Estimated annual tax paid to Host Country
                     </label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                        $
-                      </span>
                       <input
                         type="number"
-                        className="w-full border border-gray-300 rounded-r-md px-3 py-2"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2"
                         value={formData.estimated_annual_tax_paid_to_host_country}
                         onChange={(e) => handleInputChange('estimated_annual_tax_paid_to_host_country', parseFloat(e.target.value))}
                       />
-                      <div className="relative ml-2">
-                        <select
-                          className="border border-gray-300 rounded-md px-3 py-2 appearance-none"
-                          defaultValue="USD"
-                        >
-                          <option value="USD">USD</option>
-                          <option value="EUR">EUR</option>
-                          <option value="GBP">GBP</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div>
@@ -1031,6 +1022,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                         value={formData.employee_welfare_program}
                         onChange={(e) => handleInputChange('employee_welfare_program', e.target.value)}
                       >
+                        <option value="">--Select an option--</option>
                         <option value="ISO14001">ISO14001</option>
                         <option value="ISO14002">ISO14002</option>
                       </select>
@@ -1081,6 +1073,7 @@ export default function CertificateApplication({ setCertificationApplication, al
                             value={formData.grievance_mechanism_description}
                             onChange={(e) => handleInputChange('grievance_mechanism_description', e.target.value)}
                         >
+                            <option value="">--Select an option--</option>
                             <option value="true">True</option>
                             <option value="false">False</option>
                         </select>

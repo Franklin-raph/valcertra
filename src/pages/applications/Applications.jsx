@@ -63,7 +63,7 @@ const Applications = () => {
   
   return (
     <div>
-      {isLoading && <FullPageLoader />}
+      {isLoading && <FullPageLoader page="Applications"/>}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">
