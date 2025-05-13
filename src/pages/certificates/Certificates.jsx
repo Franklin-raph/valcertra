@@ -3,10 +3,12 @@ import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useNavigate } from "react-router-dom";
 import { get } from "../../utils/axiosHelpers";
+import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
 
 const Certificates = () => {
     const [toggleNav, setToggleNav] = useState(false);
     const [certifications, setCertifications] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [certificateSummary, setCertificateSummary] = useState({
         total: 0,
         active: 0,
@@ -65,6 +67,8 @@ const Certificates = () => {
             setCertificateSummary(summary);
         } catch (error) {
             console.log(error);
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -74,6 +78,7 @@ const Certificates = () => {
 
     return (
         <div>
+            {loading && <FullPageLoader />}
             <>
                 <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
                 <div className="w-full lg:w-[82%] ml-auto">

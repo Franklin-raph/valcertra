@@ -35,7 +35,7 @@ const ApplicationView = () => {
           // Ensure id is converted to an array of strings
           const res = await post('/application/pay_application/', {
             application_ids: [id], 
-            success_url: 'http://localhost:5174/#/paymment-verification'
+            success_url: 'http://localhost:5173/#/paymment-verification'
           });
           
           // Handle successful payment response

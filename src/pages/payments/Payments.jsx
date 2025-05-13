@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TopNav from "../../components/top-nav/TopNav";
 import SideNav from "../../components/side-nav/SideNav";
 import { useNavigate } from "react-router-dom";
-import { get } from "../../utils/axiosHelpers";
+import { get, post } from "../../utils/axiosHelpers";
 import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
 
 const Payments = () => {
@@ -10,29 +10,44 @@ const Payments = () => {
   const [applications, setApplications] = useState([]);
   const [pendingPayments, setPendingPayments] = useState([]);
   const [paidApplications, setPaidApplications] = useState([]);
+  const [applicationIds, setApplicationIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-    const getAllApplications = async () => {
+  const getAllApplications = async () => {
     try {
-            setLoading(true)
-            const res = await get('/application/my_applications/')
-            setApplications(res)
+      setLoading(true);
+      const res = await get('/application/my_applications/');
+      setApplications(res);
 
-            // Filter the applications based on payment status
-            setPendingPayments(res.data.filter(app => !app.paid));
-            setPaidApplications(res.data.filter(app => app.paid));
-            console.log(res);
-        } catch (error) {
-            console.error("Error fetching applications:", error);
-        }finally{
-            setLoading(false)
-        }
+      // Filter the applications based on payment status
+      setPendingPayments(res.data.filter(app => !app.paid));
+      setPaidApplications(res.data.filter(app => app.paid));
+      console.log(res);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    } finally {
+      setLoading(false);
     }
+  };
   
-    useEffect(() => {
-        getAllApplications()
-    }, []);
+  useEffect(() => {
+    getAllApplications();
+  }, []);
+
+  // Function to handle checkbox changes
+  const handleCheckboxChange = (applicationId) => {
+    setApplicationIds(prevIds => {
+      // Check if the ID is already in the array
+      if (prevIds.includes(applicationId)) {
+        // If it is, remove it (checkbox was unchecked)
+        return prevIds.filter(id => id !== applicationId);
+      } else {
+        // If it's not, add it (checkbox was checked)
+        return [...prevIds, applicationId];
+      }
+    });
+  };
 
   // Empty state component
   const EmptyState = ({ text }) => (
@@ -43,9 +58,30 @@ const Payments = () => {
     </tr>
   );
   
+  const payForSelectedApplications = async () => {
+          // console.log({application_ids: [id]});
+          
+    try {
+        // Ensure id is converted to an array of strings
+        const res = await post('/application/pay_application/', {
+            application_ids: applicationIds,
+            success_url: 'http://localhost:5173/#/paymment-verification'
+        });
+        
+        // Handle successful payment response
+        console.log('Payment response:', res);
+        window.location.assign(res.data.data.link)
+        
+    } catch (error) {
+        // Handle payment error
+        console.error('Payment error:', error);
+    }
+      console.log("Selected Application IDs:", applicationIds);
+  }
+  
   return (
     <div>
-        {loading && <FullPageLoader />}
+      {loading && <FullPageLoader />}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">
@@ -76,8 +112,13 @@ const Payments = () => {
                             {pendingPayments.length > 0 ? (
                               pendingPayments.map((application, index) => (
                                 <tr key={index}>
-                                  <td className="px-6 py-4 text-[12px] md:text-[16px] text-[#475467] flex gap-1">
-                                    <input type="checkbox" name="" id="" />
+                                  <td className="px-6 py-4 text-[12px] md:text-[16px] text-[#475467] flex gap-1 items-center">
+                                    <input 
+                                      type="checkbox" 
+                                      checked={applicationIds.includes(application.id)}
+                                      onChange={() => handleCheckboxChange(application.id)}
+                                      className="h-4 w-4 cursor-pointer"
+                                    />
                                     <p>{application.application_number}</p>
                                   </td>
                                   <td className="px-6 py-4 text-[12px] md:text-[16px] text-[#475467]">{application.product_name}</td>
@@ -98,6 +139,12 @@ const Payments = () => {
                     </table>
                 </div>
             </div>
+            {
+                applicationIds.length > 0 &&
+                <div className="flex items-end justify-end">
+                    <button onClick={payForSelectedApplications} className="bg-primary-color text-white py-2 px-5 rounded-[8px] mt-3">Pay for selected applications ({applicationIds.length})</button>
+                </div>
+            }
 
             <div className="border border-[#EAECF0] rounded-[10px] mt-[3rem]">
                 <div className="flex items-center gap-4 mt-8 justify-between px-6 pb-4">
