@@ -25,7 +25,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
     <div className={toggleNav ? `bg-[#002E72] z-[100] scrollbar lg:w-[18%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]` : `bg-[#002E72] scrollbar lg:w-[18%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden left-0 z-[100] transition-[0.5s]`}>
         <div className='px-5 lg:pb-5 flex items-center justify-between mt-[25px]'>
             <img src="./dashboard-logo.svg" className='lg:mx-auto lg:mt-[20px]' alt="" />
-            <p onClick={() => setToggleNav(true)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
+            <p onClick={() => setToggleNav(true)} className='text-white text-[32px] cursor-pointer lg:hidden block'>&times;</p>
         </div>
         <div className="lg:pl-[32px] my-5 text-white text-[17px] ml-[30px]">
           <Link to='/dashboard' className={ location.pathname.includes('dashboard') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
@@ -59,7 +59,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             </div>
           </Link>
         </div>
-        <div className="lg:pl-[32px] my-5 text-white text-[17px] ml-[30px] mt-[23rem]">
+        <div className="lg:pl-[32px] my-5 text-white text-[17px] ml-[30px] lg:mt-[23rem] mt-[19rem]">
           <button className='text-[#D0D5DD] flex items-center justify-between py-[10px]' onClick={() => setLogoutModal(true)}>
             <div className="flex items-center gap-2">
                 <img src="./logout.svg" alt="" />
