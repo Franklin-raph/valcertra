@@ -90,8 +90,8 @@ const Payments = () => {
             <p className="text-[#333333] font-[500] text-[20px]">Payment</p>
             
             <div className="border border-[#EAECF0] mt-7 rounded-[10px]">
-                <div className="flex items-center gap-4 mt-8 justify-between px-6 pb-4">
-                    <p className="text-[#101828] text-[18px]">Pending Payment Applications</p>
+                <div className="flex items-center gap-4 mt-8 justify-between md:px-6 px-2 pb-4">
+                    <p className="text-[#101828] md:text-[18px] text-[14px]">Pending Payment Applications</p>
                     <p className="text-primary-color text-[14px] py-[5px] px-[12px] bg-secondary-color rounded-full cursor-pointer" onClick={() => navigate('/payments/pending-payments')}>View All</p>
                 </div>
                 <div className="relative overflow-x-auto">
@@ -147,8 +147,8 @@ const Payments = () => {
             }
 
             <div className="border border-[#EAECF0] rounded-[10px] mt-[3rem]">
-                <div className="flex items-center gap-4 mt-8 justify-between px-6 pb-4">
-                    <p className="text-[#101828] text-[18px]">Paid Applications</p>
+                <div className="flex items-center gap-4 mt-8 justify-between md:px-6 px-2 pb-4">
+                    <p className="text-[#101828] md:text-[18px]">Paid Applications</p>
                     <p className="text-primary-color text-[14px] py-[5px] px-[12px] bg-secondary-color rounded-full cursor-pointer" onClick={() => navigate('/payments/paid')}>View All</p>
                 </div>
                 <div className="relative overflow-x-auto">

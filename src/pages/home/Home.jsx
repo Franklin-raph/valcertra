@@ -6,6 +6,15 @@ import WhyCretivaCard from '../../components/why-cretiva-card/WhyCretivaCard'
 import Footer from '../../components/footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import WhoWeScoreCard from '../../components/who-we-score-card/WhoWeScoreCard'
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+
+// import required modules
+import { Pagination, Autoplay } from 'swiper/modules';
 
 const Home = () => {
 
@@ -178,7 +187,7 @@ const Home = () => {
       <section className='mt-[9rem]'>
         <p className='text-[#333333] text-center mb-[0.3rem] md:text-[26px] text-[20px]'>Who We Serve</p>
         {/* <p className='text-center mb-[1.5rem] text-text-color px-2'>Our streamlined process makes certification simple and efficient for businesses across Africa</p> */}
-        <div className='flex flex-col md:flex-row-reverse gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem] mt-5 md:mt-[3rem]'>
+        <div className='flex flex-col-reverse md:flex-row-reverse gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem] mt-5 md:mt-[3rem]'>
           <div className='grid md:grid-cols-2 grid-cols-1 md:gap-[20px] gap-[30px] md:w-[60%]'>
             {
               whoWeScore.map(item => (
@@ -191,7 +200,7 @@ const Home = () => {
       </section>
 
       <section className='mt-[7.5rem]'>
-        <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px]'>Modeled on Global Best Practices. Built for Africa.</p>
+        <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px] px-1'>Modeled on Global Best Practices. Built for Africa.</p>
         <div className='flex flex-col md:flex-row-reverse gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem]'>
           <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div>
           <div className='md:w-[50%] text-[#4D4D4D] font-[300]'>
@@ -234,9 +243,9 @@ const Home = () => {
 
 
       <section className='bg-secondary-color py-[3.5rem] text-center mt-[9rem]'>
-        <p className='md:text-[26px] text-[23px] mb-5 font-[500]'>Africa's Industrial Future Now Has a Seal of Integrity</p>
-        <p className='md:w-[50%] w-[80%] mx-auto text-text-color'>At a time when Africa is pushing to industrialize, VALCERTRA is not just a tool—it is an infrastructure of trust, enabling countries and companies to comply, compete, and grow within AfCFTA and beyond.</p>
-        <p className='text-text-color font-[500] text-[20px] mt-5'>Certify with Confidence. Trade with Authority.</p>
+        <p className='md:text-[26px] text-[23px] mb-5 font-[500] px-1'>Africa's Industrial Future Now Has a Seal of Integrity</p>
+        <p className='md:w-[50%] sm:w-[90%] w-[97%] mx-auto text-text-color'>At a time when Africa is pushing to industrialize, VALCERTRA is not just a tool—it is an infrastructure of trust, enabling countries and companies to comply, compete, and grow within AfCFTA and beyond.</p>
+        <p className='text-text-color font-[500] text-[20px] mt-5 sm:px-5 px-2'>Certify with Confidence. Trade with Authority.</p>
         <div className='mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center'>
             <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px] text-white' onClick={() => navigate('/sign-up')}>Apply for Certification</button>
             <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Request Partnership</button>
@@ -245,12 +254,68 @@ const Home = () => {
 
       <section className='mt-[7.5rem] mb-[5rem]'>
         <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px] font-[500]'>Our Partners</p>
-        <div className='grid lg:grid-cols-5 grid-cols-2 gap-[20px] lg:px-[9rem] md:px-[5rem] px-[1rem] justify-center'>
-          {
+        <div className='w-[90%] mx-auto lg:px-[9rem] md:px-[5rem] px-[1rem] justify-center'>
+          {/* {
             [1,1,1,1,1].map(item => (
               <div className='bg-[#D9D9D9] h-[100px]'></div>
             ))
-          }
+          } */}
+          <div className="overflow-hidden relative">
+            <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            breakpoints={{
+              0: {
+                slidesPerView: 2,
+              },
+              600: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+            modules={[Pagination, Autoplay]}
+            className="mySwiper"
+            loop={true}
+            style={{
+              '--swiper-pagination-color': '#22AC00', // Active bullet color
+              '--swiper-pagination-bullet-inactive-color': '#999999', // Inactive bullet color
+              '--swiper-pagination-bullet-inactive-opacity': '0.5', // Inactive bullet opacity
+              '--swiper-pagination-bullet-size': '0px', // Bullet size
+              '--swiper-pagination-bullet-horizontal-gap': '6px', // Space between bullets
+              // '--swiper-pagination-top': '353px', // Move pagination down
+            }}
+          >
+            <SwiperSlide>
+              <img src="./wemabank-logo.webp" className='md:w-[150px] w-[100px] mx-auto' alt="" />
+            </SwiperSlide>
+            
+            <SwiperSlide>
+              <img src="./boi.png" className='w-[150px] mx-auto object-cover' alt="" />
+            </SwiperSlide>
+            
+            <SwiperSlide>
+              <img src="./African_Continental_Free_Trade_Area_logo.svg.png" className='md:w-[150px] w-[100px] mx-auto' alt="" />
+            </SwiperSlide>
+            
+            <SwiperSlide>
+              <img src="./ifc-logo.webp" className='md:w-[150px] w-[100px] mx-auto' alt="" />
+            </SwiperSlide>
+            
+            <SwiperSlide>
+              <img src="./rmrdc.png" className='md:w-[150px] w-[100px] mx-auto' alt="" />
+            </SwiperSlide>
+            
+          </Swiper>
+        </div>
         </div>
       </section>
       <Footer />

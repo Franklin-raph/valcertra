@@ -6,6 +6,7 @@ import ValueAdditionCalculator from "../../components/value-addition-calculator/
 import CertificateApplication from "../../components/certificate-application/CertificateApplication";
 import { get } from "../../utils/axiosHelpers";
 import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
+import { BiCalculator, BiPlus } from "react-icons/bi";
 
 
 const Applications = () => {
@@ -72,39 +73,45 @@ const Applications = () => {
 
             <div className="flex items-center justify-between">
               <p className="text-[#333333] font-[500] text-[20px]">Applications</p>
-              <div>
-                <button className="bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>Calculate Value Addition</button>
-                <button className="bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500] ml-4" onClick={() => setCertificationApplication(true)}> + New Application</button>
+              <div className="flex gap-2 items-center">
+                <button className="hidden lg:block bg-secondary-color text-primary-color py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>Calculate Value Addition</button>
+                <button className="hidden lg:block bg-primary-color text-white py-[8px] text-[14px] px-5 rounded-[4px] font-[500]" onClick={() => setCertificationApplication(true)}> + New Application</button>
+                <button className="lg:hidden block bg-secondary-color text-primary-color py-[6px] text-[22px] px-[6px] rounded-[4px] font-[500]" onClick={() => setValueAddedCalculator(true)}>
+                  <BiCalculator />
+                </button>
+                <button className="lg:hidden block bg-primary-color text-white py-[6px] text-[22px] px-[6px] rounded-[4px] font-[500]" onClick={() => setCertificationApplication(true)}> <BiPlus /> </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-4 mt-7">
-              <div className="flex items-start gap-5 bg-secondary-color p-3">
-                <img src="./file-text.svg" alt="" />
-                <div>
-                  <p className="text-text-color">Total Applications</p>
-                  <p className="text-primary-color font-[500] text-[20px] mt-3">{summary?.total_applications}</p>
+            <div className="w-full overflow-hidden">
+              <div className="md:grid md:grid-cols-4 flex overflow-x-auto pb-3 gap-4 mt-7 scrollbar-hide">
+                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-secondary-color p-3 rounded-md">
+                  <img src="./file-text.svg" alt="" />
+                  <div>
+                    <p className="text-text-color">Total Application</p>
+                    <p className="text-primary-color font-[500] text-[20px] mt-3">{summary?.total_applications}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-5 bg-[#D1FADF] p-3 rounded-[4px]">
-                <img src="./check-circle.svg" alt="" />
-                <div>
-                  <p className="text-text-color">Approved Applications</p>
-                  <p className="text-[#12B76A] font-[500] text-[20px] mt-3">{summary?.approved_applications}</p>
+                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-[#D1FADF] p-3 rounded-md">
+                  <img src="./check-circle.svg" alt="" />
+                  <div>
+                    <p className="text-text-color">Approved Applications</p>
+                    <p className="text-[#12B76A] font-[500] text-[20px] mt-3">{summary?.approved_applications}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-5 bg-[#FEF0C7] p-3 rounded-[4px]">
-                <img src="./file-dashboard.svg" alt="" />
-                <div>
-                  <p className="text-text-color">Pending Applications</p>
-                  <p className="text-[#F79009] font-[500] text-[20px] mt-3">{summary?.pending_applications}</p>
+                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-[#FEF0C7] p-3 rounded-md">
+                  <img src="./file-dashboard.svg" alt="" />
+                  <div>
+                    <p className="text-text-color">Pending Applications</p>
+                    <p className="text-[#F79009] font-[500] text-[20px] mt-3">{summary?.pending_applications}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-5 bg-[#FEE4E2] p-3 rounded-[4px]">
-                <img src="./info.svg" alt="" />
-                <div>
-                  <p className="text-text-color">Rejected Applications</p>
-                  <p className="text-[#D92D20] font-[500] text-[20px] mt-3">{summary?.rejected_applications}</p>
+                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-[#FEE4E2] p-3 rounded-md">
+                  <img src="./info.svg" alt="" />
+                  <div>
+                    <p className="text-text-color">Rejected Applications</p>
+                    <p className="text-[#D92D20] font-[500] text-[20px] mt-3">{summary?.rejected_applications}</p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -88,45 +88,47 @@ const Certificates = () => {
                             <p className="text-[#333333] font-[500] text-[20px]">Certificates</p>
                         </div>
 
-                        <div className="grid grid-cols-4 gap-4 mt-7">
-                            <div className="flex items-start gap-5 bg-secondary-color p-3">
-                                <img src="./award.svg" alt="" />
-                                <div>
-                                    <p className="text-text-color">Total Certificates</p>
-                                    <p className="text-primary-color font-[500] text-[20px] mt-3">
-                                        {certificateSummary.total}
-                                    </p>
+                        <div className="w-full overflow-hidden">
+                            <div className="md:grid md:grid-cols-4 flex overflow-x-auto pb-3 gap-4 mt-7 scrollbar-hide">
+                                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-secondary-color p-3 rounded-md">
+                                    <img src="./award.svg" alt="" />
+                                    <div>
+                                        <p className="text-text-color">Total Certificates</p>
+                                        <p className="text-primary-color font-[500] text-[20px] mt-3">
+                                            {certificateSummary.total}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-start gap-5 bg-[#D1FADF] p-3 rounded-[4px]">
-                                <img src="./check-circle.svg" alt="" />
-                                <div>
-                                    <p className="text-text-color">Active Certificates</p>
-                                    <p className="text-[#12B76A] font-[500] text-[20px] mt-3">
-                                        {certificateSummary.active}
-                                    </p>
+                                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 p-3 rounded-md bg-[#D1FADF]">
+                                    <img src="./check-circle.svg" alt="" />
+                                    <div>
+                                        <p className="text-text-color">Active Certificates</p>
+                                        <p className="text-[#12B76A] font-[500] text-[20px] mt-3">
+                                            {certificateSummary.active}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-start gap-5 bg-[#FEF0C7] p-3 rounded-[4px]">
-                                <img src="./file-dashboard.svg" alt="" />
-                                <div>
-                                    <p className="text-text-color">Expired Certificates</p>
-                                    <p className="text-[#F79009] font-[500] text-[20px] mt-3">
-                                        {certificateSummary.expired}
-                                    </p>
+                                <div className="flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-[#FEF0C7] p-3 rounded-md">
+                                    <img src="./file-dashboard.svg" alt="" />
+                                    <div>
+                                        <p className="text-text-color">Expired Certificates</p>
+                                        <p className="text-[#F79009] font-[500] text-[20px] mt-3">
+                                            {certificateSummary.expired}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-start gap-5 bg-[#FEE4E2] p-3 rounded-[4px]">
-                                <img src="./info.svg" alt="" />
-                                <div>
-                                    <p className="text-text-color">Requires Action</p>
-                                    <p className="text-[#D92D20] font-[500] text-[20px] mt-3">
-                                        {certificateSummary.requiresAction}
-                                    </p>
+                                <div className=" flex-shrink-0 w-64 md:w-auto flex items-start gap-5 bg-[#FEE4E2] p-3 rounded-md">
+                                    <img src="./info.svg" alt="" />
+                                    <div>
+                                        <p className="text-text-color">Requires Action</p>
+                                        <p className="text-[#D92D20] font-[500] text-[20px] mt-3">
+                                            {certificateSummary.requiresAction}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                
                         <div className="mt-12">
                             <div className="flex items-center justify-between">
                                 <p className="text-[#333333]">Certificates</p>

@@ -86,7 +86,7 @@ const PendingPayments = () => {
             {/* <p className="text-[#333333] font-[500] text-[20px]">Payment</p> */}
             
             <div className="border border-[#EAECF0] mt-[8rem] rounded-[10px]">
-                <div className="flex items-center gap-4 mt-4 justify-between px-6 py-4">
+                <div className="flex items-center gap-4 mt-4 justify-between md:px-6 px-2 py-4">
                     <p className="text-[#101828] text-[18px]">Pending Payment Applications</p>
                     {
                         applicationIds.length > 0 &&

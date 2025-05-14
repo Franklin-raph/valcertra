@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { RxDashboard } from "react-icons/rx";
 import { FiAward, FiCreditCard, FiFileText, FiUser } from 'react-icons/fi';
@@ -9,25 +9,25 @@ const SideNav = ({toggleNav, setToggleNav}) => {
 
   const location = useLocation()
   const [logoutModal, setLogoutModal] = useState(false);
+  
+  // Function to handle navigation item clicks
+  // import { useEffect } from 'react';
 
-  // console.log(user);
-
-//     setInterval(() => {
-//     fetch('https://api-gotruhub.onrender.com/')
-//         .then(response => response.json())
-//         .then(data => console.log(data))
-//         .catch(error => console.error('Error:', error));
-// }, 180000); // 180000 milliseconds = 3 minutes
-
-// bg-[#19201D] scrollbar w-[22%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden left-0
-
+  // Inside the SideNav component
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setToggleNav(true); // auto-close on route change for mobile
+    }
+  }, [location.pathname]);
+  
+  
   return (
-    <div className={!toggleNav ? `bg-[#002E72] scrollbar lg:w-[18%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] transition-[0.5s]` : `bg-[#002E72] z-[10] scrollbar lg:w-[22%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]`}>
-        <div className='px-5 pb-5 flex items-center justify-between'>
-            <img src="./dashboard-logo.svg" className='mx-auto mt-[20px]' alt="" />
-            <p onClick={() => setToggleNav(false)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
+    <div className={toggleNav ? `bg-[#002E72] z-[100] scrollbar lg:w-[18%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden lg:left-0 left-[100%] responsive-nav transition-[0.5s]` : `bg-[#002E72] scrollbar lg:w-[18%] w-[100%] h-[100vh] top-0 fixed overflow-y-auto py-5 overflow-x-hidden left-0 z-[100] transition-[0.5s]`}>
+        <div className='px-5 lg:pb-5 flex items-center justify-between mt-[25px]'>
+            <img src="./dashboard-logo.svg" className='lg:mx-auto lg:mt-[20px]' alt="" />
+            <p onClick={() => setToggleNav(true)} className='text-white text-[22px] cursor-pointer lg:hidden block'>&times;</p>
         </div>
-        <div className="pl-[32px] my-5 text-white text-[17px] ml-[30px]">
+        <div className="lg:pl-[32px] my-5 text-white text-[17px] ml-[30px]">
           <Link to='/dashboard' className={ location.pathname.includes('dashboard') ? `flex items-center justify-between py-[10px] text-[#fff] border-r-[3px] w-full` :`text-[#D0D5DD] flex items-center justify-between py-[10px]`}>
             <div className="flex items-center gap-2">
               <RxDashboard />
@@ -59,7 +59,7 @@ const SideNav = ({toggleNav, setToggleNav}) => {
             </div>
           </Link>
         </div>
-        <div className="pl-[32px] my-5 text-white text-[17px] ml-[30px] mt-[23rem]">
+        <div className="lg:pl-[32px] my-5 text-white text-[17px] ml-[30px] mt-[23rem]">
           <button className='text-[#D0D5DD] flex items-center justify-between py-[10px]' onClick={() => setLogoutModal(true)}>
             <div className="flex items-center gap-2">
                 <img src="./logout.svg" alt="" />

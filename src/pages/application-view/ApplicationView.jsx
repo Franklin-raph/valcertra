@@ -119,8 +119,8 @@ const ApplicationView = () => {
                     selectedTab === "Application Details" &&
                     <div className="mt-[3.5rem] flex flex-col gap-[2rem] justify-between">
                         <div className="w-full">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pl-[20px] pb-3">Product Details</p>
-                            <div className="pl-[20px] mt-5 grid gap-7 text-[14px]">
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] md:pl-[20px] pb-3">Product Details</p>
+                            <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px]">
                                 <div>
                                     <p className="text-text-color font-[500] text-[16px]">Product Name</p>
                                     <p className="text-[#666666] mt-[2px]">{applicationInfo?.product_name}</p>
@@ -142,9 +142,9 @@ const ApplicationView = () => {
                         </div>
 
                         <div className="w-full mt-6">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 pl-[20px]">Processing Information</p>
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Processing Information</p>
                             <div className="flex justify-between">
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Primary raw materials used</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.primary_materials_used}</p>
@@ -171,7 +171,7 @@ const ApplicationView = () => {
                                         }}/>
                                     </div>
                                 </div>
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Stage of value addition conducted locally</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.stage_of_value_addition_conducted_locally}</p>
@@ -192,9 +192,9 @@ const ApplicationView = () => {
                             </div>
                         </div>
                         <div className="w-full mt-6">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 pl-[20px]">Local Value Added Metrics</p>
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Local Value Added Metrics</p>
                             <div className="flex justify-between">
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">% of raw materials processed locally</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.pct_of_material_processed_locally}</p>
@@ -224,7 +224,7 @@ const ApplicationView = () => {
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.do_you_own_or_lease}</p>
                                     </div>
                                 </div>
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">% of Components/input sourced locally</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.pct_of_components_sourced_locally}</p>
@@ -255,16 +255,16 @@ const ApplicationView = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="pl-[20px] mt-5 grid gap-1 text-[14px] w-full">
+                            <div className="md:pl-[20px] mt-5 grid gap-1 text-[14px] w-full">
                                 <p className="text-text-color font-[500] text-[16px]">Investment in local training or infrastructure</p>
                                 <p className="text-[#666666] mt-[2px]">{applicationInfo?.investment_in_local_training_or_infrastructure}</p>
                             </div>
                         </div>
 
                         <div className="w-full mt-6">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 pl-[20px]">Environmental Impact and Susstainability</p>
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Environmental Impact and Susstainability</p>
                             <div className="flex justify-between">
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Annual water consumption estimate (Litres)</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.annual_water_consumption_estimate}</p>
@@ -275,7 +275,7 @@ const ApplicationView = () => {
                                     </div>
                                     
                                 </div>
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Annual energy consumption estimate (kWh)</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.annual_energy_consumption_estimate}</p>
@@ -286,7 +286,7 @@ const ApplicationView = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between w-full gap-[2rem] mt-5 pl-[20px]">
+                            <div className="flex flex-col sm:flex-row items-center justify-between w-full md:gap-[2rem] gap-5 mt-5 md:pl-[20px]">
                                 <div className="w-full flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
                                         <img src="./file-text.svg" alt="" />
@@ -308,16 +308,16 @@ const ApplicationView = () => {
                                     <img src="./eye.svg" alt="" className="cursor-pointer"/>
                                 </div>
                             </div>
-                            <div className="pl-[20px] mt-5 grid gap-1 text-[14px] w-full">
+                            <div className="md:pl-[20px] mt-5 grid gap-1 text-[14px] w-full">
                                 <p className="text-text-color font-[500] text-[16px]">Describe waste management practices</p>
                                 <p className="text-[#666666] mt-[2px]">{applicationInfo?.waste_management_practices}</p>
                             </div>
                         </div>
 
                         <div className="w-full mt-6">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 pl-[20px]">Social and Community Sustainability</p>
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Social and Community Sustainability</p>
                             <div className="flex justify-between">
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Do you run or fund community development project</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.do_you_run_or_fund_community_development_project.toString()}</p>
@@ -331,7 +331,7 @@ const ApplicationView = () => {
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.estimated_annual_tax_paid_to_host_country}</p>
                                     </div>
                                 </div>
-                                <div className="pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
+                                <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Grievance mechanism description</p>
                                         <p className="text-[#666666] mt-[2px]">{applicationInfo?.grievance_mechanism_description.toString()}</p>
@@ -346,7 +346,7 @@ const ApplicationView = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between w-full gap-[2rem] mt-5 pl-[20px]">
+                            <div className="flex items-center justify-between w-full gap-[2rem] mt-5 md:pl-[20px]">
                                 <div className="w-full flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
                                         <img src="./file-text.svg" alt="" />
@@ -367,8 +367,8 @@ const ApplicationView = () => {
 
                     <div className="mt-[3.5rem] flex flex-col gap-[2rem] justify-between">
                         <div className="w-full">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 pl-[20px]">Product Documents</p>
-                            <div className="px-[20px] mt-5 grid grid-cols-2 gap-7">
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Product Documents</p>
+                            <div className="md:px-[20px] mt-5 grid sm:grid-cols-2 sm:gap-7 gap-3">
                                 <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
                                         <img src="./file-text.svg" alt="" />
@@ -396,7 +396,7 @@ const ApplicationView = () => {
                                     }}/>
                                 </div>
                             </div>
-                            <div className="px-[20px] mt-5 grid grid-cols-2 gap-7">
+                            <div className="md:px-[20px] mt-5 grid sm:grid-cols-2 sm:gap-7 gap-3">
                                 <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
                                         <img src="./file-text.svg" alt="" />
@@ -424,7 +424,7 @@ const ApplicationView = () => {
                                     }}/>
                                 </div>
                             </div>
-                            <div className="px-[20px] mt-5 grid grid-cols-2 gap-7">
+                            <div className="md:px-[20px] mt-5 grid sm:grid-cols-2 sm:gap-7 gap-3">
                                 <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
                                     <div className="flex items-start gap-3">
                                         <img src="./file-text.svg" alt="" />
@@ -454,8 +454,8 @@ const ApplicationView = () => {
                             </div>
                         </div>
                         <div className="w-full">
-                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 pl-[20px]">Supplier Invoices</p>
-                            <div className="px-[20px] mt-5 grid gap-7">
+                            <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:md:pl-[20px]">Supplier Invoices</p>
+                            <div className="md:px-[20px] mt-5 grid gap-7">
                                 {
                                     applicationInfo?.invoices?.map((invoice, index) => (
                                         <div className="flex items-center justify-between bg-secondary-color rounded-[8px] px-4 py-4 text-[14px]">
