@@ -239,7 +239,7 @@ const CertificateView = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 mt-8 justify-between">
+            <div className="flex flex-col md:flex-row items-center gap-4 mt-8 justify-between">
               <div className="mt-7 border border-[#F2F4F7] py-4 px-3 rounded-[4px] w-full">
                 <p className="text-text-color font-[500]">
                   Certificate: {certificateInfo?.cert_no}

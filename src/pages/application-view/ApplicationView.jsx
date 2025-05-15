@@ -64,7 +64,7 @@ const ApplicationView = () => {
           <TopNav setToggleNav={setToggleNav} toggleNav={toggleNav} />
           <div className="px-[10px] md:px-[30px] pb-[1rem] mt-[100px]">
             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     {
                         applicationInfo?.status === 'pending' ?
                         (
@@ -94,23 +94,23 @@ const ApplicationView = () => {
                             <p className="text-[14px] text-[#027A48] font-[500]">Certified</p>
                         </div>
                     }
-                    <p className="text-[#666666]">Submitted on { new Date(applicationInfo?.updated_at).toDateString() }</p>
+                    <p className="text-[#666666] text-[14px] sm:text-[16px]">Submitted on { new Date(applicationInfo?.updated_at).toDateString() }</p>
                 </div>
                 {
                     applicationInfo?.paid === false &&
-                    <button onClick={makePayment} className="bg-primary-color text-secondary-color py-[5px] px-3 rounded">Make Payment</button>
+                    <button onClick={makePayment} className="bg-primary-color text-secondary-color py-[5px] px-3 rounded text-[14px] sm:text-[16px]">Make Payment</button>
                 }
             </div>
 
             <div className="mt-7 border border-[#F2F4F7] py-4 px-3 rounded-[4px]">
                 <div>
                     <p className="text-[#666666]">Application Number: {applicationInfo?.application_number}</p>
-                    <p className="text-text-color font-[600] text-[30px] mt-[6px]">View Certification Application</p>
+                    <p className="text-text-color font-[600] sm:text-[30px] text-[20px] mt-[6px]">View Certification Application</p>
                 </div>
                 <div className="flex items-center gap-3 mt-[40px]">
                     {
                         tabs.map(tab => (
-                            <p onClick={() => setSelectedTab(tab)} className={selectedTab === tab ? "text-primary-color cursor-pointer" : "text-[#999999] cursor-pointer"}>{tab}</p>
+                            <p onClick={() => setSelectedTab(tab)} className={selectedTab === tab ? "text-primary-color cursor-pointer text-[14px] sm:text-[16px]" : "text-[#999999] cursor-pointer sm:text-[16px] text-[14px]"}>{tab}</p>
                         ))
                     }
                 </div>
@@ -143,7 +143,7 @@ const ApplicationView = () => {
 
                         <div className="w-full mt-6">
                             <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Processing Information</p>
-                            <div className="flex justify-between">
+                            <div className="flex flex-col sm:flex-row justify-between">
                                 <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Primary raw materials used</p>
@@ -193,7 +193,7 @@ const ApplicationView = () => {
                         </div>
                         <div className="w-full mt-6">
                             <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Local Value Added Metrics</p>
-                            <div className="flex justify-between">
+                            <div className="flex flex-col sm:flex-row justify-between">
                                 <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">% of raw materials processed locally</p>
@@ -263,7 +263,7 @@ const ApplicationView = () => {
 
                         <div className="w-full mt-6">
                             <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Environmental Impact and Susstainability</p>
-                            <div className="flex justify-between">
+                            <div className="flex flex-col sm:flex-row justify-between">
                                 <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Annual water consumption estimate (Litres)</p>
@@ -316,7 +316,7 @@ const ApplicationView = () => {
 
                         <div className="w-full mt-6">
                             <p className="font-[600] text-primary-color text-[22px] border-b border-[#F2F2F2] pb-3 md:pl-[20px]">Social and Community Sustainability</p>
-                            <div className="flex justify-between">
+                            <div className="flex flex-col sm:flex-row justify-between">
                                 <div className="md:pl-[20px] mt-5 grid gap-7 text-[14px] w-full">
                                     <div>
                                         <p className="text-text-color font-[500] text-[16px]">Do you run or fund community development project</p>
