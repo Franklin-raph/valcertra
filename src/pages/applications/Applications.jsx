@@ -19,6 +19,7 @@ const Applications = () => {
     const [applications, setApplications] = useState()
     const [summary, setSummary] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [searchText, setSearchText] = useState('')
     const [allProductPrices, setAllProductPrices] = useState();
 
     const getAllApplications = async () => {
@@ -61,6 +62,14 @@ const Applications = () => {
       
       fetchData();
     }, []);
+    
+    // Filter applications based on search text
+    const filteredApplications = applications?.data?.filter(application => 
+      application?.product_name.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    // Check if there are no matching applications
+    const noMatchingApplications = searchText && filteredApplications?.length === 0;
   
   return (
     <div>
@@ -116,17 +125,18 @@ const Applications = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 mt-8">
+            {/* <div className="flex items-center gap-4 mt-8">
                 {
                     filters.map((filter, index) => (
                         <p key={index} className="text-[#999999] cursor-pointer">{filter}</p>
                     ))
                 }
-            </div>
+            </div> */}
 
             <div className="mt-12">
                 <div className="flex items-center justify-between">
                     <p className="text-[#333333]">Recent Application</p>
+                    <input className="outline-none border py-[4px] px-3 w-[300px]" placeholder="Search by application name" type="text" onChange={e => setSearchText(e.target.value)}/>
                     {/* <p className="text-primary-color underline cursor-pointer">View All</p> */}
                 </div>
                   {
@@ -135,48 +145,58 @@ const Applications = () => {
                       <p>No Recent Applications Yet</p>
                     </div>
                   }
-                {
-                  applications?.data?.map((application, index) => (
-                    <div key={application.id} onClick={() => navigate(`/applications/${application.id}`)} className="border border-[#F2F4F7] px-4 py-[10px] mt-4 rounded-[4px] cursor-pointer">
-                        <div className="flex items-center justify-between mb-4 rounded-[4px]">
-                            <p className="text-[#333333] font-[600]">{application?.product_name}</p>
-                            {
-                              application?.status === 'pending' ?
-                              (
-                                <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
-                                    <img src="./clock.svg" alt="" className="w-[16px]" />
-                                    <p className="text-[14px] text-[#B54708] font-[500]">Pending</p>
-                                </div>
-                              ) :
-                              application?.status === 'under_review' ?
-                              (
-                                <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
-                                    <img src="./clock.svg" alt="" className="w-[16px]" />
-                                    <p className="text-[14px] text-[#B54708] font-[500]">Under Review</p>
-                                </div>
-                              )
-                              :
-                              application?.status === 'rejected' ?
-                              (
-                                <div className="flex items-center gap-2 bg-[#FEF3F2] rounded-full py-[6px] px-[10px]">
-                                    <img src="./x-circle.svg" alt="" className="w-[16px]" />
-                                    <p className="text-[14px] text-[#B42318] font-[500]">Rejected</p>
-                                </div>
-                              )
-                              :
-                              <div className="flex items-center gap-2 bg-[#ECFDF3] rounded-full py-[6px] px-[10px]">
-                                  <img src="./check-circle.svg" alt="" className="w-[16px]" />
-                                  <p className="text-[14px] text-[#027A48] font-[500]">Certified</p>
-                              </div>
-                            }
-                        </div>
-                        <div className="flex items-center justify-between text-[15px]">
-                            <p className="text-text-color">Submitted: { new Date(application.created_at).toLocaleDateString() } </p>
-                            <p className="text-text-color">Value Addition: {application.cva} %</p>
-                        </div>
+
+                  {/* Show message when no applications match search text */}
+                  {
+                    noMatchingApplications &&
+                    <div className="flex items-center justify-center mt-[5rem]">
+                      <p>No applications match the name "{searchText}"</p>
                     </div>
-                  ))
-                }
+                  }
+
+                  {/* Display applications when available and not showing "no matches" message */}
+                  {
+                    !noMatchingApplications && filteredApplications?.map((application, index) => (
+                      <div key={application.id} onClick={() => navigate(`/applications/${application.id}`)} className="border border-[#F2F4F7] px-4 py-[10px] mt-4 rounded-[4px] cursor-pointer">
+                          <div className="flex items-center justify-between mb-4 rounded-[4px]">
+                              <p className="text-[#333333] font-[600]">{application?.product_name}</p>
+                              {
+                                application?.status === 'pending' ?
+                                (
+                                  <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
+                                      <img src="./clock.svg" alt="" className="w-[16px]" />
+                                      <p className="text-[14px] text-[#B54708] font-[500]">Pending</p>
+                                  </div>
+                                ) :
+                                application?.status === 'under_review' ?
+                                (
+                                  <div className="flex items-center gap-2 bg-[#FFFAEB] rounded-full py-[6px] px-[10px]">
+                                      <img src="./clock.svg" alt="" className="w-[16px]" />
+                                      <p className="text-[14px] text-[#B54708] font-[500]">Under Review</p>
+                                  </div>
+                                )
+                                :
+                                application?.status === 'rejected' ?
+                                (
+                                  <div className="flex items-center gap-2 bg-[#FEF3F2] rounded-full py-[6px] px-[10px]">
+                                      <img src="./x-circle.svg" alt="" className="w-[16px]" />
+                                      <p className="text-[14px] text-[#B42318] font-[500]">Rejected</p>
+                                  </div>
+                                )
+                                :
+                                <div className="flex items-center gap-2 bg-[#ECFDF3] rounded-full py-[6px] px-[10px]">
+                                    <img src="./check-circle.svg" alt="" className="w-[16px]" />
+                                    <p className="text-[14px] text-[#027A48] font-[500]">Certified</p>
+                                </div>
+                              }
+                          </div>
+                          <div className="flex items-center justify-between text-[15px]">
+                              <p className="text-text-color">Submitted: { new Date(application.created_at).toLocaleDateString() } </p>
+                              <p className="text-text-color">Value Addition: {application.cva} %</p>
+                          </div>
+                      </div>
+                    ))
+                  }
             </div>
 
           </div>

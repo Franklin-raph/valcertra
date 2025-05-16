@@ -119,7 +119,7 @@ const CompanyLocation = ({ setCompanyLocation, setCompanyInfo, setCreatePassword
                 </div>
                 <p></p>
             </div>
-            <p className='font-[500] text-[22px]'>Join AVA CERTIFY</p>
+            <p className='font-[500] text-[22px]'>Join Valcertra</p>
             <p className='my-3'>Start your certification journey today</p>
             <p className='text-ascent-color text-[20px] font-[600]'>Company Location</p>
             <div className='flex items-center justify-center gap-2 mt-3'>

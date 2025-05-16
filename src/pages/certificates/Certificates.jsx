@@ -9,6 +9,7 @@ const Certificates = () => {
     const [toggleNav, setToggleNav] = useState(false);
     const [certifications, setCertifications] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchText, setSearchText] = useState('')
     const [certificateSummary, setCertificateSummary] = useState({
         total: 0,
         active: 0,
@@ -76,6 +77,16 @@ const Certificates = () => {
         getCertificates();
     }, []);
 
+    // Filter applications based on search text
+    const filteredCertificates = certifications?.filter(certificate => 
+        // console.log(certificate);
+        
+        certificate?.application?.product_name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    
+    // Check if there are no matching applications
+    const noMatchingCertificates = searchText && filteredCertificates?.length === 0;
+
     return (
         <div>
             {loading && <FullPageLoader page="Certificates"/>}
@@ -132,9 +143,17 @@ const Certificates = () => {
                         <div className="mt-12">
                             <div className="flex items-center justify-between">
                                 <p className="text-[#333333]">Certificates</p>
+                                <input className="outline-none border py-[4px] px-3 w-[300px]" placeholder="Search by application name" type="text" onChange={e => setSearchText(e.target.value)}/>
                             </div>
 
-                            {certifications?.map(certificate => (
+                            {
+                                noMatchingCertificates &&
+                                <div className="flex items-center justify-center mt-[5rem]">
+                                    <p>No applications match the name "{searchText}"</p>
+                                </div>
+                            }
+
+                            {!noMatchingCertificates && filteredCertificates?.map(certificate => (
                                 <div 
                                     key={certificate.id}
                                     onClick={() => navigate(`/certificates/${certificate.cert_no}`)} 

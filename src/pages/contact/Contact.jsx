@@ -76,7 +76,7 @@ const Contact = () => {
           <div className='text-center mt-[6rem] md:w-[60%] w-[95%]  mx-auto  text-white'>
               <p className='md:text-[55px] text-[35px] font-bold mb-2'> Contact <span className='text-ascent-color'>us</span></p>
               <p className='md:text-[17px] mb-7'>
-                Have questions about our certification services or how AVA CERTIFY can help your business meet AfCFTA requirements? Our team is ready to provide the guidance you need. Reach out today for expert support tailored to your industry.
+                Have questions about our certification services or how Valcertra can help your business meet AfCFTA requirements? Our team is ready to provide the guidance you need. Reach out today for expert support tailored to your industry.
               </p>
           </div>
       </section>
@@ -113,8 +113,8 @@ const Contact = () => {
                 <p className='text-[#333333] font-[600] md:text-[30px] text-[22px]'>Contact us on</p>
                 <p className='text-text-color mb-7'>For any legal inquiries, contact us at:</p>
                 <div className='flex flex-col gap-5'>
-                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Email:</span>legal@Valcertra.org</p>
-                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Phone:</span>+234 8068179570</p>
+                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Email:</span>contactus@valcertra.com</p>
+                    <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Phone:</span>+2348033465728</p>
                     <p className='text-text-color'> <span className='text-[#666666] mr-[2px]'>Address:</span>Plot 1010 Paul Muotolum Crescent, Old Gwarinpa Roa, Lifecamp, FCT, Abuja, Nigeria</p>
                 </div>
             </div>

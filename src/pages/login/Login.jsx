@@ -94,7 +94,7 @@ const Login = () => {
                             </div>
                             <p></p>
                         </div>
-                        <p className='font-[500] text-[22px]'>Welcome back to AVA CERTIFY</p>
+                        <p className='font-[500] text-[22px]'>Welcome back to Valcertra</p>
                         <p className='mb-3'>Continue your certification journey today </p>
                         <div>
                             <div className='w-full text-left my-5'>

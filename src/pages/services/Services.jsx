@@ -76,7 +76,7 @@ const Services = () => {
           <Navbar />
           <div className='text-center mt-[6rem] md:w-[60%] w-[95%] mx-auto  text-white'>
               <p className='lg:text-[55px] md:text-[30px] text-[28px] font-bold md:mb-2 mb-5'>  What We <span className='text-ascent-color'>Offer</span> .</p>
-              <p className='text-[18px]'>Valcertra LIMITED offers a suite of services through its AVA CERTIFY platform, targeted at improving <span className='text-ascent-color'>industrial credibility, trade access, and compliance readiness</span> for African businesses.</p>
+              <p className='text-[18px]'>Valcertra LIMITED offers a suite of services through its platform, targeted at improving <span className='text-ascent-color'>industrial credibility, trade access, and compliance readiness</span> for African businesses.</p>
               <div className='mt-10 flex flex-col md:flex-row gap-4 justify-center items-center'>
                   <button className='bg-primary-color py-[12px] px-[20px] rounded-[4px]'>Get Certified Now</button>
                   <button className='text-[#344054] bg-white py-[12px] px-[20px] rounded-[4px]'>Explore Our Platform</button>

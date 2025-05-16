@@ -26,7 +26,7 @@ const TermsOfUse = () => {
                 </div>
                 <div className='md:mt-[2.8rem]'>
                     <p className='text-[#333333] text-[16px] mb-1'>Terms Of Use</p>
-                    <p className='text-[#666666] text-[14px]'>Welcome to Valcertra LIMITED. By accessing or using our platform (including AVA CERTIFY), you agree to comply with and be bound by the following Terms of Use. If you do not agree to these terms, please do not use the platform.</p>
+                    <p className='text-[#666666] text-[14px]'>Welcome to Valcertra LIMITED. By accessing or using our platform (including Valcertra), you agree to comply with and be bound by the following Terms of Use. If you do not agree to these terms, please do not use the platform.</p>
                 </div>
                 <div className='md:ml-0 ml-[0.5rem]'>
                     <div className='mt-[2.8rem]'>

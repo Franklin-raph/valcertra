@@ -112,7 +112,7 @@ const Home = () => {
   return (
     <div>
 
-      <section className='md:h-[70vh] pb-[2.5rem] pt-[2rem] header-bg'>
+      <section className='md:h-[92vh] pb-[2.5rem] pt-[2rem] header-bg'>
           <Navbar />
           <div className='text-center mt-[6rem] md:w-[65%] w-[95%] mx-auto  text-white'>
               <p className='lg:text-[45px] md:text-[30px] text-[28px] font-bold mb-2'>  Africa's Seal of <span className='text-ascent-color'>Value</span> - Certified for Trade, Trusted Worldwide.</p>

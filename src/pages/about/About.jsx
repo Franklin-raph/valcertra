@@ -77,7 +77,7 @@ const About = () => {
           <div className='text-center mt-[6rem] md:w-[65%] w-[95%] mx-auto  text-white'>
               <p className='lg:text-[55px] text-[30px] font-bold mb-2'> Who We <span className='text-ascent-color'>are</span> .</p>
               <p className='md:text-[17px] mb-7'>
-                Valcertra LIMITED is Africa's premier value addition certification company. Through our flagship platform, AVA CERTIFY, we empower exporters, manufacturers, and SMEs to validate, verify, and showcase the value they add to raw materials and products — enabling them to trade competitively under AfCFTA and global market standards.
+                Valcertra LIMITED is Africa's premier value addition certification company. Through our flagship platform, we empower exporters, manufacturers, and SMEs to validate, verify, and showcase the value they add to raw materials and products — enabling them to trade competitively under AfCFTA and global market standards.
               </p>
               <p className='text-[17px]'>
                 We are driven by a mission to transform Africa's raw material economy into a value-added, export-ready ecosystem. Our certification system is secure, scalable, and trusted by regulatory bodies, trade partners, and governments.

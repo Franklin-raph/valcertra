@@ -38,7 +38,7 @@ const Liscence = () => {
                             <p>Platform license</p>
                         </div>
                         <ol className='text-[#666666] text-[14px] list-disc grid gap-3 ml-3'>
-                            <li>Valcertra grants users a limited, non-exclusive, non-transferable license to use the AVA CERTIFY platform for certification purposes only.</li>
+                            <li>Valcertra grants users a limited, non-exclusive, non-transferable license to use the Valcertra platform for certification purposes only.</li>
                             <li>Reproduction, modification, or reverse engineering of the platform is strictly prohibited.</li>
                         </ol>
                     </div>
