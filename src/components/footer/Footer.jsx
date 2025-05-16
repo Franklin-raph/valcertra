@@ -39,9 +39,9 @@ const Footer = () => {
       <div className='flex flex-col-reverse gap-[2rem] items-center justify-between w-[80%] mt-[1.5rem]'>
         <p className='text-white'> &copy; 2025 Valcertra LIMITED Powered by VALCERTRA</p>
         <ul className='flex items-center gap-[20px]'>
-          {/* <li>
-            <Link to="/" target='_blank' className="text-white hover:text-gray-300"> <BsTwitterX /> </Link>
-          </li> */}
+          <li>
+            <Link to="https://x.com/valcertra?s=21" target='_blank' className="text-white hover:text-gray-300"> <BsTwitterX /> </Link>
+          </li>
           <li>
             <Link to="https://www.linkedin.com/company/valcertra/" target='_blank' className="text-white hover:text-gray-300"> <FaLinkedin /> </Link>
           </li>

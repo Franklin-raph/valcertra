@@ -73,6 +73,8 @@ const CreatePassword = ({ setVerifyEmail, setCompanyLocation, setCreatePassword 
                 setCreatePassword(false)
             }
         } catch (error) {
+            setAlertType('error')
+            setMsg(error?.response?.data?.message)
             if(error.response?.data?.message === 'Error with email: user with this email already exists.'){
                 setModal('email exist')
                 setMsg(error?.response?.data?.message)

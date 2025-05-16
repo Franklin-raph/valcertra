@@ -64,7 +64,7 @@ const CertificateView = () => {
 
   // Copy verification link to clipboard
   const copyToClipboard = () => {
-    const verificationLink = `https://valcertra-verification-portal.vercel.app/${certificateInfo?.cert_no}`;
+    const verificationLink = `https://verification.valcertra.com/#/${certificateInfo?.cert_no}`;
     navigator.clipboard.writeText(verificationLink);
     setMsg("Verification link copied to clipboard");
     setAlertType('success');
@@ -282,7 +282,7 @@ const CertificateView = () => {
                 <div className="w-full h-[325px]">
                   <QRCode
                     size={256}
-                    value={`https://valcertra-verification-portal.vercel.app/${certificateInfo?.cert_no}`}
+                    value={`https://verification.valcertra.com/${certificateInfo?.cert_no}`}
                     viewBox={`0 0 256 256`}
                     className="w-[90%] mx-auto mt-5 h-[90%]"
                     ref={qrCodeRef}
@@ -310,7 +310,7 @@ const CertificateView = () => {
               </p>
               <div className="flex items-center gap-4 mt-4">
                 <p className="text-[#667085] border border-[#D0D5DD] w-full py-[6px] px-3 rounded-[4px]">
-                  https://valcertra-verification-portal.vercel.app/{certificateInfo?.cert_no}
+                  https://verification.valcertra.com/#/{certificateInfo?.cert_no}
                 </p>
                 <button
                   onClick={copyToClipboard}

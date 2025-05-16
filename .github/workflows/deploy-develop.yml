@@ -1,0 +1,27 @@
+name: Deploy react to EC2 -Develop
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Deploy to EC2 via SSH
+      - name: SSH into EC2 and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd my-app
+            git pull origin main
+            sudo mv /home/ubuntu/my-app/dist /var/www/html
+            sudo systemctl restart nginx

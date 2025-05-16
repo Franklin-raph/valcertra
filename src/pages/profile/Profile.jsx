@@ -9,8 +9,11 @@ import { BiGlobe, BiPhone } from "react-icons/bi";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 import ValueAdditionCalculator from "../../components/value-addition-calculator/ValueAdditionCalculator";
-import { get } from "../../utils/axiosHelpers";
+import { get, put, remove } from "../../utils/axiosHelpers";
 import FullPageLoader from "../../components/full-page-loader/FullPageLoader";
+import Alert from "../../components/alert/Alert";
+import BtnLoader from "../../components/btnLoader/BtnLoader";
+import Cookies from 'js-cookie';
 
 
 const Profile = () => {
@@ -23,6 +26,54 @@ const Profile = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const [userDetails, setUserDetails] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [msg, setMsg] = useState('')
+    const [alertType, setAlertType] = useState('')
+
+    const [oldPassword, setOldPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const savePassword = async () => {
+        if(!oldPassword || !newPassword || !confirmPassword){
+            setAlertType('error')
+            setMsg("Please fill in all fields")
+        }else if(newPassword !== confirmPassword){
+            setAlertType('error')
+            setMsg('New password and confirm password do not match')
+        }else{
+            try {
+                setLoading(true)
+                const res = await put('/dashboard/change-password', {new_password:newPassword, current_password:oldPassword})
+                setAlertType('success')
+                setMsg(res.message)
+            } catch (error) {
+                console.log(error);
+                
+                setAlertType('error')
+                setMsg(error.response.data.message)
+            }finally{
+                setLoading(false)
+            }
+
+        }
+    }
+
+    const deleteAccount = async () => {
+        try {
+            setLoading(true)
+            await remove('/profile/delete-my-account')
+            localStorage.clear()
+            Cookies.remove('token')
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+            setAlertType('error')
+            setMsg(error.response.data.message)
+        }finally{
+            setLoading(false)
+        }
+    }
 
     const getUser = async () => {
         try {
@@ -44,6 +95,7 @@ const Profile = () => {
   return (
     <div>
       {isLoading && <FullPageLoader page="Profile"/>}
+      {msg && <Alert alertType={alertType} msg={msg} setMsg={setMsg} />}
       <>
         <SideNav toggleNav={toggleNav} setToggleNav={setToggleNav}/>
         <div className="w-full lg:w-[82%] ml-auto">
@@ -57,11 +109,11 @@ const Profile = () => {
                         <p className="text-[#101828] text-[34px] bg-[#F9F5FF] rounded-full h-[100px] flex items-center justify-center w-[100px]">{userDetails?.first_name[0]}{userDetails?.last_name[0]}</p>
                     </div>
                     <p className="text-[#333333] text-[22px] pt-[5px] font-[500]">{userDetails?.first_name} {userDetails?.last_name}</p>
-                    <p className="text-[#333333] text-[17px]">Business Owner</p>
-                    <div className="flex items-center gap-3 cursor-pointer text-[#344054] border rounded-[4px] border-[#D0D5DD] py-[4px] px-3 ">
+                    <p className="text-[#333333] text-[17px]">{userDetails?.role}</p>
+                    {/* <div className="flex items-center gap-3 cursor-pointer text-[#344054] border rounded-[4px] border-[#D0D5DD] py-[4px] px-3 ">
                         <PiNotePencil className="text-[17px]"/>
                         <p>Edit Profile</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -265,28 +317,6 @@ const Profile = () => {
                     <div className="mt-4">
                         <p className="text-[#333333] text-[20px] pl-5 pb-2 mx-3 font-[500] border-b">Account Settings</p>
                         <div className="mt-5 mx-7 flex items-center gap-[5rem]">
-                            {/* <div className="w-[50%]">
-                                <p className="text-[18px] text-ascent-color mb-4 font-[600]">Profile Settings</p>
-                                <div className="grid gap-4 w-full">
-                                    <div className="text-[#667085] flex flex-col items-center gap-4">
-                                        <div className="w-full">
-                                            <p>Email</p>
-                                            <div className="flex items-center justify-between border border-[#D0D5DD] w-full p-[10px] mt-1 rounded-[4px]">
-                                                <FiMail className="text-[24px]"/>
-                                                <input type="text" className="w-full outline-none ml-2"/>
-                                            </div>
-                                        </div>
-                                        <div className="w-full">
-                                            <p>Mobile number</p>
-                                            <div className="flex items-center justify-between border border-[#D0D5DD] w-full p-[10px] mt-1 rounded-[4px]">
-                                                <BiPhone className="text-[24px]"/>
-                                                <input type="text" className="w-full outline-none ml-2"/>
-                                                <PiNotePencil className="text-[18px]"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="w-[100%]">
                                 <p className="text-[18px] text-ascent-color mb-4 font-[600]">Notification Profiles</p>
                                 <div className="grid gap-4">
@@ -307,19 +337,38 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="pl-5 border-t mx-3 mt-[2.5rem] pt-[1.6rem] flex items-center justify-between">
-                            <div>
+                        <div className="pl-5 mx-3 mt-[2.5rem] pt-[1.6rem] flex flex-col items-start w-full justify-between">
+                            <div className="w-full">
                                 <p className="text-[18px] text-ascent-color mb-4 font-[600]">Password</p>
-                                <button className="bg-primary-color text-white py-[6px] px-[15px] rounded-[4px]">Change Password</button>
+                                <div className='mt-3 w-[30%] text-[#667085]'>
+                                    <div className='w-full'>
+                                        <p>Current Password</p>
+                                        <input onChange={e => setOldPassword(e.target.value)} type="password" placeholder='****' className='px-3 bg-transparent w-full border outline-none py-[6px] rounded mt-1'/>
+                                    </div>
+                                    <div className='w-full my-5'>
+                                        <p>New Password</p>
+                                        <input onChange={e => setNewPassword(e.target.value)} type="password" placeholder='****' className='px-3 bg-transparent w-full border outline-none py-[6px] rounded mt-1'/>
+                                    </div>
+                                    <div className='w-full'>
+                                        <p>Confirm Password</p>
+                                        <input onChange={e => setConfirmPassword(e.target.value)} type="password" placeholder='****' className='px-3 bg-transparent w-full border outline-none py-[6px] rounded mt-1'/>
+                                    </div>
+                                    {/* <button onClick={savePassword} className='bg-primary-color py-2 mt-3 w-full text-white rounded'>Save Changes</button> */}
+                                </div>
+                                {
+                                    loading ?
+                                    <BtnLoader />
+                                    :
+                                    <button onClick={savePassword} className="bg-primary-color text-white py-[6px] w-[30%] mt-3 px-[15px] rounded-[4px]">Change Password</button>
+                                }
                             </div>
-                            <div>
+                            <div className="mt-[2.6rem] w-full">
                                 <p className="text-[18px] text-[#D92D20] mb-4 font-[600]">Danger Zone</p>
                                 <button onClick={() => setModal('delete')} className="border border-[#FDA29B] text-[#B42318] py-[6px] px-[15px] rounded-[4px]">Delete Account</button>
                             </div>
                         </div>
                     </div>
                 }
-                
             </div>
           </div>
         </div>
@@ -332,10 +381,15 @@ const Profile = () => {
                     <img src="./delete.svg" alt="" />
                     <p className="text-[#101828] font-[600] tex-[22px] my-3 text-left">Delete Account</p>
                     <p className="text-[#475467] text-[15px]">Are you sure you want to delete this account? This action cannot be undone.</p>
-                    <div className="flex items-center justify-between gap-5 mt-6">
-                        <button className="text-[#344054] border border-[#D0D5DD] py-[7px] rounded-[4px] w-full" onClick={() => setModal('')}>Cancel</button>
-                        <button className="text-[#fff] border border-[#D92D20] bg-[#D92D20] py-[7px] rounded-[4px] w-full">Delete</button>
-                    </div>
+                    {
+                        loading ?
+                        <BtnLoader />
+                        :
+                        <div className="flex items-center justify-between gap-5 mt-6">
+                            <button className="text-[#344054] border border-[#D0D5DD] py-[7px] rounded-[4px] w-full" onClick={() => setModal('')}>Cancel</button>
+                            <button onClick={deleteAccount} className="text-[#fff] border border-[#D92D20] bg-[#D92D20] py-[7px] rounded-[4px] w-full">Delete</button>
+                        </div>
+                    }
                 </div>
             </div>
         }

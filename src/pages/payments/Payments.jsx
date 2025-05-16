@@ -65,7 +65,7 @@ const Payments = () => {
         // Ensure id is converted to an array of strings
         const res = await post('/application/pay_application/', {
             application_ids: applicationIds,
-            success_url: 'http://localhost:5173/#/paymment-verification'
+            success_url: 'https://valcertra.com/#/paymment-verification'
         });
         
         // Handle successful payment response
