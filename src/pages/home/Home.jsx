@@ -127,7 +127,8 @@ const Home = () => {
       <section className='mt-[3rem]'>
         <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px]'>Africa's Official Mark of Certified Value Addition</p>
         <div className='flex flex-col md:flex-row gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem]'>
-          <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div>
+          <img src="./africa.svg" alt="" />
+          {/* <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div> */}
           <div className='md:w-[50%] text-[#4D4D4D] font-[300]'>
             <p className='mb-[3rem]'>
               VALCERTRA (Value Certification for Trade in Africa) is the continent's leading standard for verifying local content, transformation processes, and trade eligibility under the African Continental Free Trade Area (AfCFTA).
@@ -142,7 +143,8 @@ const Home = () => {
       <section className='mt-[9rem]'>
         {/* <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px]'>Modeled on Global Best Practices. Built for Africa.</p> */}
         <div className='flex flex-col md:flex-row-reverse gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem]'>
-          <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div>
+          {/* <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div> */}
+          <img src="./valcertra-seal.svg" alt="" />
           <div className='md:w-[50%] text-[#4D4D4D] font-[300]'>
             <p className='mb-6 text-[#333333] font-[500]'>
               The VALCERTRA Seal: What It Stands For
@@ -187,7 +189,7 @@ const Home = () => {
       <section className='mt-[9rem]'>
         <p className='text-[#333333] text-center mb-[0.3rem] md:text-[26px] text-[20px]'>Who We Serve</p>
         {/* <p className='text-center mb-[1.5rem] text-text-color px-2'>Our streamlined process makes certification simple and efficient for businesses across Africa</p> */}
-        <div className='flex flex-col-reverse md:flex-row-reverse gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem] mt-5 md:mt-[3rem]'>
+        <div className='flex flex-col-reverse gap-[40px] md:flex-row-reverse justify-center lg:px-[8rem] md:px-[5rem] px-[1rem] mt-5 md:mt-[3rem]'>
           <div className='grid md:grid-cols-2 grid-cols-1 md:gap-[20px] gap-[30px] md:w-[60%]'>
             {
               whoWeScore.map(item => (
@@ -195,14 +197,16 @@ const Home = () => {
               ))
             }
           </div>
-          <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div>
+          {/* <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div> */}
+          <img src="./serve.svg" alt="" className='md:w-[50%] w-full h-full md:h-[300px]' />
         </div>
       </section>
 
       <section className='mt-[7.5rem]'>
         <p className='text-[#333333] text-center md:mb-[3rem] mb-[1.5rem] md:text-[26px] text-[20px] px-1'>Modeled on Global Best Practices. Built for Africa.</p>
         <div className='flex flex-col md:flex-row-reverse gap-[40px] justify-center lg:px-[8rem] md:px-[5rem] px-[1rem]'>
-          <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div>
+          {/* <div className='bg-[#D9D9D9] md:w-[50%] md:h-auto h-[250px]'></div> */}
+          <img src="./modeled.svg" alt="" className='md:w-[50%] md:h-auto h-[250px]'/>
           <div className='md:w-[50%] text-[#4D4D4D] font-[300]'>
             <p className='mb-[1.3rem]'>
               VALCERTRA applies international-grade certification rigor—while addressing Africa's unique challenges in trade verification, informal processing, and fragmented local value chains.

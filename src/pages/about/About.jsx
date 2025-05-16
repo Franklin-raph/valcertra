@@ -104,7 +104,8 @@ const About = () => {
           </div>
         </div>
       </section>
-      <div className='bg-[#D9D9D9] w-[90%] h-[200px] mx-auto rounded-[4px] mt-[2rem]'></div>
+      {/* <div className='bg-[#D9D9D9] w-[90%] h-[200px] mx-auto rounded-[4px] mt-[2rem]'></div> */}
+      <img src="./mission-vision.svg" className='w-[90%] mx-auto rounded-[4px] mt-[2rem]' alt="" />
 
       <section className='mt-[8rem]'>
         <p className='text-[#333333] text-center mb-[2rem] text-[26px]'>Value & Stratergy</p>

@@ -23,5 +23,6 @@ jobs:
           script: |
             cd my-app
             git pull origin main
-            sudo mv /home/ubuntu/my-app/dist /var/www/html
+            sudo cp -r /home/ubuntu/my-app/dist/* /var/www/html/dist/
+            sudo systemctl daemon-reload
             sudo systemctl restart nginx
